@@ -7,6 +7,8 @@ import chess.board
 import chess.piece
 import chess.game
 
+from chess.color import Color
+
 
 @pytest.fixture
 def standard_empty_board_array() -> np.ndarray:
@@ -14,23 +16,28 @@ def standard_empty_board_array() -> np.ndarray:
 
 
 @pytest.fixture
-def standard_filled_board_array(standard_empty_board_array) -> np.ndarray:
-    return np.array([[chess.piece.ChessPiece() for _ in range(8)] for _ in range(8)])
-
-
-@pytest.fixture
-def base_board(standard_empty_board_array) -> chess.board.ChessBoard:
+def base_empty_board(standard_empty_board_array) -> chess.board.ChessBoard:
     return chess.board.ChessBoard(array=standard_empty_board_array)
 
 
 @pytest.fixture
-def standard_board(standard_empty_board_array) -> chess.board.Standard:
+def standard_empty_board(standard_empty_board_array) -> chess.board.Standard:
     return chess.board.Standard(array=standard_empty_board_array)
 
 
 @pytest.fixture
-def base_game(base_board) -> chess.game.ChessGame:
-    return chess.game.ChessGame(board=base_board)
+def standard_board() -> chess.board.Standard:
+    return chess.board.Standard()
+
+
+@pytest.fixture
+def base_empty_game(base_empty_board) -> chess.game.ChessGame:
+    return chess.game.ChessGame(board=base_empty_board)
+
+
+@pytest.fixture
+def standard_empty_game(standard_empty_board) -> chess.game.Standard:
+    return chess.game.Standard(board=standard_empty_board)
 
 
 @pytest.fixture

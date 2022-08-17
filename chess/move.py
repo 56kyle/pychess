@@ -1,15 +1,16 @@
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 import chess.piece
 
 
 @dataclass
 class Move:
-    starting_piece: chess.piece.ChessPiece
-    row_start: int
-    column_start: int
-    row_end: int
-    column_end: int
-    removed_piece: chess.piece.ChessPiece = None
+    piece: chess.piece.ChessPiece
+    from_row: int
+    from_column: int
+    to_row: int
+    to_column: int
+    captured_piece: chess.piece.ChessPiece = None
     promotion: chess.piece.ChessPiece = None
+
 
