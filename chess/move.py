@@ -5,6 +5,7 @@ import chess.piece
 
 @dataclass
 class Move:
+    starting_piece: chess.piece.ChessPiece
     row_start: int
     column_start: int
     row_end: int
