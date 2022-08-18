@@ -1,4 +1,3 @@
-
 import numpy as np
 
 import chess.board.base as base
@@ -6,6 +5,7 @@ import chess.piece as piece
 
 from chess.color import Color
 
+from typing import List
 
 _a8_rook = piece.Rook(Color.BLACK)
 _b8_knight = piece.Knight(Color.BLACK)
@@ -58,7 +58,10 @@ class Standard(base.ChessBoard):
         array = array if array is not None else standard_array
         super().__init__(array=array, *args, **kwargs)
 
-
-
-
+    def get_pieces(self) -> List[piece.ChessPiece]:
+        pieces = []
+        for square in self.array.flatten():
+            if square is not None:
+                pieces.append(square)
+        return pieces
 
