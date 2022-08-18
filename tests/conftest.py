@@ -45,5 +45,10 @@ def standard_game(standard_board) -> chess.game.Standard:
     return chess.game.Standard(board=standard_board)
 
 
+@pytest.fixture
+def fools_mate_game(standard_game):
+    standard_game.make_move()
+
+
 
 

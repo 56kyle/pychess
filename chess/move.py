@@ -14,3 +14,4 @@ class Move:
     promotion: chess.piece.ChessPiece = None
     check: bool = False
 
+

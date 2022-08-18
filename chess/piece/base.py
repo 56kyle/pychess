@@ -9,7 +9,7 @@ class ChessPiece:
 
     def __init__(self, color: Color, *args, **kwargs):
         self.color: Color = color
-        self.has_moved = False
+        self.has_moved: bool = False
 
     def __str__(self):
         return f'{self.color.name.capitalize()} {self.__class__.__name__}'
