@@ -1,7 +1,8 @@
+from typing import List
 
 import numpy as np
 
-import chess.piece
+from chess import piece
 
 
 class ChessBoard:
@@ -15,4 +16,11 @@ class ChessBoard:
             return np.array_equal(self.array, other)
         else:
             return False
+
+    def get_pieces(self) -> List[piece.ChessPiece]:
+        pieces = []
+        for square in self.array.flatten():
+            if square is not None:
+                pieces.append(square)
+        return pieces
 

@@ -12,7 +12,7 @@ def test_init_with_standard_empty_board(standard_empty_board_array):
     assert brd.array.all() == standard_empty_board_array.all()
 
 def test_init_with_no_array():
-    assert board.Standard().array.all() == board.standard.standard_array.all()
+    assert board.Standard().array.all() == board.standard.standard_board_array.all()
 
 def test_get_pieces(standard_board):
     retrieved_pieces = standard_board.get_pieces()

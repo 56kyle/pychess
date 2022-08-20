@@ -7,9 +7,9 @@ from typing import List
 
 
 class ChessGame:
-    def __init__(self, board: chess.board.ChessBoard, *args, **kwargs):
+    def __init__(self, board: chess.board.ChessBoard, moves: List[Move] = None, *args, **kwargs):
         self.board: chess.board.ChessBoard = board
-        self.moves: List[Move] = []
+        self.moves: List[Move] = moves if moves is not None else []
 
     def make_move(self, from_column: int, from_row: int, to_column: int, to_row: int):
         raise NotImplementedError()

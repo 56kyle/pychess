@@ -41,7 +41,21 @@ _f1_bishop = piece.Bishop(Color.WHITE)
 _g1_knight = piece.Knight(Color.WHITE)
 _h1_rook = piece.Rook(Color.WHITE)
 
-standard_array = np.array(
+
+standard_black_pieces = [
+    _a8_rook, _b8_knight, _c8_bishop, _d8_queen, _e8_king, _f8_bishop, _g8_knight, _h8_rook,
+    _a7_pawn, _b7_pawn, _c7_pawn, _d7_pawn, _e7_pawn, _f7_pawn, _g7_pawn, _h7_pawn
+]
+
+standard_white_pieces = [
+    _a2_pawn, _b2_pawn, _c2_pawn, _d2_pawn, _e2_pawn, _f2_pawn, _g2_pawn, _h2_pawn,
+    _a1_rook, _b1_knight, _c1_bishop, _d1_queen, _e1_king, _f1_bishop, _g1_knight, _h1_rook
+]
+
+standard_pieces = [*standard_black_pieces, *standard_white_pieces]
+
+
+standard_board_array = np.array(
     [[_a8_rook, _b8_knight, _c8_bishop, _d8_queen, _e8_king, _f8_bishop, _g8_knight, _h8_rook],
      [_a7_pawn, _b7_pawn, _c7_pawn, _d7_pawn, _e7_pawn, _f7_pawn, _g7_pawn, _h7_pawn],
      [None, None, None, None, None, None, None, None],
@@ -55,13 +69,11 @@ standard_array = np.array(
 
 class Standard(base.ChessBoard):
     def __init__(self, array: np.ndarray = None, *args, **kwargs):
-        array = array if array is not None else standard_array
+        array = array if array is not None else standard_board_array
         super().__init__(array=array, *args, **kwargs)
 
-    def get_pieces(self) -> List[piece.ChessPiece]:
-        pieces = []
-        for square in self.array.flatten():
-            if square is not None:
-                pieces.append(square)
-        return pieces
+    def get(self, row: int, col: int) -> piece.ChessPiece:
+        return self.array[row][col]
+
+
 
