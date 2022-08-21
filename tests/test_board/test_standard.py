@@ -16,5 +16,4 @@ def test_init_with_no_array():
 
 def test_get_pieces(standard_board):
     retrieved_pieces = standard_board.get_pieces()
-    expected_pieces = [piece.Rook(Color.BLACK), piece.Knight(Color.BLACK), piece.Bishop(Color.BLACK), piece.Queen(Color.BLACK), piece.King(Color.BLACK), piece.Bishop(Color.BLACK), piece.Knight(Color.BLACK), piece.Rook(Color.BLACK), piece.Pawn(Color.BLACK), piece.Pawn(Color.BLACK), piece.Pawn(Color.BLACK), piece.Pawn(Color.BLACK), piece.Pawn(Color.BLACK), piece.Pawn(Color.BLACK), piece.Pawn(Color.BLACK), piece.Pawn(Color.BLACK), piece.Pawn(Color.WHITE), piece.Pawn(Color.WHITE), piece.Pawn(Color.WHITE), piece.Pawn(Color.WHITE), piece.Pawn(Color.WHITE), piece.Pawn(Color.WHITE), piece.Pawn(Color.WHITE), piece.Pawn(Color.WHITE), piece.Rook(Color.WHITE), piece.Knight(Color.WHITE), piece.Bishop(Color.WHITE), piece.Queen(Color.WHITE), piece.King(Color.WHITE), piece.Bishop(Color.WHITE), piece.Knight(Color.WHITE), piece.Rook(Color.WHITE)]
-    assert Counter(retrieved_pieces) == Counter(expected_pieces)
+    assert Counter(retrieved_pieces) == Counter(board.standard.standard_pieces)

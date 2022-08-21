@@ -18,7 +18,7 @@ def test_make_move(base_empty_game):
 
 def test_add_piece(base_empty_game):
     with pytest.raises(NotImplementedError):
-        base_empty_game.add_piece(0, 0, piece.ChessPiece(Color.WHITE))
+        base_empty_game.add_piece(0, 0, piece.BlackRook)
 
 
 def test_remove_piece(base_empty_game):

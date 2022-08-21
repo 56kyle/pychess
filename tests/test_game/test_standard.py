@@ -14,9 +14,8 @@ def test_make_move(standard_game):
     standard_game.make_move(0, 1, 0, 2)
 
 def test_add_piece(standard_empty_game):
-    chess_piece = piece.ChessPiece(Color.WHITE)
-    standard_empty_game.add_piece(0, 0, chess_piece)
-    assert standard_empty_game.board.array[0][0] == chess_piece
+    standard_empty_game.add_piece(0, 0, piece.BlackRook)
+    assert standard_empty_game.board.array[0][0] == piece.BlackRook
 
 
 def test_remove_piece(standard_game):
