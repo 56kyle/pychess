@@ -7,7 +7,8 @@ from chess.color import Color
 
 
 def test_init():
-    assert piece.ChessPiece(Color.WHITE)
+    p = piece.ChessPiece(Color.WHITE)
+    assert p.color == Color.WHITE
 
 def test_str():
     assert str(piece.ChessPiece(Color.WHITE)) == 'White ChessPiece'
@@ -38,4 +39,3 @@ def test_hash_with_same_value_different_color():
 
 def test_hash_with_different_value_different_color():
     assert hash(piece.ChessPiece(Color.WHITE)) != hash(piece.ChessPiece(Color.BLACK))
-

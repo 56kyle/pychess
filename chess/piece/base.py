@@ -6,6 +6,7 @@ from typing import SupportsInt
 
 class ChessPiece:
     value: int = 0
+    letter: str = ''
 
     def __init__(self, color: Color, *args, **kwargs):
         self.color: Color = color

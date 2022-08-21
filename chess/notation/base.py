@@ -4,7 +4,7 @@ from chess.move import Move
 
 
 class Notation:
-    def __init__(self, move: Move):
+    def __init__(self, move: Move, *args, **kwargs):
         self.move: Move = move
 
     def __str__(self):
