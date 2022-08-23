@@ -12,8 +12,8 @@ class Standard(base.ChessGame):
         pass
 
     def add_piece(self, column: int, row: int, piece: chess.piece.ChessPiece):
-        self.board.array[row][column]: chess.piece.ChessPiece = piece
+        self.board._array[row][column]: chess.piece.ChessPiece = piece
 
     def remove_piece(self, column: int, row: int):
-        self.board.array[row][column] = None
+        self.board._array[row][column] = None
 

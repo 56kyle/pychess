@@ -70,10 +70,10 @@ indexed = [
 
 @pytest.fixture
 def fools_mate_game(standard_game):
-    f2_pawn = standard_game.board.array[6, 5]
-    e7_pawn = standard_game.board.array[1, 4]
-    g2_pawn = standard_game.board.array[6, 6]
-    d8_queen = standard_game.board.array[0, 3]
+    f2_pawn = standard_game.board.get(6, 5)
+    e7_pawn = standard_game.board.get(1, 4)
+    g2_pawn = standard_game.board.get(6, 6)
+    d8_queen = standard_game.board.get(0, 3)
     return chess.game.ChessGame(
         board=standard_game.board,
         moves=[

@@ -15,10 +15,10 @@ def test_make_move(standard_game):
 
 def test_add_piece(standard_empty_game):
     standard_empty_game.add_piece(0, 0, piece.BlackRook)
-    assert standard_empty_game.board.array[0][0] == piece.BlackRook
+    assert standard_empty_game.board._array[0][0] == piece.BlackRook
 
 
 def test_remove_piece(standard_game):
     standard_game.remove_piece(0, 0)
-    assert standard_game.board.array[0][0] is None
+    assert standard_game.board._array[0][0] is None
 

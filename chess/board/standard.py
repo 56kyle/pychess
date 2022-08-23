@@ -39,8 +39,6 @@ class Standard(base.ChessBoard):
         array = array if array is not None else standard_board_array
         super().__init__(array=array, *args, **kwargs)
 
-    def get(self, row: int, col: int) -> piece.ChessPiece:
-        return self.array[row][col]
 
 
 
