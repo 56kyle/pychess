@@ -36,6 +36,10 @@ def standard_board() -> chess.board.Standard:
 def base_empty_game(base_empty_board) -> chess.game.ChessGame:
     return chess.game.ChessGame(board=base_empty_board)
 
+@pytest.fixture
+def base_game_standard_board(standard_board) -> chess.game.ChessGame:
+    return chess.game.ChessGame(board=standard_board)
+
 
 @pytest.fixture
 def standard_empty_game(standard_empty_board) -> chess.game.Standard:
@@ -78,10 +82,10 @@ def fools_mate_game(standard_game):
     return chess.game.ChessGame(
         board=standard_game.board,
         moves=[
-            Move(piece=f2_pawn, from_column=5, from_row=6, to_column=5, to_row=5),
-            Move(piece=e7_pawn, from_column=4, from_row=1, to_column=4, to_row=2),
-            Move(piece=g2_pawn, from_column=6, from_row=6, to_column=6, to_row=4),
-            Move(piece=d8_queen, from_column=3, from_row=0, to_column=7, to_row=4),
+            Move(piece=f2_pawn, from_square=Square(row=6, column=5), to_square=Square(row=5, column=5)),
+            Move(piece=e7_pawn, from_square=Square(row=1, column=4,), to_square=Square(row=2, column=4)),
+            Move(piece=g2_pawn, from_square=Square(row=6, column=6), to_square=Square(row=4, column=6)),
+            Move(piece=d8_queen, from_square=Square(row=0, column=3), to_square=Square(row=4, column=7)),
         ]
     )
 

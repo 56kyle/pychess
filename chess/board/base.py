@@ -30,3 +30,4 @@ class ChessBoard:
 
     def set(self, square: Square, piece: chess.piece.ChessPiece | None):
         self._array[square.row][square.column] = piece
+
