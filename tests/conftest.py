@@ -9,6 +9,7 @@ import chess.game
 
 from chess.color import Color
 from chess.move import Move
+from chess.square import Square
 
 
 @pytest.fixture
@@ -70,10 +71,10 @@ indexed = [
 
 @pytest.fixture
 def fools_mate_game(standard_game):
-    f2_pawn = standard_game.board.get(6, 5)
-    e7_pawn = standard_game.board.get(1, 4)
-    g2_pawn = standard_game.board.get(6, 6)
-    d8_queen = standard_game.board.get(0, 3)
+    f2_pawn = standard_game.board.get(Square(row=6, column=5))
+    e7_pawn = standard_game.board.get(Square(row=1, column=4))
+    g2_pawn = standard_game.board.get(Square(row=6, column=6))
+    d8_queen = standard_game.board.get(Square(row=0, column=3))
     return chess.game.ChessGame(
         board=standard_game.board,
         moves=[

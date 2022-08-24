@@ -6,6 +6,7 @@ import chess.piece as piece
 from collections import Counter
 
 from chess.color import Color
+from chess.square import Square
 
 
 def test_init_with_standard_empty_board_array(standard_empty_board_array):
@@ -30,34 +31,34 @@ def test_get_pieces_with_empty_board(standard_empty_board):
     assert Counter(retrieved_pieces) == Counter(expected_pieces)
 
 def test_get_with_piece(standard_board):
-    assert standard_board.get(0, 0) == piece.BlackRook
+    assert standard_board.get(Square(row=0, column=0)) == piece.BlackRook
 
 def test_get_with_none(standard_empty_board):
-    assert standard_empty_board.get(0, 0) is None
+    assert standard_empty_board.get(Square(row=0, column=0)) is None
 
 def test_get_with_out_of_range_row(standard_board):
     with pytest.raises(IndexError):
-        standard_board.get(8, 0)
+        standard_board.get(Square(row=8, column=0))
 
 def test_get_with_out_of_range_column(standard_board):
     with pytest.raises(IndexError):
-        standard_board.get(0, 8)
+        standard_board.get(Square(row=0, column=8))
 
 def test_set_with_piece(standard_empty_board):
-    standard_empty_board.set(0, 0, piece.BlackRook)
-    assert standard_empty_board.get(0, 0) == piece.BlackRook
+    standard_empty_board.set(Square(row=0, column=0), piece.BlackRook)
+    assert standard_empty_board.get(Square(row=0, column=0)) == piece.BlackRook
 
 def test_set_with_none(standard_empty_board):
-    standard_empty_board.set(0, 0, None)
-    assert standard_empty_board.get(0, 0) is None
+    standard_empty_board.set(Square(row=0, column=0), None)
+    assert standard_empty_board.get(Square(row=0, column=0)) is None
 
 def test_set_with_out_of_range_row(standard_empty_board):
     with pytest.raises(IndexError):
-        standard_empty_board.set(8, 0, None)
+        standard_empty_board.set(Square(row=8, column=0), None)
 
 def test_set_with_out_of_range_column(standard_empty_board):
     with pytest.raises(IndexError):
-        standard_empty_board.set(0, 8, None)
+        standard_empty_board.set(Square(row=0, column=8), None)
 
 
 

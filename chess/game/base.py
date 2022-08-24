@@ -3,6 +3,8 @@ import chess.board
 import chess.piece
 
 from chess.move import Move
+from chess.square import Square
+
 from typing import List
 
 
@@ -14,10 +16,10 @@ class ChessGame:
     def make_move(self, from_column: int, from_row: int, to_column: int, to_row: int):
         raise NotImplementedError()
 
-    def add_piece(self, column: int, row: int, piece: chess.piece.ChessPiece):
-        self.board.set(column, row, piece)
+    def add_piece(self, square: Square, piece: chess.piece.ChessPiece):
+        self.board.set(square=square, piece=piece)
 
-    def remove_piece(self, column: int, row: int):
-        self.board.set(column, row, None)
+    def remove_piece(self, square: Square):
+        self.board.set(square=square, piece=None)
 
 

@@ -3,6 +3,7 @@ from typing import List
 import numpy as np
 
 import chess.piece
+from chess.square import Square
 
 
 class ChessBoard:
@@ -24,8 +25,8 @@ class ChessBoard:
                 pieces.append(square)
         return pieces
 
-    def get(self, row: int, col: int) -> chess.piece.ChessPiece:
-        return self._array[row][col]
+    def get(self, square: Square) -> chess.piece.ChessPiece:
+        return self._array[square.row][square.column]
 
-    def set(self, row: int, col: int, piece: chess.piece.ChessPiece | None):
-        self._array[row][col] = piece
+    def set(self, square: Square, piece: chess.piece.ChessPiece | None):
+        self._array[square.row][square.column] = piece
