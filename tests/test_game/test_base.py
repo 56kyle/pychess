@@ -17,10 +17,12 @@ def test_make_move(base_empty_game):
 
 
 def test_add_piece(base_empty_game):
-    with pytest.raises(NotImplementedError):
-        base_empty_game.add_piece(0, 0, piece.BlackRook)
+    base_empty_game.add_piece(0, 0, piece.BlackRook)
+    assert base_empty_game.board._array[0][0] == piece.BlackRook
 
 
 def test_remove_piece(base_empty_game):
-    with pytest.raises(NotImplementedError):
-        base_empty_game.remove_piece(0, 0)
+    base_empty_game.board._array[0][0] = piece.BlackRook
+    base_empty_game.remove_piece(0, 0)
+    assert base_empty_game.board._array[0][0] is None
+

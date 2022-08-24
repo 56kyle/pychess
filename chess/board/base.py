@@ -29,4 +29,3 @@ class ChessBoard:
 
     def set(self, row: int, col: int, piece: chess.piece.ChessPiece | None):
         self._array[row][col] = piece
-

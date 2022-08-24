@@ -15,8 +15,9 @@ class ChessGame:
         raise NotImplementedError()
 
     def add_piece(self, column: int, row: int, piece: chess.piece.ChessPiece):
-        raise NotImplementedError()
+        self.board.set(column, row, piece)
 
     def remove_piece(self, column: int, row: int):
-        raise NotImplementedError()
+        self.board.set(column, row, None)
+
 
