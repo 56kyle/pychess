@@ -5,10 +5,10 @@ from chess.color import Color
 
 @dataclass
 class ChessPiece:
-    name: str
-    value: int
-    letter: str
-    symbol: str
+    name: str = ''
+    value: int = 0
+    letter: str = ''
+    symbol: str = ''
 
 @dataclass
 class King(ChessPiece):
