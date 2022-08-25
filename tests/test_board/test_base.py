@@ -1,7 +1,7 @@
 
 import pytest
 import chess.board as board
-import chess.piece as piece
+import chess.unit as unit
 
 from collections import Counter
 
@@ -31,7 +31,7 @@ def test_get_pieces_with_empty_board(standard_empty_board):
     assert Counter(retrieved_pieces) == Counter(expected_pieces)
 
 def test_get_with_piece(standard_board):
-    assert standard_board.get(Square(row=0, column=0)) == piece.BlackRook
+    assert standard_board.get(Square(row=0, column=0)) == unit.BlackRook
 
 def test_get_with_none(standard_empty_board):
     assert standard_empty_board.get(Square(row=0, column=0)) is None
@@ -45,8 +45,8 @@ def test_get_with_out_of_range_column(standard_board):
         standard_board.get(Square(row=0, column=8))
 
 def test_set_with_piece(standard_empty_board):
-    standard_empty_board.set(Square(row=0, column=0), piece.BlackRook)
-    assert standard_empty_board.get(Square(row=0, column=0)) == piece.BlackRook
+    standard_empty_board.set(Square(row=0, column=0), unit.BlackRook)
+    assert standard_empty_board.get(Square(row=0, column=0)) == unit.BlackRook
 
 def test_set_with_none(standard_empty_board):
     standard_empty_board.set(Square(row=0, column=0), None)

@@ -3,70 +3,52 @@ from dataclasses import dataclass, field
 from chess.color import Color
 
 
-@dataclass(frozen=True)
+@dataclass
 class ChessPiece:
-    color: Color
-    symbol: str
     name: str
     value: int
     letter: str
+    symbol: str
 
-@dataclass(frozen=True)
+@dataclass
 class King(ChessPiece):
     name: str = 'King'
     value: int = 0
     letter: str = 'K'
+    symbol: str = '\u2654'
 
-@dataclass(frozen=True)
+@dataclass
 class Queen(ChessPiece):
     name: str = 'Queen'
     value: int = 9
     letter: str = 'Q'
+    symbol: str = '\u2655'
 
-@dataclass(frozen=True)
+@dataclass
 class Rook(ChessPiece):
     name: str = 'Rook'
     value: int = 5
     letter: str = 'R'
+    symbol: str = '\u2656'
 
-@dataclass(frozen=True)
+@dataclass
 class Bishop(ChessPiece):
     name: str = 'Bishop'
     value: int = 3
     letter: str = 'B'
+    symbol: str = '\u2657'
 
-@dataclass(frozen=True)
+@dataclass
 class Knight(ChessPiece):
     name: str = 'Knight'
     value: int = 3
     letter: str = 'N'
+    symbol: str = '\u2658'
 
-@dataclass(frozen=True)
+@dataclass
 class Pawn(ChessPiece):
     name: str = 'Pawn'
     value: int = 1
     letter: str = 'P'
-
-
-WhiteKing = King(Color.WHITE, '\u2654')
-WhiteQueen = Queen(Color.WHITE, '\u2655')
-WhiteRook = Rook(Color.WHITE, '\u2656')
-WhiteBishop = Bishop(Color.WHITE, '\u2657')
-WhiteKnight = Knight(Color.WHITE, '\u2658')
-WhitePawn = Pawn(Color.WHITE, '\u2659')
-
-BlackKing = King(Color.BLACK, '\u265A')
-BlackQueen = Queen(Color.BLACK, '\u265B')
-BlackRook = Rook(Color.BLACK, '\u265C')
-BlackBishop = Bishop(Color.BLACK, '\u265D')
-BlackKnight = Knight(Color.BLACK, '\u265E')
-BlackPawn = Pawn(Color.BLACK, '\u265F')
-
-
-
-
-
-
-
-
+    symbol: str = '\u2659'
 

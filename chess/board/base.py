@@ -2,27 +2,37 @@ from typing import List
 
 import numpy as np
 
+from chess.color import Color
 from chess.piece import (
-    WhiteKing,
-    WhiteQueen,
-    WhiteRook,
-    WhiteBishop,
-    WhiteKnight,
-    WhitePawn,
+    King,
+    Queen,
+    Rook,
+    Bishop,
+    Knight,
+    Pawn,
+    ChessPiece
+)
+from chess.unit import (
+    Unit,
     BlackKing,
     BlackQueen,
     BlackRook,
     BlackBishop,
     BlackKnight,
     BlackPawn,
-    ChessPiece
+    WhiteKing,
+    WhiteQueen,
+    WhiteRook,
+    WhiteBishop,
+    WhiteKnight,
+    WhitePawn,
 )
 from chess.square import Square
 
 
 standard_black_pieces = [
     BlackRook, BlackKnight, BlackBishop, BlackQueen, BlackKing, BlackBishop, BlackKnight, BlackRook,
-    BlackPawn, BlackPawn, BlackPawn,  BlackPawn, BlackPawn, BlackPawn, BlackPawn, BlackPawn,
+    BlackPawn, BlackPawn, BlackPawn, BlackPawn, BlackPawn, BlackPawn, BlackPawn, BlackPawn,
 
 ]
 
@@ -66,6 +76,6 @@ class ChessBoard:
     def get(self, square: Square) -> ChessPiece:
         return self._array[square.row][square.column]
 
-    def set(self, square: Square, piece: ChessPiece | None):
-        self._array[square.row][square.column] = piece
+    def set(self, square: Square, unit: Unit | None):
+        self._array[square.row][square.column] = unit
 

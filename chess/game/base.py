@@ -1,6 +1,6 @@
 
 import chess.board
-import chess.piece
+import chess.unit
 
 from chess.move import Move
 from chess.square import Square
@@ -13,11 +13,11 @@ class ChessGame:
         self.board: chess.board.ChessBoard = board
         self.moves: List[Move] = moves if moves is not None else []
 
-    def add_piece(self, square: Square, piece: chess.piece.ChessPiece):
-        self.board.set(square=square, piece=piece)
+    def add_piece(self, square: Square, unit: chess.unit.Unit):
+        self.board.set(square=square, unit=unit)
 
     def remove_piece(self, square: Square):
-        self.board.set(square=square, piece=None)
+        self.board.set(square=square, unit=None)
 
 
 
