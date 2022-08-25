@@ -23,13 +23,13 @@ def base_empty_board(standard_empty_board_array) -> chess.board.ChessBoard:
 
 
 @pytest.fixture
-def standard_empty_board(standard_empty_board_array) -> chess.board.Standard:
-    return chess.board.Standard(array=standard_empty_board_array)
+def standard_empty_board(standard_empty_board_array) -> chess.board.ChessBoard:
+    return chess.board.ChessBoard(array=standard_empty_board_array)
 
 
 @pytest.fixture
-def standard_board() -> chess.board.Standard:
-    return chess.board.Standard()
+def standard_board() -> chess.board.ChessBoard:
+    return chess.board.ChessBoard()
 
 
 @pytest.fixture
