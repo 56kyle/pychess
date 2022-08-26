@@ -5,7 +5,7 @@ import chess.piece as piece
 from typing import Set
 
 from chess.color import Color
-from chess.movement import Movement
+from chess.movement import Movement, AllowedMovementTypes
 from chess.offset import (
     RIGHT,
     LEFT,
@@ -14,8 +14,8 @@ from chess.offset import (
 )
 
 
-KING_SIDE_CASTLE_MOVEMENT = Movement(offset=RIGHT*2, max_steps=1)
-QUEEN_SIDE_CASTLE_MOVEMENT = Movement(offset=LEFT*3, max_steps=1)
+KING_SIDE_CASTLE_MOVEMENT = Movement(offset=RIGHT*2, max_steps=1, allowed_movement_types=AllowedMovementTypes.MOVE_ONLY)
+QUEEN_SIDE_CASTLE_MOVEMENT = Movement(offset=LEFT*3, max_steps=1, allowed_movement_types=AllowedMovementTypes.MOVE_ONLY)
 CASTLE_MOVEMENTS = {KING_SIDE_CASTLE_MOVEMENT, QUEEN_SIDE_CASTLE_MOVEMENT}
 
 STANDARD_KING_MOVEMENTS = {Movement(offset=offset, max_steps=1) for offset in LINEAR | DIAGONAL}
