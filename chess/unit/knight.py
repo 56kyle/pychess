@@ -1,17 +1,11 @@
 
-import chess.unit.base as base
-import chess.piece as piece
-
 from typing import Set
 
 from chess.color import Color
 from chess.movement import Movement
-from chess.offset import (
-    UP,
-    DOWN,
-    RIGHT,
-    LEFT,
-)
+from chess.offset import UP, DOWN, RIGHT, LEFT
+from chess.piece import Knight
+from chess.unit import Unit
 
 
 UP_UP_RIGHT = Movement(offset=UP*2 + RIGHT, max_steps=1)
@@ -35,12 +29,12 @@ KNIGHT_MOVEMENTS = {
 }
 
 
-class WhiteKnight(base.Unit, piece.Knight):
+class WhiteKnight(Unit, Knight):
     color: Color = Color.WHITE
     movements: Set[Movement] = KNIGHT_MOVEMENTS
 
 
-class BlackKnight(base.Unit, piece.Knight):
+class BlackKnight(Unit, Knight):
     color: Color = Color.BLACK
     movements: Set[Movement] = KNIGHT_MOVEMENTS
 

@@ -21,15 +21,6 @@ def test_eq_with_other_array(standard_empty_board):
 def test_eq_with_other_non_compatible_type(standard_empty_board):
     assert not standard_empty_board == 1
 
-def test_get_pieces_with_standard_board(standard_board):
-    retrieved_pieces = standard_board.get_pieces()
-    assert Counter(retrieved_pieces) == Counter(board.standard_pieces)
-
-def test_get_pieces_with_empty_board(standard_empty_board):
-    retrieved_pieces = standard_empty_board.get_pieces()
-    expected_pieces = []
-    assert Counter(retrieved_pieces) == Counter(expected_pieces)
-
 def test_get_with_piece(standard_board):
     assert standard_board.get(Square(row=0, column=0)) == unit.BlackRook
 
@@ -45,8 +36,8 @@ def test_get_with_out_of_range_column(standard_board):
         standard_board.get(Square(row=0, column=8))
 
 def test_set_with_piece(standard_empty_board):
-    standard_empty_board.set(Square(row=0, column=0), unit.BlackRook)
-    assert standard_empty_board.get(Square(row=0, column=0)) == unit.BlackRook
+    standard_empty_board.set(Square(row=0, column=0), unit.BlackRook())
+    assert standard_empty_board.get(Square(row=0, column=0)) == unit.BlackRook()
 
 def test_set_with_none(standard_empty_board):
     standard_empty_board.set(Square(row=0, column=0), None)
@@ -59,6 +50,51 @@ def test_set_with_out_of_range_row(standard_empty_board):
 def test_set_with_out_of_range_column(standard_empty_board):
     with pytest.raises(IndexError):
         standard_empty_board.set(Square(row=0, column=8), None)
+
+def test_get_height(standard_empty_board):
+    assert standard_empty_board.get_height() == 8
+
+def test_get_width(standard_empty_board):
+    assert standard_empty_board.get_width() == 8
+
+def test_get_max_y_index(standard_empty_board):
+    assert standard_empty_board.get_max_y_index() == 7
+
+def test_get_max_x_index(standard_empty_board):
+    assert standard_empty_board.get_max_x_index() == 7
+
+def test_get_pieces_with_standard_board(standard_board):
+    retrieved_pieces = standard_board.get_units()
+    assert Counter(retrieved_pieces) == Counter(board.standard_pieces)
+
+def test_get_pieces_with_empty_board(standard_empty_board):
+    retrieved_pieces = standard_empty_board.get_units()
+    expected_pieces = []
+    assert Counter(retrieved_pieces) == Counter(expected_pieces)
+
+def test_is_valid_square_with_min_row_and_min_column(standard_empty_board):
+    assert standard_empty_board.is_valid_square(Square(row=0, column=0))
+
+def test_is_valid_square_with_max_row_and_max_column(standard_empty_board):
+    assert standard_empty_board.is_valid_square(Square(row=7, column=7))
+
+def test_is_valid_square_with_out_of_range_row(standard_empty_board):
+    assert not standard_empty_board.is_valid_square(Square(row=8, column=0))
+
+def test_is_valid_square_with_out_of_range_column(standard_empty_board):
+    assert not standard_empty_board.is_valid_square(Square(row=0, column=8))
+
+def test_is_valid_square_with_out_range_row_and_column(standard_empty_board):
+    assert not standard_empty_board.is_valid_square(Square(row=8, column=8))
+
+def test_is_valid_square_with_invalid_row(standard_empty_board):
+    assert not standard_empty_board.is_valid_square(Square(row=-1, column=0))
+
+def test_is_valid_square_with_invalid_column(standard_empty_board):
+    assert not standard_empty_board.is_valid_square(Square(row=0, column=-1))
+
+def test_is_valid_square_with_invalid_row_and_column(standard_empty_board):
+    assert not standard_empty_board.is_valid_square(Square(row=-1, column=-1))
 
 
 

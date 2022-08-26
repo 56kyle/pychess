@@ -27,6 +27,12 @@ class Offset:
         else:
             return Offset(self.dy * int(other), self.dx * int(other))
 
+    def is_linear(self) -> bool:
+        return self.dy == 0 or self.dx == 0
+
+    def is_diagonal(self) -> bool:
+        return self.dy != 0 and self.dx != 0
+
 
 UP = Offset(dy=-1, dx=0)
 DOWN = Offset(dy=1, dx=0)

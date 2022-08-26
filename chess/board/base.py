@@ -3,15 +3,6 @@ from typing import List
 import numpy as np
 
 from chess.color import Color
-from chess.piece import (
-    King,
-    Queen,
-    Rook,
-    Bishop,
-    Knight,
-    Pawn,
-    ChessPiece
-)
 from chess.unit import (
     Unit,
     BlackKing,
@@ -66,16 +57,31 @@ class ChessBoard:
         else:
             return False
 
-    def get_pieces(self) -> List[ChessPiece]:
-        pieces = []
-        for square in self._array.flatten():
-            if square is not None:
-                pieces.append(square)
-        return pieces
-
-    def get(self, square: Square) -> ChessPiece:
+    def get(self, square: Square) -> Unit | None:
         return self._array[square.row][square.column]
 
     def set(self, square: Square, unit: Unit | None):
         self._array[square.row][square.column] = unit
+
+    def get_height(self) -> int:
+        return self._array.shape[0]
+
+    def get_width(self) -> int:
+        return self._array.shape[1]
+
+    def get_max_y_index(self) -> int:
+        return self.get_height() - 1
+
+    def get_max_x_index(self) -> int:
+        return self.get_width() - 1
+
+    def get_units(self) -> List[Unit]:
+        units = []
+        for square in self._array.flatten():
+            if square is not None:
+                units.append(square)
+        return units
+
+    def is_valid_square(self, square: Square) -> bool:
+        return 0 <= square.row < self.get_height() and 0 <= square.column < self.get_width()
 

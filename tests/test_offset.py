@@ -65,6 +65,26 @@ def test_sub_with_non_int_string():
 def test_mul_with_offset():
     assert Offset(dy=1, dx=1) * Offset(dy=1, dx=1) == Offset(dy=1, dx=1)
 
+def test_is_linear():
+    assert UP.is_linear()
+    assert DOWN.is_linear()
+    assert LEFT.is_linear()
+    assert RIGHT.is_linear()
+    assert not UP_LEFT.is_linear()
+    assert not UP_RIGHT.is_linear()
+    assert not DOWN_LEFT.is_linear()
+    assert not DOWN_RIGHT.is_linear()
+
+def test_is_diagonal():
+    assert UP_LEFT.is_diagonal()
+    assert UP_RIGHT.is_diagonal()
+    assert DOWN_LEFT.is_diagonal()
+    assert DOWN_RIGHT.is_diagonal()
+    assert not UP.is_diagonal()
+    assert not DOWN.is_diagonal()
+    assert not LEFT.is_diagonal()
+    assert not RIGHT.is_diagonal()
+
 def test_up():
     assert UP == Offset(dy=-1, dx=0)
 
