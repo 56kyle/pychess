@@ -16,3 +16,4 @@ def test_black_king_init():
     king = BlackKing()
     assert king.color == Color.BLACK
     assert isinstance(king, King)
+
