@@ -72,6 +72,9 @@ def test_get_pieces_with_empty_board(standard_empty_board):
     expected_pieces = []
     assert Counter(retrieved_pieces) == Counter(expected_pieces)
 
+def test_get_absolute_max_movement_steps(standard_empty_board):
+    assert standard_empty_board.get_absolute_max_movement_steps() == 8
+
 def test_is_valid_square_with_min_row_and_min_column(standard_empty_board):
     assert standard_empty_board.is_valid_square(Square(row=0, column=0))
 
