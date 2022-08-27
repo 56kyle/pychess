@@ -1,6 +1,5 @@
 
-from dataclasses import dataclass, field
-from chess.color import Color
+from dataclasses import dataclass
 
 
 @dataclass
