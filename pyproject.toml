@@ -3,7 +3,11 @@ name = "56kyle-pychess"
 version = "0.1.0"
 description = "A python chess engine"
 authors = ["kyle <56kyleoliver@gmail.com>"]
+readme = "README.md"
 license = "MIT"
+keywords = [
+    "chess",
+]
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Developers",
@@ -13,9 +17,6 @@ classifiers = [
     "Programming Language :: Python :: 3.12",
     "Topic :: Software Development :: Libraries :: Python Modules",
     "Topic :: Games/Entertainment :: Board Games",
-]
-keywords = [
-    "chess",
 ]
 packages = [
     { include = "chess" }
