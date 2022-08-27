@@ -2,11 +2,10 @@
 # Pychess
 
 [![Status][status badge]][status badge]
-[![Python Version][python version badge]][github page]
-[![License][license badge]][license]
-[![Read the documentation][readthedocs badge]][readthedocs page]
 [![Tests][github actions badge]][github actions page]
 [![Codecov][codecov badge]][codecov page]
+[![Python Version][python version badge]][github page]
+[![License][license badge]][license]
 
 [code of conduct]: https://github.com/56kyle/pychess/blob/master/CODE_OF_CONDUCT.md
 [codecov badge]: https://codecov.io/gh/56kyle/pychess-instance/branch/master/graph/badge.svg
@@ -17,9 +16,7 @@
 [github page]: https://github.com/56kyle/pychess
 [license badge]: https://img.shields.io/github/license/56kyle/pychess
 [license]: https://opensource.org/licenses/MIT
-[python version badge]: https://img.shields.io/pypi/pyversions/56kyle-pychess-instance
-[readthedocs badge]: https://img.shields.io/readthedocs/56kyle-pychess/latest.svg?label=Read%20the%20Docs
-[readthedocs page]: https://56kyle-pychess.readthedocs.io/
+[python version badge]: https://img.shields.io/pypi/pyversions/56kyle-pychess
 [status badge]: https://img.shields.io/pypi/status/56kyle-pychess
 
 A chess game made in Python as a proof of concept to validate the importance of testing to a friend
