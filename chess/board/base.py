@@ -82,7 +82,7 @@ class ChessBoard:
                 units.append(square)
         return units
 
-    def get_absolute_max_movement_steps(self) -> int:
+    def get_absolute_max_path_steps(self) -> int:
         return max(self.get_height(), self.get_width())
 
     def is_valid_square(self, square: Square) -> bool:

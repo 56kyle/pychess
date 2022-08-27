@@ -6,12 +6,12 @@ from typing import Set
 
 from chess.color import Color
 from chess.piece import ChessPiece
-from chess.movement import Movement
+from chess.path import Path
 
 
 class Unit(ChessPiece, ABC):
     color: Color
-    movements: Set[Movement]
+    paths: Set[Path]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

@@ -2,7 +2,7 @@
 import pytest
 
 from chess.color import Color
-from chess.unit import WhiteBishop, BlackBishop, BISHOP_MOVEMENTS
+from chess.unit import WhiteBishop, BlackBishop, BISHOP_PATHS
 
 
 def test_white_bishop_init():
@@ -12,5 +12,5 @@ def test_white_bishop_init():
 def test_black_bishop_init():
     bishop = BlackBishop()
     assert bishop.color == Color.BLACK
-    assert bishop.movements == BISHOP_MOVEMENTS
+    assert bishop.paths == BISHOP_PATHS
 

@@ -2,41 +2,41 @@
 from typing import Set
 
 from chess.color import Color
-from chess.movement import Movement, AllowedMovementTypes
+from chess.path import Path, AllowedMovementTypes
 from chess.offset import UP, DOWN, UP_RIGHT, UP_LEFT, DOWN_RIGHT, DOWN_LEFT
 from chess.piece import Pawn
 from chess.unit import Unit
 
 
-WHITE_PAWN_FIRST_MOVEMENT = Movement(offset=UP*2, max_steps=1, allowed_movement_types=AllowedMovementTypes.MOVE_ONLY)
-WHITE_PAWN_STANDARD_MOVEMENT = Movement(offset=UP, max_steps=1, allowed_movement_types=AllowedMovementTypes.MOVE_ONLY)
-WHITE_PAWN_CAPTURE_MOVEMENTS = {
-    Movement(
+WHITE_PAWN_FIRST_PATH = Path(offset=UP * 2, max_steps=1, allowed_path_types=AllowedMovementTypes.MOVE_ONLY)
+WHITE_PAWN_STANDARD_PATH = Path(offset=UP, max_steps=1, allowed_path_types=AllowedMovementTypes.MOVE_ONLY)
+WHITE_PAWN_CAPTURE_PATHS = {
+    Path(
         offset=offset,
         max_steps=1,
-        allowed_movement_types=AllowedMovementTypes.CAPTURE_ONLY,
+        allowed_path_types=AllowedMovementTypes.CAPTURE_ONLY,
     ) for offset in {UP_RIGHT, UP_LEFT}
 }
-WHITE_PAWN_MOVEMENTS = {WHITE_PAWN_FIRST_MOVEMENT, WHITE_PAWN_STANDARD_MOVEMENT} | WHITE_PAWN_CAPTURE_MOVEMENTS
+WHITE_PAWN_PATHS = {WHITE_PAWN_FIRST_PATH, WHITE_PAWN_STANDARD_PATH} | WHITE_PAWN_CAPTURE_PATHS
 
-BLACK_PAWN_FIRST_MOVEMENT = Movement(offset=DOWN*2, max_steps=1, allowed_movement_types=AllowedMovementTypes.MOVE_ONLY)
-BLACK_PAWN_STANDARD_MOVEMENT = Movement(offset=DOWN, max_steps=1, allowed_movement_types=AllowedMovementTypes.MOVE_ONLY)
-BLACK_PAWN_CAPTURE_MOVEMENTS = {
-    Movement(
+BLACK_PAWN_FIRST_PATH = Path(offset=DOWN * 2, max_steps=1, allowed_path_types=AllowedMovementTypes.MOVE_ONLY)
+BLACK_PAWN_STANDARD_PATH = Path(offset=DOWN, max_steps=1, allowed_path_types=AllowedMovementTypes.MOVE_ONLY)
+BLACK_PAWN_CAPTURE_PATHS = {
+    Path(
         offset=offset,
         max_steps=1,
-        allowed_movement_types=AllowedMovementTypes.CAPTURE_ONLY
+        allowed_path_types=AllowedMovementTypes.CAPTURE_ONLY
     ) for offset in {DOWN_RIGHT, DOWN_LEFT}
 }
-BLACK_PAWN_MOVEMENTS = {BLACK_PAWN_FIRST_MOVEMENT, BLACK_PAWN_STANDARD_MOVEMENT} | BLACK_PAWN_CAPTURE_MOVEMENTS
+BLACK_PAWN_PATHS = {BLACK_PAWN_FIRST_PATH, BLACK_PAWN_STANDARD_PATH} | BLACK_PAWN_CAPTURE_PATHS
 
 
 class WhitePawn(Unit, Pawn):
     color: Color = Color.WHITE
-    movements: Set[Movement] = WHITE_PAWN_MOVEMENTS
+    paths: Set[Path] = WHITE_PAWN_PATHS
 
 
 class BlackPawn(Unit, Pawn):
     color: Color = Color.BLACK
-    movements: Set[Movement] = BLACK_PAWN_MOVEMENTS
+    paths: Set[Path] = BLACK_PAWN_PATHS
 
