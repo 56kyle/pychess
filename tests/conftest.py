@@ -13,18 +13,13 @@ from chess.square import Square
 
 
 @pytest.fixture
-def standard_empty_board_array() -> np.ndarray:
+def empty_board_array() -> np.ndarray:
     return np.empty((8, 8), dtype=chess.piece.ChessPiece)
 
 
 @pytest.fixture
-def base_empty_board(standard_empty_board_array) -> chess.board.ChessBoard:
-    return chess.board.ChessBoard(array=standard_empty_board_array)
-
-
-@pytest.fixture
-def standard_empty_board(standard_empty_board_array) -> chess.board.ChessBoard:
-    return chess.board.ChessBoard(array=standard_empty_board_array)
+def empty_board(empty_board_array) -> chess.board.ChessBoard:
+    return chess.board.ChessBoard(array=empty_board_array)
 
 
 @pytest.fixture
@@ -33,22 +28,12 @@ def standard_board() -> chess.board.ChessBoard:
 
 
 @pytest.fixture
-def base_empty_game(base_empty_board) -> chess.game.ChessGame:
-    return chess.game.ChessGame(board=base_empty_board)
+def empty_game(empty_board) -> chess.game.ChessGame:
+    return chess.game.ChessGame(board=empty_board)
 
 @pytest.fixture
-def base_game_standard_board(standard_board) -> chess.game.ChessGame:
+def standard_game(standard_board) -> chess.game.ChessGame:
     return chess.game.ChessGame(board=standard_board)
-
-
-@pytest.fixture
-def standard_empty_game(standard_empty_board) -> chess.game.Standard:
-    return chess.game.Standard(board=standard_empty_board)
-
-
-@pytest.fixture
-def standard_game(standard_board) -> chess.game.Standard:
-    return chess.game.Standard(board=standard_board)
 
 
 algebraic = [
