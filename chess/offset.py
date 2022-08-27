@@ -1,6 +1,5 @@
 
 from dataclasses import dataclass
-from typing import SupportsInt
 
 
 @dataclass(frozen=True)
