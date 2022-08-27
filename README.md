@@ -3,14 +3,13 @@
 
 [![Status][status badge]][status badge]
 [![Python Version][python version badge]][github page]
-[![CalVer][calver badge]][calver]
 [![License][license badge]][license]
 [![Read the documentation][readthedocs badge]][readthedocs page]
 [![Tests][github actions badge]][github actions page]
 [![Codecov][codecov badge]][codecov page]
 
-[code of conduct]: https://github.com/56kyle/pychess/blob/main/CODE_OF_CONDUCT.md
-[codecov badge]: https://codecov.io/gh/56kyle/pychess-instance/branch/main/graph/badge.svg
+[code of conduct]: https://github.com/56kyle/pychess/blob/master/CODE_OF_CONDUCT.md
+[codecov badge]: https://codecov.io/gh/56kyle/pychess-instance/branch/master/graph/badge.svg
 [codecov page]: https://codecov.io/gh/56kyle/pychess-instance
 [contributor covenant badge]: https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg
 [github actions badge]: https://github.com/56kyle/pychess/workflows/Tests/badge.svg
