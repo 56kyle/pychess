@@ -2,12 +2,12 @@
 name = "56kyle-pychess"
 version = "0.1.0"
 description = "A python chess engine"
+license = "MIT"
 authors = ["kyle <56kyleoliver@gmail.com>"]
 readme = "README.md"
-license = "MIT"
-keywords = [
-    "chess",
-]
+homepage = "https://github.com/56kyle/pychess"
+repository = "https://github.com/56kyle/pychess"
+keywords = ["chess", "python", "engine"]
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Developers",
