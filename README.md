@@ -8,8 +8,8 @@
 [![License][license badge]][license]
 
 [code of conduct]: https://github.com/56kyle/pychess/blob/master/CODE_OF_CONDUCT.md
-[codecov badge]: https://codecov.io/gh/56kyle/pychess-instance/branch/master/graph/badge.svg
-[codecov page]: https://codecov.io/gh/56kyle/pychess/branch/master/graph/badge.svg?token=0QDENTNTN7
+[codecov badge]: https://codecov.io/gh/56kyle/pychess/branch/master/graph/badge.svg?token=0QDENTNTN7
+[codecov page]: https://app.codecov.io/gh/56kyle/pychess/branch/master
 [contributor covenant badge]: https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg
 [github actions badge]: https://github.com/56kyle/pychess/workflows/Tests/badge.svg
 [github actions page]: https://github.com/56kyle/pychess/actions?workflow=Tests
