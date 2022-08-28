@@ -34,7 +34,7 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with pytest and collect coverage
       run: |
-        poetry run pytest-cov --cov=chess tests/
+        poetry run pytest --cov=. --cov-report=term-missing --cov-fail-under=80
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v3
       with:
