@@ -5,7 +5,8 @@ import chess.unit as unit
 
 from collections import Counter
 
-from chess.color import Color
+from chess.offset import UP_LEFT, DOWN_RIGHT
+from chess.path import Path, INFINITE_STEPS, AllowedMovementTypes
 from chess.square import Square
 
 
@@ -99,5 +100,54 @@ def test_is_valid_square_with_invalid_column(empty_board):
 def test_is_valid_square_with_invalid_row_and_column(empty_board):
     assert not empty_board.is_valid_square(Square(row=-1, column=-1))
 
+def test__fit_path_max_steps_to_board_with_diagonal_against_edge(empty_board):
+    empty_board._array[0][0] = unit.BlackQueen()
+    queen_up_left_diagonal_path = Path(offset=UP_LEFT, max_steps=INFINITE_STEPS)
+    assert empty_board._fit_path_max_steps_to_board(
+        Square(row=0, column=0),
+        queen_up_left_diagonal_path
+    ) == Path(offset=UP_LEFT, max_steps=0)
 
+def test__fit_path_max_steps_to_board_with_open_diagonal(empty_board):
+    empty_board._array[0][0] = unit.BlackQueen()
+    queen_down_right_diagonal_path = Path(offset=DOWN_RIGHT, max_steps=INFINITE_STEPS)
+    assert empty_board._fit_path_max_steps_to_board(
+        Square(row=0, column=0),
+        queen_down_right_diagonal_path
+    ) == Path(offset=DOWN_RIGHT, max_steps=7)
+
+def test__fit_path_max_steps_to_blocked_path_with_piece_in_way_and_capturing_allowed(empty_board):
+    empty_board._array[0][0] = unit.BlackQueen()
+    empty_board._array[1][1] = unit.WhitePawn()
+    queen_down_right_diagonal_path = Path(offset=DOWN_RIGHT, max_steps=10)
+    assert empty_board._fit_path_max_steps_to_blocked_path(
+        Square(row=0, column=0),
+        queen_down_right_diagonal_path
+    ) == Path(offset=DOWN_RIGHT, max_steps=1)
+
+def test__fit_path_max_steps_to_blocked_path_with_piece_in_way_and_no_capturing_allowed(empty_board):
+    empty_board._array[0][0] = unit.BlackQueen()
+    empty_board._array[1][1] = unit.WhitePawn()
+    queen_down_right_diagonal_path = Path(offset=DOWN_RIGHT, max_steps=10, allowed_path_types=AllowedMovementTypes.MOVE_ONLY)
+    assert empty_board._fit_path_max_steps_to_blocked_path(
+        Square(row=0, column=0),
+        queen_down_right_diagonal_path
+    ) == Path(offset=DOWN_RIGHT, max_steps=0, allowed_path_types=AllowedMovementTypes.MOVE_ONLY)
+
+def test__fit_path_max_steps_to_blocked_path_with_piece_in_way_part_way(empty_board):
+    empty_board._array[0][0] = unit.BlackQueen()
+    empty_board._array[4][4] = unit.WhitePawn()
+    queen_down_right_diagonal_path = Path(offset=DOWN_RIGHT, max_steps=INFINITE_STEPS)
+    assert empty_board._fit_path_max_steps_to_blocked_path(
+        Square(row=0, column=0),
+        queen_down_right_diagonal_path
+    ) == Path(offset=DOWN_RIGHT, max_steps=4)
+
+def test__fit_path_max_steps_to_blocked_path_with_invalid_paths_present(empty_board):
+    empty_board._array[5][5] = unit.BlackQueen()
+    queen_down_right_diagonal_path = Path(offset=DOWN_RIGHT, max_steps=INFINITE_STEPS)
+    assert empty_board._fit_path_max_steps_to_blocked_path(
+        Square(row=5, column=5),
+        queen_down_right_diagonal_path,
+    ) == Path(offset=DOWN_RIGHT, max_steps=2)
 

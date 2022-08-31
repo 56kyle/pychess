@@ -3,6 +3,8 @@ from typing import List
 import numpy as np
 
 from chess.color import Color
+from chess.path import Path, AllowedMovementTypes
+from chess.square import Square
 from chess.unit import (
     Unit,
     BlackKing,
@@ -18,8 +20,6 @@ from chess.unit import (
     WhiteKnight,
     WhitePawn,
 )
-from chess.square import Square
-
 
 standard_black_pieces = [
     BlackRook, BlackKnight, BlackBishop, BlackQueen, BlackKing, BlackBishop, BlackKnight, BlackRook,
@@ -88,4 +88,25 @@ class ChessBoard:
     def is_valid_square(self, square: Square) -> bool:
         return 0 <= square.row < self.get_height() and 0 <= square.column < self.get_width()
 
+    def _fit_path_max_steps_to_board(self, square: Square, path: Path):
+        board_limited_max_steps: int = 0
+        for _ in range(self.get_absolute_max_path_steps()):
+            square: Square = square.offset(path.offset)
+            if not self.is_valid_square(square=square):
+                break
+            board_limited_max_steps += 1
+        return path.with_limited_max_steps(max_steps=board_limited_max_steps)
+
+    def _fit_path_max_steps_to_blocked_path(self, square: Square, path: Path):
+        max_steps: int = 0
+        for _ in range(self.get_absolute_max_path_steps()):
+            square: Square = square.offset(path.offset)
+            if not self.is_valid_square(square=square):
+                break
+            if self.get(square=square) is not None:
+                if path.allowed_path_types != AllowedMovementTypes.MOVE_ONLY:
+                    max_steps += 1
+                break
+            max_steps += 1
+        return path.with_limited_max_steps(max_steps=max_steps)
 
