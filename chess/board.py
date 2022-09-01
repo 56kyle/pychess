@@ -1,3 +1,4 @@
+
 from typing import List
 
 import numpy as np
@@ -45,6 +46,7 @@ standard_board_array = np.array(
      [WhitePawn, WhitePawn, WhitePawn, WhitePawn, WhitePawn, WhitePawn, WhitePawn, WhitePawn],
      [WhiteRook, WhiteKnight, WhiteBishop, WhiteQueen, WhiteKing, WhiteBishop, WhiteKnight, WhiteRook]]
 )
+
 class ChessBoard:
     def __init__(self, array: np.ndarray = standard_board_array, *args, **kwargs):
         self._array: np.ndarray = array
@@ -109,4 +111,3 @@ class ChessBoard:
                 break
             max_steps += 1
         return path.with_limited_max_steps(max_steps=max_steps)
-
