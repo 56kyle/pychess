@@ -23,7 +23,3 @@ def test_remove_piece(empty_game):
     assert empty_game.board._array[0][0] is None
 
 
-
-
-
-
