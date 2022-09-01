@@ -3,7 +3,7 @@ import pytest
 import chess.board
 import chess.unit as unit
 
-from chess.path import Path, INFINITE_STEPS, AllowedMovementTypes
+from chess.path import Path, INFINITE_STEPS, AllowedPathTypes
 from chess.offset import UP_LEFT, DOWN_RIGHT
 from chess.square import Square
 

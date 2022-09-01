@@ -4,7 +4,7 @@ from typing import List
 import numpy as np
 
 from chess.color import Color
-from chess.path import Path, AllowedMovementTypes
+from chess.path import Path, AllowedPathTypes
 from chess.square import Square
 from chess.unit import (
     Unit,
@@ -106,7 +106,7 @@ class ChessBoard:
             if not self.is_valid_square(square=square):
                 break
             if self.get(square=square) is not None:
-                if path.allowed_path_types != AllowedMovementTypes.MOVE_ONLY:
+                if path.allowed_path_types != AllowedPathTypes.MOVE_ONLY:
                     max_steps += 1
                 break
             max_steps += 1

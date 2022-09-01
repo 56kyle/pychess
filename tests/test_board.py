@@ -5,7 +5,7 @@ from collections import Counter
 
 from chess.board import ChessBoard, standard_pieces
 from chess.offset import UP_LEFT, DOWN_RIGHT
-from chess.path import Path, INFINITE_STEPS, AllowedMovementTypes
+from chess.path import Path, INFINITE_STEPS, AllowedPathTypes
 from chess.square import Square
 from chess.unit import BlackRook, BlackQueen, WhitePawn
 
@@ -128,11 +128,11 @@ def test__fit_path_max_steps_to_blocked_path_with_piece_in_way_and_capturing_all
 def test__fit_path_max_steps_to_blocked_path_with_piece_in_way_and_no_capturing_allowed(empty_board):
     empty_board._array[0][0] = BlackQueen()
     empty_board._array[1][1] = WhitePawn()
-    queen_down_right_diagonal_path = Path(offset=DOWN_RIGHT, max_steps=10, allowed_path_types=AllowedMovementTypes.MOVE_ONLY)
+    queen_down_right_diagonal_path = Path(offset=DOWN_RIGHT, max_steps=10, allowed_path_types=AllowedPathTypes.MOVE_ONLY)
     assert empty_board._fit_path_max_steps_to_blocked_path(
         Square(row=0, column=0),
         queen_down_right_diagonal_path
-    ) == Path(offset=DOWN_RIGHT, max_steps=0, allowed_path_types=AllowedMovementTypes.MOVE_ONLY)
+    ) == Path(offset=DOWN_RIGHT, max_steps=0, allowed_path_types=AllowedPathTypes.MOVE_ONLY)
 
 def test__fit_path_max_steps_to_blocked_path_with_piece_in_way_part_way(empty_board):
     empty_board._array[0][0] = BlackQueen()
