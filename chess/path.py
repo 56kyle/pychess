@@ -5,7 +5,7 @@ from enum import Enum
 from chess.offset import Offset
 
 
-INFINITE_STEPS = 0
+INFINITE_STEPS = -999
 
 
 class AllowedPathTypes(Enum):

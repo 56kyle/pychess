@@ -1,5 +1,5 @@
 
-from typing import List
+from typing import List, Set
 
 import numpy as np
 
@@ -89,6 +89,22 @@ class ChessBoard:
 
     def is_valid_square(self, square: Square) -> bool:
         return 0 <= square.row < self.get_height() and 0 <= square.column < self.get_width()
+
+    def get_valid_paths(self, square: Square) -> Set[Path]:
+        unit: Unit | None = self.get(square=square)
+        if unit is None:
+            return set()
+
+        paths: Set[Path] = set()
+        for path in unit.paths:
+            board_fitted_path: Path = self._fit_path_max_steps_to_board(square=square, path=path)
+            blocked_path_fitted_path: Path = self._fit_path_max_steps_to_blocked_path(
+                square=square,
+                path=board_fitted_path
+            )
+            if blocked_path_fitted_path.max_steps > 0:
+                paths.add(blocked_path_fitted_path)
+        return paths
 
     def _fit_path_max_steps_to_board(self, square: Square, path: Path):
         board_limited_max_steps: int = 0

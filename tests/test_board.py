@@ -4,7 +4,7 @@ import pytest
 from collections import Counter
 
 from chess.board import ChessBoard, standard_pieces
-from chess.offset import UP_LEFT, DOWN_RIGHT
+from chess.offset import UP_LEFT, DOWN_RIGHT, RIGHT, DOWN, UP, LEFT
 from chess.path import Path, INFINITE_STEPS, AllowedPathTypes
 from chess.square import Square
 from chess.unit import BlackRook, BlackQueen, WhitePawn
@@ -99,6 +99,25 @@ def test_is_valid_square_with_invalid_column(empty_board):
 
 def test_is_valid_square_with_invalid_row_and_column(empty_board):
     assert not empty_board.is_valid_square(Square(row=-1, column=-1))
+
+def test_get_valid_paths_with_queen_a8(empty_board):
+    empty_board._array[0][0] = BlackQueen()
+    assert empty_board.get_valid_paths(Square(row=0, column=0)) == {
+        Path(offset=RIGHT, max_steps=7),
+        Path(offset=DOWN_RIGHT, max_steps=7),
+        Path(offset=DOWN, max_steps=7),
+    }
+
+def test_get_valid_paths_with_queen_h1(empty_board):
+    empty_board._array[7][7] = BlackQueen()
+    assert empty_board.get_valid_paths(Square(row=7, column=7)) == {
+        Path(offset=LEFT, max_steps=7),
+        Path(offset=UP_LEFT, max_steps=7),
+        Path(offset=UP, max_steps=7),
+    }
+
+def test_get_valid_paths_with_no_unit(empty_board):
+    assert empty_board.get_valid_paths(Square(row=0, column=0)) == set()
 
 def test__fit_path_max_steps_to_board_with_diagonal_against_edge(empty_board):
     empty_board._array[0][0] = BlackQueen()
