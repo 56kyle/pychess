@@ -12,7 +12,7 @@ def test_move_init_with_no_removed_and_no_promotion():
     move.Move(unit.WhitePawn(), from_square=Square(row=0, column=0), to_square=Square(row=0, column=1))
 
 def test_move_init_with_removed_and_no_promotion():
-    move.Move(unit.WhitePawn(), from_square=Square(row=0, column=0), to_square=Square(row=0, column=1), captured_piece=unit.BlackPawn())
+    move.Move(unit.WhitePawn(), from_square=Square(row=0, column=0), to_square=Square(row=0, column=1), captured=unit.BlackPawn())
 
 def test_move_init_with_no_removed_and_promotion():
     move.Move(unit.WhitePawn(), from_square=Square(row=0, column=0), to_square=Square(row=0, column=1), promotion=unit.BlackPawn())
@@ -22,7 +22,7 @@ def test_move_init_with_removed_and_promotion():
         unit.WhitePawn(),
         from_square=Square(row=0, column=0),
         to_square=Square(row=0, column=1),
-        captured_piece=unit.BlackPawn(),
+        captured=unit.BlackPawn(),
         promotion=unit.BlackPawn(),
     )
 

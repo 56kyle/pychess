@@ -1,17 +1,18 @@
 
 from dataclasses import dataclass
-import chess.piece
+
+import chess.unit
 
 from chess.square import Square
 
 
-@dataclass
+@dataclass(frozen=True)
 class Move:
-    piece: chess.piece.ChessPiece
+    unit: chess.unit.Unit
     from_square: Square
     to_square: Square
-    captured_piece: chess.piece.ChessPiece = None
-    promotion: chess.piece.ChessPiece = None
+    captured: chess.unit.Unit = None
+    promotion: chess.unit.Unit = None
     check: bool = False
 
 

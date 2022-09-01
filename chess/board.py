@@ -4,7 +4,8 @@ from typing import List, Set
 import numpy as np
 
 from chess.color import Color
-from chess.path import Path, AllowedPathTypes
+from chess.move import Move
+from chess.path import Path, AllowedPathTypes, INFINITE_STEPS
 from chess.square import Square
 from chess.unit import (
     Unit,
@@ -90,6 +91,19 @@ class ChessBoard:
     def is_valid_square(self, square: Square) -> bool:
         return 0 <= square.row < self.get_height() and 0 <= square.column < self.get_width()
 
+    def get_path_squares(self, square: Square, path: Path) -> Set[Square]:
+        unit: Unit | None = self.get(square=square)
+        if unit is None:
+            return set()
+        if path.max_steps == INFINITE_STEPS:
+            raise ValueError("Path with infinite steps is not supported")
+
+        ends: Set[Square] = set()
+        for steps in range(1, path.max_steps + 1):
+            end_square: Square = square.offset(path.offset * steps)
+            ends.add(end_square)
+        return ends
+
     def get_valid_paths(self, square: Square) -> Set[Path]:
         unit: Unit | None = self.get(square=square)
         if unit is None:
@@ -117,12 +131,16 @@ class ChessBoard:
 
     def _fit_path_max_steps_to_blocked_path(self, square: Square, path: Path):
         max_steps: int = 0
-        for _ in range(self.get_absolute_max_path_steps()):
-            square: Square = square.offset(path.offset)
-            if not self.is_valid_square(square=square):
+        unit: Unit | None = self.get(square=square)
+        if unit is None:
+            return path.with_limited_max_steps(max_steps=max_steps)
+        for steps in range(1, self.get_absolute_max_path_steps() + 1):
+            end_square: Square = square.offset(path.offset * steps)
+            if not self.is_valid_square(square=end_square):
                 break
-            if self.get(square=square) is not None:
-                if path.allowed_path_types != AllowedPathTypes.MOVE_ONLY:
+            end_square_unit: Unit | None = self.get(square=end_square)
+            if end_square_unit is not None:
+                if (path.allowed_path_types != AllowedPathTypes.MOVE_ONLY) and (end_square_unit.color != unit.color):
                     max_steps += 1
                 break
             max_steps += 1
