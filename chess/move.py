@@ -1,5 +1,5 @@
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 import chess.unit
 
@@ -8,11 +8,12 @@ from chess.square import Square
 
 @dataclass(frozen=True)
 class Move:
-    unit: chess.unit.Unit
+    unit: chess.unit.Unit = field(hash=False)
     from_square: Square
     to_square: Square
     captured: chess.unit.Unit = None
     promotion: chess.unit.Unit = None
     check: bool = False
+
 
 

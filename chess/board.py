@@ -91,6 +91,22 @@ class ChessBoard:
     def is_valid_square(self, square: Square) -> bool:
         return 0 <= square.row < self.get_height() and 0 <= square.column < self.get_width()
 
+    def get_path_moves(self, square: Square, path: Path) -> Set[Move]:
+        unit: Unit | None = self.get(square=square)
+        end_squares: Set[Square] = self.get_path_squares(square=square, path=path)
+
+        moves: Set[Move] = set()
+        for end_square in end_squares:
+            moves.add(
+                Move(
+                    unit=unit,
+                    from_square=square,
+                    to_square=end_square,
+                    captured=self.get(square=end_square),
+                )
+            )
+        return moves
+
     def get_path_squares(self, square: Square, path: Path) -> Set[Square]:
         unit: Unit | None = self.get(square=square)
         if unit is None:

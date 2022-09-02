@@ -4,6 +4,7 @@ import pytest
 from collections import Counter
 
 from chess.board import ChessBoard, standard_pieces
+from chess.move import Move
 from chess.offset import UP_LEFT, DOWN_RIGHT, RIGHT, DOWN, UP, LEFT
 from chess.path import Path, INFINITE_STEPS, AllowedPathTypes
 from chess.square import Square
@@ -101,6 +102,23 @@ def test_is_valid_square_with_invalid_row_and_column(empty_board):
     assert not empty_board.is_valid_square(Square(row=-1, column=-1))
 
 def test_get_path_moves_with_no_unit(empty_board):
+    assert empty_board.get_path_moves(
+        square=Square(row=0, column=0),
+        path=Path(offset=RIGHT, max_steps=7)
+    ) == set()
+
+def test_get_path_moves_with_king_a8(empty_board):
+    empty_board._array[0][0] = BlackQueen()
+    queen = empty_board.get(Square(row=0, column=0))
+    expected_moves = set()
+    for i in range(1, 8):
+        expected_moves.add(Move(unit=queen, from_square=Square(row=0, column=0), to_square=Square(row=0, column=i)))
+    assert empty_board.get_path_moves(
+        square=Square(row=0, column=0),
+        path=Path(offset=RIGHT, max_steps=7)
+    ) == expected_moves
+
+def test_get_path_squares_with_no_unit(empty_board):
     assert empty_board.get_path_squares(
         square=Square(row=0, column=0),
         path=Path(offset=RIGHT, max_steps=7)
