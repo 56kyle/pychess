@@ -5,6 +5,7 @@ import numpy as np
 
 from chess.color import Color
 from chess.move import Move
+from chess.offset import Offset
 from chess.path import Path, AllowedPathTypes, INFINITE_STEPS
 from chess.square import Square
 from chess.unit import (
@@ -93,32 +94,30 @@ class ChessBoard:
 
     def get_path_moves(self, square: Square, path: Path) -> Set[Move]:
         unit: Unit | None = self.get(square=square)
-        end_squares: Set[Square] = self.get_path_squares(square=square, path=path)
-
+        offsets: Set[Offset] = self.get_path_offsets(square=square, path=path)
         moves: Set[Move] = set()
-        for end_square in end_squares:
+        for offset in offsets:
             moves.add(
                 Move(
                     unit=unit,
                     from_square=square,
-                    to_square=end_square,
-                    captured=self.get(square=end_square),
+                    offset=offset,
+                    captured=self.get(square=square.offset(offset)),
                 )
             )
         return moves
 
-    def get_path_squares(self, square: Square, path: Path) -> Set[Square]:
+    def get_path_offsets(self, square: Square, path: Path) -> Set[Offset]:
         unit: Unit | None = self.get(square=square)
         if unit is None:
             return set()
         if path.max_steps == INFINITE_STEPS:
             raise ValueError("Path with infinite steps is not supported")
 
-        ends: Set[Square] = set()
+        offsets: Set[Offset] = set()
         for steps in range(1, path.max_steps + 1):
-            end_square: Square = square.offset(path.offset * steps)
-            ends.add(end_square)
-        return ends
+            offsets.add(path.offset * steps)
+        return offsets
 
     def get_valid_paths(self, square: Square) -> Set[Path]:
         unit: Unit | None = self.get(square=square)

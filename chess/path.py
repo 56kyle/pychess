@@ -12,6 +12,8 @@ class AllowedPathTypes(Enum):
     MOVE_ONLY = 1
     CAPTURE_ONLY = 2
     BOTH = 3
+    EN_PASSANT = 4
+    CASTLE = 5
 
 
 @dataclass(frozen=True)

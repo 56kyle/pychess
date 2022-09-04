@@ -9,7 +9,9 @@ import chess.game
 
 from chess.color import Color
 from chess.move import Move
+from chess.offset import Offset, UP
 from chess.square import Square
+from chess.unit import WhitePawn
 
 
 @pytest.fixture
@@ -57,6 +59,18 @@ indexed = [
     ['70', '71', '72', '73', '74', '75', '76', '77']
 ]
 
+@pytest.fixture
+def a8():
+    return Square(row=0, column=0)
+
+@pytest.fixture
+def e2():
+    return Square(row=6, column=4)
+
+@pytest.fixture
+def e4():
+    return Square(row=4, column=4)
+
 
 @pytest.fixture
 def fools_mate_game(standard_game):
@@ -67,13 +81,20 @@ def fools_mate_game(standard_game):
     return chess.game.ChessGame(
         board=standard_game.board,
         moves=[
-            Move(piece=f2_pawn, from_square=Square(row=6, column=5), to_square=Square(row=5, column=5)),
-            Move(piece=e7_pawn, from_square=Square(row=1, column=4,), to_square=Square(row=2, column=4)),
-            Move(piece=g2_pawn, from_square=Square(row=6, column=6), to_square=Square(row=4, column=6)),
-            Move(piece=d8_queen, from_square=Square(row=0, column=3), to_square=Square(row=4, column=7)),
+            Move(unit=f2_pawn, from_square=Square(row=6, column=5), offset=Offset(dy=-1, dx=5)),
+            Move(unit=e7_pawn, from_square=Square(row=1, column=4,), offset=Offset(dy=1, dx=0)),
+            Move(unit=g2_pawn, from_square=Square(row=6, column=6), offset=Offset(dy=-2, dx=0)),
+            Move(unit=d8_queen, from_square=Square(row=0, column=3), offset=Offset(dy=4, dx=4)),
         ]
     )
 
+@pytest.fixture
+def e2_to_e4_move(e2):
+    return Move(
+        unit=WhitePawn(),
+        from_square=e2,
+        offset=UP*2,
+    )
 
 
 

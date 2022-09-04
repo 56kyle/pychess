@@ -112,14 +112,14 @@ def test_get_path_moves_with_king_a8(empty_board):
     queen = empty_board.get(Square(row=0, column=0))
     expected_moves = set()
     for i in range(1, 8):
-        expected_moves.add(Move(unit=queen, from_square=Square(row=0, column=0), to_square=Square(row=0, column=i)))
+        expected_moves.add(Move(unit=queen, from_square=Square(row=0, column=0), offset=RIGHT * i))
     assert empty_board.get_path_moves(
         square=Square(row=0, column=0),
         path=Path(offset=RIGHT, max_steps=7)
     ) == expected_moves
 
 def test_get_path_squares_with_no_unit(empty_board):
-    assert empty_board.get_path_squares(
+    assert empty_board.get_path_offsets(
         square=Square(row=0, column=0),
         path=Path(offset=RIGHT, max_steps=7)
     ) == set()
@@ -127,24 +127,24 @@ def test_get_path_squares_with_no_unit(empty_board):
 def test_get_path_squares_with_infinite_path(empty_board):
     empty_board._array[0][0] = BlackQueen()
     with pytest.raises(ValueError):
-        empty_board.get_path_squares(
+        empty_board.get_path_offsets(
             square=Square(row=0, column=0),
             path=Path(offset=RIGHT, max_steps=INFINITE_STEPS)
         )
 def test_get_path_squares_with_unit(empty_board):
     empty_board._array[0][0] = BlackQueen()
     initial_square = Square(row=0, column=0)
-    assert empty_board.get_path_squares(
+    assert empty_board.get_path_offsets(
         square=initial_square,
         path=Path(offset=RIGHT, max_steps=7)
     ) == {
-        Square(row=0, column=1),
-        Square(row=0, column=2),
-        Square(row=0, column=3),
-        Square(row=0, column=4),
-        Square(row=0, column=5),
-        Square(row=0, column=6),
-        Square(row=0, column=7),
+        RIGHT,
+        RIGHT * 2,
+        RIGHT * 3,
+        RIGHT * 4,
+        RIGHT * 5,
+        RIGHT * 6,
+        RIGHT * 7,
     }
 
 def test_get_valid_paths_with_no_unit(empty_board):
