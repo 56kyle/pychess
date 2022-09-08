@@ -16,7 +16,4 @@ class Move:
     promotion: chess.unit.Unit = None
     check: bool = False
 
-    def get_end_square(self) -> Square:
-        return self.from_square.offset(self.offset)
-
 
