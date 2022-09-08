@@ -19,15 +19,6 @@ class ChessGame:
         self.turns: List[Turn] = []
         self.to_move: Color = Color.WHITE
 
-    def _is_move_color(self, move: Move) -> bool:
-        return move.unit.color == self.to_move
-
-    def _is_capture_move(self, move: Move) -> bool:
-        opposing_unit: Unit | None = self.board.get(move.get_end_square())
-        if opposing_unit is not None:
-            return opposing_unit.color != move.unit.color
-        return False
-
     def add_piece(self, square: Square, unit: chess.unit.Unit):
         self.board.set(square=square, unit=unit)
 
