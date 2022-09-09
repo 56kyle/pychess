@@ -1,22 +1,46 @@
+from dataclasses import dataclass
 
-from dataclasses import dataclass, field
-
-import chess.unit
-from chess.offset import Offset
-
-from chess.square import Square
+from .castle_right import CastleRight
+from .offset import Offset
+from .piece import Piece, Rook
+from .position import Position
 
 
 @dataclass(frozen=True)
 class Move:
-    unit: chess.unit.Unit = field(hash=False)
-    from_square: Square
+    piece: Piece
     offset: Offset
-    captured: chess.unit.Unit = None
-    promotion: chess.unit.Unit = None
-    check: bool = False
 
-    def get_end_square(self) -> Square:
-        return self.from_square.offset(self.offset)
+@dataclass(frozen=True)
+class Capture(Move):
+    captured: Piece
 
+@dataclass(frozen=True)
+class Promotion(Move):
+    promoted: Piece
+
+@dataclass(frozen=True)
+class EnPassant(Capture):
+    target_position: Position
+
+@dataclass(frozen=True)
+class CapturePromotion(Capture, Promotion):
+    pass
+
+@dataclass(frozen=True)
+class EnPassantPromotion(EnPassant, Promotion):
+    pass
+
+@dataclass(frozen=True)
+class Castling(Move):
+    rook: Rook
+    rook_offset: Offset
+    castling_right: CastleRight
+
+
+def from_fen(fen: str) -> Move:
+    pass
+
+def to_fen(move: Move) -> str:
+    pass
 
