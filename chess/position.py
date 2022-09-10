@@ -15,13 +15,6 @@ class Position:
         if self.rank <= 0:
             raise ValueError(f'Rank must be a positive integer: {self.rank}')
 
-    @classmethod
-    def from_fen(cls, fen: str) -> 'Position':
-        return cls(int(fen[1]), ord(fen[0]) - ord('a') + 1)
-
-    def to_fen(self) -> str:
-        return chr(ord('a') + self.file - 1) + str(self.rank)
-
     def offset(self, offset: Offset) -> 'Position':
-        return Position(self.rank + offset.dy, self.file + offset.dx)
+        return Position(file=self.file + offset.dx, rank=self.rank + offset.dy)
 

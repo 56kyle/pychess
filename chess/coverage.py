@@ -2,7 +2,7 @@
 from dataclasses import dataclass, field
 from typing import Set
 
-from .position import Position
+from chess.position import Position
 
 
 @dataclass(frozen=True)

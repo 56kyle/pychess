@@ -1,6 +1,5 @@
 
-from dataclasses import dataclass, field
-from typing import Set
+from dataclasses import dataclass
 
 from .color import Color
 from .position import Position
@@ -17,6 +16,7 @@ class Piece:
     html_decimal: str = ''
     html_hex: str = ''
     has_moved: bool = False
+
 @dataclass(frozen=True)
 class WhitePiece(Piece):
     color: Color = Color.WHITE
