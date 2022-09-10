@@ -19,9 +19,55 @@
 [python version badge]: https://img.shields.io/pypi/pyversions/56kyle-pychess
 [status badge]: https://img.shields.io/pypi/status/56kyle-pychess
 
-A chess game made in Python as a proof of concept to validate the importance of testing to a friend
+A chess library written in Python.
 
 
 [Pychess](#Pychess)
-- []()
+    - [Description](#Description)
+    - [Installation](#Installation)
+    - [Usage](#Usage)
+        - [Game](#Game)
+        - [Board](#Board)
+        - [Move](#Move)
+        - [Piece](#Piece)
+        - [Player](#Player)
+        - [Square](#Square)
+    - [Contributing](#Contributing)
+    - [License](#License)
+
+
+## Installation
+    
+    ```bash
+    # Install from PyPI
+    pip install 56kyle-pychess
+
+    # Install from poetry
+    poetry add 56kyle-pychess
+    ```
+
+## Description
+The main purpose of this library is to try and practice constantly improving the quality of a codebase instead of allowing complexity to grow with time.
+
+I was mainly inspired by the books "Clean Code" and "Clean Coder" both written by Robert C. Martin. Most of the code in this library is written with the principles of clean code in mind.
+
+## Usage
+### Game
+    TODO
+### Board
+    TODO
+### Move
+    TODO
+### Piece
+    TODO
+### Player
+    TODO
+### Square
+    TODO
+    
+
+
+    
+
+
 
