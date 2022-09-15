@@ -18,19 +18,15 @@ class DummyData(AbstractData):
 class DummyFactory(AbstractFactory[DummyData]):
     @classmethod
     def create(cls, *args, **kwargs):
-        return AbstractFactory[DummyData].create(*args, **kwargs)
-
-class DummyInterface(AbstractInterface[DummyData]):
-    pass
+        return super().create(*args, **kwargs)
 
 class DummyValidator(AbstractValidator[DummyData]):
     @classmethod
-    def is_valid(cls, data, *args, **kwargs):
-        return AbstractValidator[DummyData].is_valid(data=data, *args, **kwargs)
+    def validate(cls, data: DummyData):
+        AbstractValidator[DummyData].validate(data=data)
 
-    @classmethod
-    def validate(cls, data, *args, **kwargs):
-        return AbstractValidator[DummyData].validate(data=data, *args, **kwargs)
+class DummyInterface(AbstractInterface[DummyData, DummyFactory, DummyValidator]):
+    pass
 
 @pytest.fixture
 def dummy_data():

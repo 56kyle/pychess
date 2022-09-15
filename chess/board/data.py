@@ -1,4 +1,3 @@
-from abc import ABC
 from dataclasses import dataclass
 from typing import Set, TypeVar
 
@@ -9,7 +8,7 @@ from chess.data import AbstractData
 
 
 @dataclass(frozen=True)
-class BoardData(AbstractData, ABC):
+class BoardData(AbstractData):
     pieces: Set[Piece]
     castling_rights: Set[CastleRight]
     en_passant_target_position: Position | None

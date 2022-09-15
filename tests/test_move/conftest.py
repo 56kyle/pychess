@@ -3,7 +3,7 @@ import pytest
 from dataclasses import dataclass, field
 from typing import Set, Type
 
-from chess.move import MoveData, MoveFactory, MoveInterface, MoveValidator
+from chess.move import MoveData, MoveFactory, Move, MoveValidator
 from chess.offset import Offset
 from chess.piece import Piece
 from chess.position import Position
@@ -23,18 +23,13 @@ class DummyMoveFactory(MoveFactory[DummyMoveData]):
         return MoveFactory[DummyMoveData].create(*args, **kwargs)
 
 
-class DummyMoveInterface(MoveInterface[DummyMoveData]):
+class DummyMove(Move[DummyMoveData]):
     pass
 
 
 class DummyMoveValidator(MoveValidator[DummyMoveData]):
-    @classmethod
-    def is_valid(cls, data, *args, **kwargs):
-        return MoveValidator[DummyMoveData].is_valid(data=data, *args, **kwargs)
-
-    @classmethod
-    def validate(cls, data, *args, **kwargs):
-        return MoveValidator[DummyMoveData].validate(data=data, *args, **kwargs)
+    def validate(self):
+        return super().validate()
 
 
 @pytest.fixture
@@ -49,8 +44,8 @@ def dummy_move_factory(dummy_move_data: DummyMoveData) -> MoveFactory:
     return DummyMoveFactory(dummy_move_data)
 
 @pytest.fixture
-def dummy_move_interface(dummy_move_data: DummyMoveData) -> MoveInterface:
-    return DummyMoveInterface(dummy_move_data)
+def dummy_move_interface(dummy_move_data: DummyMoveData) -> Move:
+    return DummyMove(dummy_move_data)
 
 @pytest.fixture
 def dummy_move_validator(dummy_move_data: DummyMoveData) -> MoveValidator:

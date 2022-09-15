@@ -1,14 +1,16 @@
 
 from abc import ABC
-from typing import Generic, TypeVar
+from typing import TypeVar
 
-from chess.move.data import MoveData
+from chess.move.data import MoveData, T
 from chess.validator import AbstractValidator
 
-T = TypeVar('T', bound=MoveData)
 
-class MoveValidator(AbstractValidator[T], ABC):
-    pass
+class MoveValidator(AbstractValidator[T]):
+    @classmethod
+    def validate(cls, data: T):
+        pass
 
 
+V = TypeVar('V', bound=MoveValidator)
 

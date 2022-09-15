@@ -1,11 +1,10 @@
 
-from abc import ABC
 from dataclasses import dataclass
 from typing import TypeVar
 
 
 @dataclass(frozen=True)
-class AbstractData(ABC):
+class AbstractData:
     pass
 
 
