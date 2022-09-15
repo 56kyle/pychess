@@ -21,7 +21,7 @@ def dummy_move_factory(dummy_move_data: MoveData) -> MoveFactory:
 
 @pytest.fixture
 def dummy_move(dummy_move_data: MoveData) -> Move:
-    return Move[MoveData, MoveFactory, MoveValidator](dummy_move_data)
+    return Move[MoveData, MoveFactory, MoveValidator](**dummy_move_data.__dict__)
 
 @pytest.fixture
 def dummy_move_validator(dummy_move_data: MoveData) -> MoveValidator:
