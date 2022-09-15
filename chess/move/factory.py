@@ -3,13 +3,11 @@ from abc import ABC, abstractmethod
 from typing import TypeVar
 
 from chess.factory import AbstractFactory
-from chess.move.data import T
-from chess.offset import Offset
-from chess.piece import Piece
+from chess.move.data import T, MoveData
 
 
 class MoveFactory(AbstractFactory[T], ABC):
-    pass
+    data_type: T = MoveData
 
 
 F = TypeVar('F', bound=MoveFactory)

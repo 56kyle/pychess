@@ -1,21 +1,23 @@
 
 from abc import ABC, abstractmethod
-from typing import Generic, TypeVar
+from typing import Generic, TypeVar, Type
 
-from chess.data import T
+from chess.data import AbstractData, T
 
 
-class AbstractFactory(Generic[T], ABC):
-    data_type: T
+class AbstractFactory(Generic[T]):
+    data_type: Type[T] = AbstractData
 
     def __init__(self, data: T, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.data: T = data
 
     @classmethod
-    @abstractmethod
     def create(cls, *args, **kwargs) -> T:
-        raise NotImplementedError
+        if not cls.data_type:
+            raise NotImplementedError
+        return cls.data_type(*args, **kwargs)
 
 
 F = TypeVar('F', bound=AbstractFactory)
+

@@ -6,40 +6,19 @@ import pytest
 from chess.game import GameData, GameFactory, Game, GameValidator
 
 
-@dataclass(frozen=True)
-class DummyGameData(GameData):
-    pass
-
-
-class DummyGameFactory(GameFactory[DummyGameData]):
-    @classmethod
-    def create(cls, *args, **kwargs):
-        return super().create(*args, **kwargs)
-
-
-class DummyGameValidator(GameValidator[DummyGameData]):
-    @classmethod
-    def validate(cls, data: DummyGameData):
-        return super().validate(data=data)
-
-
-class DummyGame(Game[DummyGameData], DummyGameFactory[DummyGameData], DummyGameValidator[DummyGameData]):
-    pass
-
+@pytest.fixture
+def dummy_game_data() -> GameData:
+    return GameData()
 
 @pytest.fixture
-def dummy_game_data() -> DummyGameData:
-    return DummyGameData()
+def dummy_game_factory(dummy_game_data: GameData) -> GameFactory:
+    return GameFactory(dummy_game_data)
 
 @pytest.fixture
-def dummy_game_factory(dummy_game_data: DummyGameData) -> GameFactory:
-    return DummyGameFactory(dummy_game_data)
+def dummy_game(dummy_game_data: GameData) -> Game:
+    return Game[GameData, GameFactory, GameValidator](**dummy_game_data.__dict__)
 
 @pytest.fixture
-def dummy_game_interface(dummy_game_data: DummyGameData) -> Game:
-    return DummyGame(dummy_game_data)
-
-@pytest.fixture
-def dummy_game_validator(dummy_game_data: DummyGameData) -> GameValidator:
-    return DummyGameValidator(dummy_game_data)
+def dummy_game_validator(dummy_game_data: GameData) -> GameValidator:
+    return GameValidator(dummy_game_data)
 

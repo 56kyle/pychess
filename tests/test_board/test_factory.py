@@ -1,11 +1,13 @@
 import pytest
 
+from chess.board import BoardFactory
 
-def test_init(dummy_board_factory):
-    assert dummy_board_factory
 
-def test_create(dummy_board_factory, dummy_board_data):
-    assert dummy_board_factory.__class__.create(
+def test_init(dummy_board_data):
+    assert BoardFactory(data=dummy_board_data)
+
+def test_create(dummy_board_data):
+    assert BoardFactory.create(
         pieces=dummy_board_data.pieces,
         castling_rights=dummy_board_data.castling_rights,
         en_passant_target_position=dummy_board_data.en_passant_target_position,

@@ -1,5 +1,4 @@
 
-from abc import ABC
 from dataclasses import dataclass
 from typing import TypeVar
 
@@ -9,7 +8,7 @@ from chess.data import AbstractData
 
 
 @dataclass(frozen=True)
-class MoveData(AbstractData, ABC):
+class MoveData(AbstractData):
     piece: Piece
     offset: Offset
 

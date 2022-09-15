@@ -3,46 +3,29 @@ import pytest
 
 from dataclasses import dataclass
 
-from chess.data import AbstractData
-from chess.factory import AbstractFactory
+from chess.data import AbstractData, T
+from chess.factory import AbstractFactory, F
 from chess.interface import AbstractInterface
 from chess.piece import Piece
 from chess.position import Position
-from chess.validator import AbstractValidator
+from chess.validator import AbstractValidator, V
 
-
-@dataclass(frozen=True)
-class DummyData(AbstractData):
-    pass
-
-class DummyFactory(AbstractFactory[DummyData]):
-    @classmethod
-    def create(cls, *args, **kwargs):
-        return super().create(*args, **kwargs)
-
-class DummyValidator(AbstractValidator[DummyData]):
-    @classmethod
-    def validate(cls, data: DummyData):
-        AbstractValidator[DummyData].validate(data=data)
-
-class DummyInterface(AbstractInterface[DummyData, DummyFactory, DummyValidator]):
-    pass
 
 @pytest.fixture
 def dummy_data():
-    return DummyData()
+    return AbstractData()
 
 @pytest.fixture
 def dummy_factory(dummy_data):
-    return DummyFactory(dummy_data)
+    return AbstractFactory[AbstractData](dummy_data)
 
 @pytest.fixture
 def dummy_interface(dummy_data):
-    return DummyInterface(dummy_data)
+    return AbstractInterface[AbstractData, AbstractFactory, AbstractValidator](**dummy_data.__dict__)
 
 @pytest.fixture
 def dummy_validator(dummy_data):
-    return DummyValidator(dummy_data)
+    return AbstractValidator[AbstractData](dummy_data)
 
 @pytest.fixture
 def dummy_piece():

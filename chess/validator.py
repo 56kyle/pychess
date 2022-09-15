@@ -6,7 +6,7 @@ from chess.data import T
 from chess.exceptions import ValidationError
 
 
-class AbstractValidator(Generic[T], ABC):
+class AbstractValidator(Generic[T]):
     validation_error: Type[ValidationError] = ValidationError
 
     def __init__(self, data: T, *args, **kwargs):
@@ -22,8 +22,11 @@ class AbstractValidator(Generic[T], ABC):
         return True
 
     @classmethod
-    @abstractmethod
     def validate(cls, data: T):
+        cls.validate_data(data=data)
+
+    @classmethod
+    def validate_data(cls, data: T):
         raise NotImplementedError
 
 

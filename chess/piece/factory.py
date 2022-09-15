@@ -6,7 +6,7 @@ from chess.piece.data import PieceData, T
 
 
 class PieceFactory(AbstractFactory[T], ABC):
-    pass
+    data_type: T = PieceData
 
 
 F = TypeVar('F', bound=PieceFactory)

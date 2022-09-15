@@ -22,7 +22,7 @@ def dummy_board_factory(dummy_board_data: BoardData) -> BoardFactory:
 
 @pytest.fixture
 def dummy_board_interface(dummy_board_data: BoardData) -> Board:
-    return Board(dummy_board_data)
+    return Board[BoardData, BoardFactory, BoardValidator](**dummy_board_data.__dict__)
 
 @pytest.fixture
 def dummy_board_validator(dummy_board_data: BoardData) -> BoardValidator:

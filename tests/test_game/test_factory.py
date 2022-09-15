@@ -1,13 +1,14 @@
 
 import pytest
 
+from chess.game import GameFactory
 
-def test_init(dummy_game_factory):
-    assert dummy_game_factory
 
-def test_create(dummy_game_factory):
-    with pytest.raises(NotImplementedError):
-        dummy_game_factory.__class__.create()
+def test_init(dummy_game_data):
+    assert GameFactory(data=dummy_game_data)
+
+def test_create(dummy_game_data):
+    assert GameFactory.create(**dummy_game_data.__dict__) == dummy_game_data
 
 
 
