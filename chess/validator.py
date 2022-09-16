@@ -23,10 +23,10 @@ class AbstractValidator(Generic[T]):
 
     @classmethod
     def validate(cls, data: T):
-        cls.validate_data(data=data)
+        cls._validate_data(data=data)
 
     @classmethod
-    def validate_data(cls, data: T):
+    def _validate_data(cls, data: T):
         raise NotImplementedError
 
 

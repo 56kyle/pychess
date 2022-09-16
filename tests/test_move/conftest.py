@@ -11,7 +11,7 @@ from chess.position import Position
 @pytest.fixture
 def dummy_move_data(dummy_piece) -> MoveData:
     return MoveData(
-        piece=dummy_piece,
+        piece_data=dummy_piece.data,
         offset=Offset(1, 1),
     )
 

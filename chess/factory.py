@@ -14,7 +14,7 @@ class AbstractFactory(Generic[T]):
 
     @classmethod
     def create(cls, *args, **kwargs) -> T:
-        if not cls.data_type:
+        if cls.data_type is None:
             raise NotImplementedError
         return cls.data_type(*args, **kwargs)
 

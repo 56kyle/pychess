@@ -1,13 +1,14 @@
 
 import pytest
 
-from dataclasses import dataclass
-
+from chess.castle_right import CastleRight
+from chess.color import Color
 from chess.data import AbstractData, T
 from chess.factory import AbstractFactory, F
 from chess.interface import AbstractInterface
 from chess.piece import Piece
 from chess.position import Position
+from chess.side import Side
 from chess.validator import AbstractValidator, V
 
 
@@ -29,6 +30,20 @@ def dummy_validator(dummy_data):
 
 @pytest.fixture
 def dummy_piece():
-    return Piece(position=Position(1, 1))
+    return Piece(
+        position=Position(rank=1, file=1),
+        color=Color.WHITE,
+    )
+
+@pytest.fixture
+def dummy_position():
+    return Position(rank=1, file=1)
+
+@pytest.fixture
+def dummy_castle_right():
+    return CastleRight(
+        color=Color.WHITE,
+        side=Side.KING,
+    )
 
 

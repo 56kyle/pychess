@@ -1,5 +1,5 @@
 
-from typing import Set, TypeVar
+from typing import Set, TypeVar, Type
 
 from chess.board.data import T, BoardData
 from chess.castle_right import CastleRight
@@ -9,7 +9,7 @@ from chess.position import Position
 
 
 class BoardFactory(AbstractFactory[T]):
-    data_type: T = BoardData
+    data_type: Type[T] = BoardData
 
     @classmethod
     def create(cls, pieces: Set[Piece],
@@ -18,7 +18,9 @@ class BoardFactory(AbstractFactory[T]):
                half_move_draw_clock: int,
                full_move_number: int,
                width: int,
-               height: int) -> BoardData:
+               height: int,
+               *args,
+               **kwargs) -> BoardData:
         return cls.data_type(
             pieces=pieces,
             castling_rights=castling_rights,
