@@ -7,7 +7,7 @@ from chess.data import AbstractData
 
 
 @dataclass(frozen=True)
-class GameData(AbstractData, ABC):
+class GameData(AbstractData):
     pass
 
 

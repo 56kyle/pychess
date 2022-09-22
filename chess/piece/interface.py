@@ -1,4 +1,5 @@
 from abc import ABC
+from typing import Set
 
 from chess.color import Color
 from chess.interface import AbstractInterface
