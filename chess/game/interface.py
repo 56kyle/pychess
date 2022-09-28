@@ -13,6 +13,4 @@ class Game(AbstractInterface[T, F, V], ABC):
     factory: F = GameFactory[T]
     validator: V = GameValidator[T]
 
-    allowed_pieces: Set[Type[Piece]] = set()
-    allowed_promotions: Set[Type[Piece]] = set()
 
