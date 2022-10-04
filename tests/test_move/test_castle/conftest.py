@@ -14,8 +14,10 @@ from chess.side import Side
 def dummy_castle_data(dummy_e1_white_king, dummy_a1_white_rook) -> CastleData:
     return CastleData(
         piece_data=dummy_e1_white_king.data,
+        piece_start=dummy_e1_white_king.data.position,
         offset=Offset(1, 1),
         rook_data=dummy_a1_white_rook.data,
+        rook_start=dummy_a1_white_rook.data.position,
         castle_right=CastleRight(
             color=Color.WHITE,
             side=Side.QUEEN,

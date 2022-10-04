@@ -12,8 +12,10 @@ from chess.position import Position
 def dummy_en_passant_data(dummy_e5_white_pawn, dummy_d5_black_pawn) -> EnPassantData:
     return EnPassantData(
         piece_data=dummy_e5_white_pawn.data,
+        piece_start=dummy_e5_white_pawn.data.position,
         offset=Offset(1, 1),
         captured_piece_data=dummy_d5_black_pawn,
+        captured_piece_start=dummy_d5_black_pawn.data.position,
         target_position=Position(file=4, rank=6),
     )
 

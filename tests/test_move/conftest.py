@@ -12,6 +12,7 @@ from chess.position import Position
 def dummy_move_data(dummy_piece) -> MoveData:
     return MoveData(
         piece_data=dummy_piece.data,
+        piece_start=dummy_piece.data.position,
         offset=Offset(1, 1),
     )
 

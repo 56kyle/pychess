@@ -6,6 +6,7 @@ from chess.factory import AbstractFactory
 from chess.move.data import T, MoveData
 from chess.offset import Offset
 from chess.piece import PieceData
+from chess.position import Position
 
 
 class MoveFactory(AbstractFactory[T], ABC):
@@ -14,11 +15,13 @@ class MoveFactory(AbstractFactory[T], ABC):
     @classmethod
     def create(cls,
                piece_data: PieceData,
+               piece_start: Position,
                offset: Offset,
                *args,
                **kwargs) -> T:
         return cls.data_type(
             piece_data=piece_data,
+            piece_start=piece_start,
             offset=offset,
         )
 

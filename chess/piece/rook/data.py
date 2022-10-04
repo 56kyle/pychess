@@ -22,8 +22,8 @@ class RookData(PieceData):
     symbol: str = field(init=False, default='♜')
     html_decimal: str = field(init=False, default='&#9820;')
     html_hex: str = field(init=False, default='&#x265C;')
-    move_paths: Set[Path] = field(init=False, default_factory=_get_all_move_paths)
-    capture_paths: Set[Path] = field(init=False, default_factory=_get_all_capture_paths)
+    move_paths: Set[Path] = field(default_factory=_get_all_move_paths)
+    capture_paths: Set[Path] = field(default_factory=_get_all_capture_paths)
 
 
 T = TypeVar('T', bound=RookData)

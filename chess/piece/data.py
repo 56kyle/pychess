@@ -18,8 +18,8 @@ class PieceData(AbstractData):
     symbol: str = field(init=False)
     html_decimal: str = field(init=False)
     html_hex: str = field(init=False)
-    move_paths: Set[Path] = field(init=False)
-    capture_paths: Set[Path] = field(init=False)
+    move_paths: Set[Path] = field(default_factory=set)
+    capture_paths: Set[Path] = field(default_factory=set)
 
     @property
     def all_paths(self) -> Set[Path]:
