@@ -12,8 +12,10 @@ from chess.position import Position
 def dummy_capture_data(dummy_piece) -> CaptureData:
     return CaptureData(
         piece_data=dummy_piece.data,
+        piece_start=dummy_piece.data.position,
         offset=Offset(1, 1),
         captured_piece_data=dummy_piece,
+        captured_piece_start=dummy_piece.data.position,
     )
 
 @pytest.fixture

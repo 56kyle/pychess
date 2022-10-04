@@ -3,13 +3,13 @@ from typing import Set, TypeVar
 
 from chess.castle_right import CastleRight
 from chess.position import Position
-from chess.piece import Piece
+from chess.piece import PieceData
 from chess.data import AbstractData
 
 
 @dataclass(frozen=True)
 class BoardData(AbstractData):
-    pieces: Set[Piece]
+    pieces: Set[PieceData]
     castling_rights: Set[CastleRight]
     en_passant_target_position: Position | None
     half_move_draw_clock: int

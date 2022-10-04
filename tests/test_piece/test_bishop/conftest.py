@@ -13,12 +13,6 @@ def dummy_bishop_data() -> BishopData:
     return BishopData(
         position=Position(file=1, rank=1),
         color=Color.WHITE,
-        name='dummy',
-        letter='d',
-        value=99,
-        symbol='d',
-        html_decimal='d',
-        html_hex='d',
         has_moved=False,
     )
 

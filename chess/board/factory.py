@@ -4,7 +4,7 @@ from typing import Set, TypeVar, Type
 from chess.board.data import T, BoardData
 from chess.castle_right import CastleRight
 from chess.factory import AbstractFactory
-from chess.piece import Piece
+from chess.piece import PieceData
 from chess.position import Position
 
 
@@ -12,7 +12,7 @@ class BoardFactory(AbstractFactory[T]):
     data_type: Type[T] = BoardData
 
     @classmethod
-    def create(cls, pieces: Set[Piece],
+    def create(cls, pieces: Set[PieceData],
                castling_rights: Set[CastleRight],
                en_passant_target_position: Position | None,
                half_move_draw_clock: int,

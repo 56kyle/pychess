@@ -1,18 +1,31 @@
 
-from dataclasses import dataclass
-from typing import TypeVar
+from dataclasses import dataclass, field
+from typing import TypeVar, Set
 
+from chess.move import Move
+from chess.move.capture import Capture
+from chess.offset import DIAGONAL
+from chess.path import Path
 from chess.piece import PieceData
+
+
+def _get_all_move_paths() -> Set[Path]:
+    return {Path(offset=offset, max_steps=None) for offset in DIAGONAL}
+
+def _get_all_capture_paths() -> Set[Path]:
+    return {Path(offset=offset, max_steps=None) for offset in DIAGONAL}
 
 
 @dataclass(frozen=True)
 class BishopData(PieceData):
-    name: str = 'Bishop'
-    letter: str = 'B'
-    value: int = 3
-    symbol: str = '♝'
-    html_decimal: str = '&#9821;'
-    html_hex: str = '&#x265D;'
+    name: str = field(init=False, default='Bishop')
+    letter: str = field(init=False, default='B')
+    value: int = field(init=False, default=3)
+    symbol: str = field(init=False, default='♝')
+    html_decimal: str = field(init=False, default='&#9821;')
+    html_hex: str = field(init=False, default='&#x265D;')
+    move_paths: Set[Path] = field(init=False, default_factory=_get_all_move_paths)
+    capture_paths: Set[Path] = field(init=False, default_factory=_get_all_capture_paths)
 
 
 T = TypeVar('T', bound=BishopData)
