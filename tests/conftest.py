@@ -6,11 +6,11 @@ from chess.color import Color
 from chess.data import AbstractData, T
 from chess.factory import AbstractFactory, F
 from chess.interface import AbstractInterface
+from chess.king import King
+from chess.pawn import Pawn
 from chess.piece import Piece
-from chess.piece.king import King
-from chess.piece.pawn import Pawn
-from chess.piece.rook import Rook
 from chess.position import Position
+from chess.rook import Rook
 from chess.side import Side
 from chess.validator import AbstractValidator, V
 
