@@ -1,35 +1,23 @@
 
 import pytest
 
+from chess.board import Board
 from chess.castle_right import CastleRight
 from chess.color import Color
-from chess.data import AbstractData, T
-from chess.factory import AbstractFactory, F
-from chess.interface import AbstractInterface
+from chess.king import King
+from chess.pawn import Pawn
 from chess.piece import Piece
-from chess.piece.king import King
-from chess.piece.pawn import Pawn
-from chess.piece.rook import Rook
 from chess.position import Position
+from chess.rook import Rook
 from chess.side import Side
-from chess.validator import AbstractValidator, V
 
 
 @pytest.fixture
-def dummy_data():
-    return AbstractData()
-
-@pytest.fixture
-def dummy_factory(dummy_data):
-    return AbstractFactory[AbstractData](dummy_data)
-
-@pytest.fixture
-def dummy_interface(dummy_data):
-    return AbstractInterface[AbstractData, AbstractFactory, AbstractValidator](**dummy_data.__dict__)
-
-@pytest.fixture
-def dummy_validator(dummy_data):
-    return AbstractValidator[AbstractData](dummy_data)
+def dummy_board():
+    return Board(
+        pieces=set(),
+        castling_rights=set(),
+    )
 
 @pytest.fixture
 def dummy_piece():

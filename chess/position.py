@@ -18,3 +18,5 @@ class Position:
     def offset(self, offset: Offset) -> 'Position':
         return Position(file=self.file + offset.dx, rank=self.rank + offset.dy)
 
+
+
