@@ -41,22 +41,16 @@ class Board:
         self.half_move_draw_clock: int = half_move_draw_clock
         self.full_move_number: int = full_move_number
 
-    def move(self, piece: Piece, start: Position, end: Position):
-        self._validate_piece_at_start(piece=piece, start=start)
-        self._validate_end_is_empty(end=end)
-        self._validate_in_bounds(position=end)
+    def move(self, piece: Piece, destination: Position):
+        self._validate_destination_is_empty(destination=destination)
+        self._validate_in_bounds(position=destination)
 
         self.pieces.remove(piece)
-        self.pieces.add(piece.move(end))
+        self.pieces.add(piece.move(destination))
 
-    @staticmethod
-    def _validate_piece_at_start(piece: Piece, start: Position):
-        if piece.position != start:
-            raise ValueError(f'Piece {piece} is not at {start}')
-
-    def _validate_end_is_empty(self, end: Position):
-        if self.get_piece(end) is not None:
-            raise ValueError(f'Piece already at {end}')
+    def _validate_destination_is_empty(self, destination: Position):
+        if self.get_piece(destination) is not None:
+            raise ValueError(f'Piece already at {destination}')
 
     def _validate_in_bounds(self, position: Position):
         if not self.in_bounds(position):
@@ -65,7 +59,7 @@ class Board:
     def promote(self, piece: Piece, promotion: Type[Piece]):
         self._validate_is_allowed_promotion(promotion=promotion)
         self.pieces.remove(piece)
-        self.pieces.add(piece.promote(meta=promotion.meta))
+        self.pieces.add(piece.promote(promotion=promotion))
 
     def _validate_is_allowed_promotion(self, promotion: Type[Piece]):
         if promotion not in self.allowed_promotions:

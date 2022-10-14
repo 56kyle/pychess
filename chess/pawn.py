@@ -15,14 +15,9 @@ class PawnMeta(PieceMeta):
     html_decimal: str = '&#9817;'
     html_hex: str = '&#x2659;'
 
-    def get_move_paths(self) -> Set[Path]:
-        return {Path(offset=offset, max_steps=1) for offset in VERTICAL}
-
-    def get_capture_paths(self) -> Set[Path]:
-        return {Path(offset=offset, max_steps=1) for offset in DIAGONAL}
-
-    def get_en_passant_paths(self) -> Set[Path]:
-        return {Path(offset=offset, max_steps=1) for offset in DIAGONAL}
+    move_paths: Set[Path] = {Path(offset=offset, max_steps=1) for offset in VERTICAL}
+    capture_paths: Set[Path] = {Path(offset=offset, max_steps=1) for offset in DIAGONAL}
+    en_passant_paths: Set[Path] = {Path(offset=offset, max_steps=1) for offset in DIAGONAL}
 
 
 @dataclass(frozen=True)

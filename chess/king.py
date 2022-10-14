@@ -16,15 +16,10 @@ class KingMeta(PieceMeta):
     html_decimal: str = '&#9818;'
     html_hex: str = '&#x265A;'
 
-    def get_move_paths(self) -> Set[Path]:
-        return {Path(offset=offset, max_steps=1) for offset in OMNI}
-
-    def get_capture_paths(self) -> Set[Path]:
-        return self.get_move_paths()
-
-    def get_castle_paths(self) -> Set[Path]:
-        return {Path(offset=offset*2, max_steps=1) for offset in HORIZONTAL} \
-               | {Path(offset=offset*3, max_steps=1) for offset in HORIZONTAL}
+    move_paths: Set[Path] = {Path(offset=offset, max_steps=1) for offset in OMNI}
+    capture_paths: Set[Path] = {Path(offset=offset, max_steps=1) for offset in OMNI}
+    castle_paths: Set[Path] = {Path(offset=offset*2, max_steps=1) for offset in HORIZONTAL} \
+                              | {Path(offset=offset*3, max_steps=1) for offset in HORIZONTAL}
 
 
 @dataclass(frozen=True)

@@ -16,11 +16,8 @@ class RookMeta(PieceMeta):
     html_decimal: str = '&#9820;'
     html_hex: str = '&#x265C;'
 
-    def get_move_paths(self) -> Set[Path]:
-        return {Path(offset=offset, max_steps=None) for offset in LINEAR}
-
-    def get_capture_paths(self) -> Set[Path]:
-        return self.get_move_paths()
+    move_paths: Set[Path] = {Path(offset=offset, max_steps=None) for offset in LINEAR}
+    capture_paths: Set[Path] = {Path(offset=offset, max_steps=None) for offset in LINEAR}
 
 
 @dataclass(frozen=True)

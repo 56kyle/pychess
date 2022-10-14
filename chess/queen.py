@@ -16,11 +16,8 @@ class QueenMeta(PieceMeta):
     html_decimal: str = '&#9819;'
     html_hex: str = '&#x265B;'
 
-    def get_move_paths(self) -> Set[Path]:
-        return {Path(offset=offset, max_steps=None) for offset in OMNI}
-
-    def get_capture_paths(self) -> Set[Path]:
-        return self.get_move_paths()
+    move_paths: Set[Path] = {Path(offset=offset, max_steps=None) for offset in OMNI}
+    capture_paths: Set[Path] = {Path(offset=offset, max_steps=None) for offset in OMNI}
 
 
 @dataclass(frozen=True)

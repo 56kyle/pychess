@@ -16,7 +16,7 @@ class Piece:
     def move(self, position: Position) -> 'Piece':
         return replace(self, position=position, has_moved=True)
 
-    def promote(self, meta: PieceMeta) -> 'Piece':
-        return replace(self, meta=meta)
+    def promote(self, promotion: Type['Piece']) -> 'Piece':
+        return replace(self, meta=promotion.meta)
 
 

@@ -12,26 +12,9 @@ class PieceMeta:
     html_decimal: str
     html_hex: str
 
-    def get_move_paths(self) -> Set[Path]:
-        return set()
-
-    def get_capture_paths(self) -> Set[Path]:
-        return set()
-
-    def get_en_passant_paths(self) -> Set[Path]:
-        return set()
-
-    def get_castle_paths(self) -> Set[Path]:
-        return set()
-
-
-
-
-
-
-
-
-
-
+    move_paths: Set[Path] = set()
+    capture_paths: Set[Path] = set()
+    en_passant_paths: Set[Path] = set()
+    castle_paths: Set[Path] = set()
 
 

@@ -9,7 +9,6 @@ from chess.piece import Piece
 from chess.piece_meta import PieceMeta
 
 
-
 class KnightMeta(PieceMeta):
     name: str = 'Knight'
     letter: str = 'N'
@@ -17,7 +16,7 @@ class KnightMeta(PieceMeta):
     symbol: str = '\u2658'
     html_decimal: str = '&#9822;'
     html_hex: str = '&#x2658;'
-    offsets: Set[Offset] = field(default_factory=lambda: {
+    offsets: Set[Offset] = {
         UP * 2 + RIGHT,
         UP * 2 + LEFT,
         DOWN * 2 + RIGHT,
@@ -26,13 +25,9 @@ class KnightMeta(PieceMeta):
         RIGHT * 2 + DOWN,
         LEFT * 2 + UP,
         LEFT * 2 + DOWN,
-    })
-
-    def get_move_paths(self) -> Set[Path]:
-        return {Path(offset=offset, max_steps=1) for offset in self.offsets}
-
-    def get_capture_paths(self) -> Set[Path]:
-        return self.get_move_paths()
+    }
+    move_paths: Set[Path] = {Path(offset=offset, max_steps=1) for offset in offsets}
+    capture_paths: Set[Path] = {Path(offset=offset, max_steps=1) for offset in offsets}
 
 
 @dataclass(frozen=True)

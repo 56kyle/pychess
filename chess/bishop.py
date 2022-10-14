@@ -15,11 +15,8 @@ class BishopMeta(PieceMeta):
     html_decimal: str = '&#9821;'
     html_hex: str = '&#x265D;'
 
-    def move_paths(self) -> Set[Path]:
-        return {Path(offset=offset, max_steps=None) for offset in DIAGONAL}
-
-    def capture_paths(self) -> Set[Path]:
-        return {Path(offset=offset, max_steps=None) for offset in DIAGONAL}
+    move_paths: Set[Path] = {Path(offset=offset, max_steps=None) for offset in DIAGONAL}
+    capture_paths: Set[Path] = {Path(offset=offset, max_steps=None) for offset in DIAGONAL}
 
 
 class Bishop(Piece):
