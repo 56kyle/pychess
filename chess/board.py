@@ -1,17 +1,33 @@
 
-from typing import Set
+from typing import Set, Dict, Type
 
+from chess.bishop import Bishop
 from chess.castle_right import CastleRight
 from chess.color import Color
+from chess.knight import Knight
 from chess.move import Move
 from chess.offset import Offset
+from chess.path import Path
+from chess.pawn import Pawn
 from chess.piece import Piece
 from chess.position import Position
+from chess.queen import Queen
+from chess.rook import Rook
+from chess.size import Size
 
 
 class Board:
-    width: int
-    height: int
+    size: Size = Size(width=8, height=8)
+    color_promotion_positions: Dict[Color, Set[Position]] = {
+        Color.WHITE: {Position(file=file, rank=8) for file in range(1, 9)},
+        Color.BLACK: {Position(file=file, rank=1) for file in range(1, 9)},
+    }
+    allowed_promotions: Set[Type[Piece]] = {
+        Knight,
+        Bishop,
+        Rook,
+        Queen,
+    }
 
     def __init__(self,
                  pieces: Set[Piece],
@@ -25,6 +41,36 @@ class Board:
         self.half_move_draw_clock: int = half_move_draw_clock
         self.full_move_number: int = full_move_number
 
+    def move(self, piece: Piece, start: Position, end: Position):
+        self._validate_piece_at_start(piece=piece, start=start)
+        self._validate_end_is_empty(end=end)
+        self._validate_in_bounds(position=end)
+
+        self.pieces.remove(piece)
+        self.pieces.add(piece.move(end))
+
+    @staticmethod
+    def _validate_piece_at_start(piece: Piece, start: Position):
+        if piece.position != start:
+            raise ValueError(f'Piece {piece} is not at {start}')
+
+    def _validate_end_is_empty(self, end: Position):
+        if self.get_piece(end) is not None:
+            raise ValueError(f'Piece already at {end}')
+
+    def _validate_in_bounds(self, position: Position):
+        if not self.in_bounds(position):
+            raise ValueError(f'Position {position} is out of bounds')
+
+    def promote(self, piece: Piece, promotion: Type[Piece]):
+        self._validate_is_allowed_promotion(promotion=promotion)
+        self.pieces.remove(piece)
+        self.pieces.add(piece.promote(meta=promotion.meta))
+
+    def _validate_is_allowed_promotion(self, promotion: Type[Piece]):
+        if promotion not in self.allowed_promotions:
+            raise ValueError(f'Invalid promotion: {promotion}')
+
     def get_colored_pieces(self, color: Color) -> Set[Piece]:
         return {piece for piece in self.pieces if piece.color == color}
 
@@ -34,14 +80,22 @@ class Board:
                 return piece
         return None
 
-    def is_valid_position(self, position: Position) -> bool:
-        return self.is_valid_file(position.file) and self.is_valid_rank(position.rank)
+    def get_max_steps(self, position: Position, offset: Offset) -> int:
+        max_dx = max(self.size.width - position.file, position.file) // offset.dx
+        max_dy = max(self.size.height - position.rank, position.rank) // offset.dy
+        return min(max_dx, max_dy)
 
-    def is_valid_file(self, file: int) -> bool:
-        return 1 <= file <= self.width
+    def is_promotion_position(self, color: Color, position: Position) -> bool:
+        return position in self.color_promotion_positions[color]
 
-    def is_valid_rank(self, rank: int) -> bool:
-        return 1 <= rank <= self.height
+    def in_bounds(self, position: Position) -> bool:
+        return self._in_width_bounds(position) and self._in_height_bounds(position)
+
+    def _in_width_bounds(self, position: Position) -> bool:
+        return 1 <= position.file <= self.size.width
+
+    def _in_height_bounds(self, position: Position) -> bool:
+        return 1 <= position.rank <= self.size.height
 
 
 

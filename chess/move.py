@@ -1,19 +1,17 @@
 
 
 from dataclasses import dataclass, field
-from typing import Set
+from typing import Set, Type
 
 from chess.position import Position
-from piece import Piece
+from chess.piece import Piece
 
 
 @dataclass(frozen=True)
 class Move:
     piece: Piece
-    start: Position
-    end: Position
+    origin: Position
+    destination: Position
     captures: Set[Piece] = field(default_factory=set)
-    promotes: Set[Piece] = field(default_factory=set)
-    moves: Set['Move'] = field(default_factory=set)
-
+    promotion: Type[Piece] | None = None
 

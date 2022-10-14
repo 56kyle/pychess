@@ -4,9 +4,10 @@ from typing import Set
 from chess.offset import DIAGONAL
 from chess.path import Path
 from chess.piece import Piece
+from chess.piece_meta import PieceMeta
 
 
-class Bishop(Piece):
+class BishopMeta(PieceMeta):
     name: str = 'Bishop'
     letter: str = 'B'
     value: int = 3
@@ -19,5 +20,9 @@ class Bishop(Piece):
 
     def capture_paths(self) -> Set[Path]:
         return {Path(offset=offset, max_steps=None) for offset in DIAGONAL}
+
+
+class Bishop(Piece):
+    meta: BishopMeta = BishopMeta
 
 

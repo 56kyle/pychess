@@ -1,36 +1,22 @@
-from typing import Set
+from dataclasses import dataclass, field, replace, make_dataclass
+from typing import Set, Type
 
 from chess.color import Color
-from chess.path import Path
+from chess.piece_meta import PieceMeta
 from chess.position import Position
 
 
+@dataclass(frozen=True)
 class Piece:
-    name: str
-    letter: str
-    value: int
-    symbol: str
-    html_decimal: str
-    html_hex: str
+    position: Position
+    color: Color
+    meta: PieceMeta = PieceMeta
+    has_moved: bool = False
 
-    def __init__(self, position: Position, color: Color, has_moved: bool = False):
-        self.position = position
-        self.color = color
-        self.has_moved = has_moved
+    def move(self, position: Position) -> 'Piece':
+        return replace(self, position=position, has_moved=True)
 
-    @property
-    def all_paths(self) -> Set[Path]:
-        return self.move_paths | self.capture_paths
-
-    @property
-    def move_paths(self) -> Set[Path]:
-        return set()
-
-    @property
-    def capture_paths(self) -> Set[Path]:
-        return set()
-
-
-
+    def promote(self, meta: PieceMeta) -> 'Piece':
+        return replace(self, meta=meta)
 
 

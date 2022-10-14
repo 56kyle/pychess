@@ -6,32 +6,37 @@ from chess.move import Move
 from chess.offset import Offset, UP, RIGHT, DOWN, LEFT, UP_RIGHT, DOWN_RIGHT, DOWN_LEFT, UP_LEFT
 from chess.path import Path
 from chess.piece import Piece
+from chess.piece_meta import PieceMeta
 
 
-class Knight(Piece):
+
+class KnightMeta(PieceMeta):
     name: str = 'Knight'
     letter: str = 'N'
     value: int = 3
     symbol: str = '\u2658'
     html_decimal: str = '&#9822;'
     html_hex: str = '&#x2658;'
-    offsets: Set[Offset] = {
-        UP_RIGHT + UP,
-        UP_RIGHT + RIGHT,
-        DOWN_RIGHT + RIGHT,
-        DOWN_RIGHT + DOWN,
-        DOWN_LEFT + DOWN,
-        DOWN_LEFT + LEFT,
-        UP_LEFT + LEFT,
-        UP_LEFT + UP,
-    }
+    offsets: Set[Offset] = field(default_factory=lambda: {
+        UP * 2 + RIGHT,
+        UP * 2 + LEFT,
+        DOWN * 2 + RIGHT,
+        DOWN * 2 + LEFT,
+        RIGHT * 2 + UP,
+        RIGHT * 2 + DOWN,
+        LEFT * 2 + UP,
+        LEFT * 2 + DOWN,
+    })
 
-    @property
-    def move_paths(self) -> Set[Path]:
+    def get_move_paths(self) -> Set[Path]:
         return {Path(offset=offset, max_steps=1) for offset in self.offsets}
 
-    @property
-    def capture_paths(self) -> Set[Path]:
-        return {Path(offset=offset, max_steps=1) for offset in self.offsets}
+    def get_capture_paths(self) -> Set[Path]:
+        return self.get_move_paths()
+
+
+@dataclass(frozen=True)
+class Knight(Piece):
+    meta: KnightMeta = KnightMeta
 
 

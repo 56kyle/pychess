@@ -5,24 +5,27 @@ from typing import TypeVar, Set
 from chess.offset import LINEAR
 from chess.path import Path
 from chess.piece import Piece
+from chess.piece_meta import PieceMeta
 
 
-def _get_all_move_paths() -> Set[Path]:
-    return
-
-def _get_all_capture_paths() -> Set[Path]:
-    return
-
-
-class Rook(Piece):
+class RookMeta(PieceMeta):
     name: str = 'Rook'
     letter: str = 'R'
     value: int = 5
     symbol: str = '♜'
     html_decimal: str = '&#9820;'
     html_hex: str = '&#x265C;'
-    move_paths: Set[Path] = {Path(offset=offset, max_steps=None) for offset in LINEAR}
-    capture_paths: Set[Path] = {Path(offset=offset, max_steps=None) for offset in LINEAR}
+
+    def get_move_paths(self) -> Set[Path]:
+        return {Path(offset=offset, max_steps=None) for offset in LINEAR}
+
+    def get_capture_paths(self) -> Set[Path]:
+        return self.get_move_paths()
+
+
+@dataclass(frozen=True)
+class Rook(Piece):
+    meta: RookMeta = RookMeta
 
 
 
