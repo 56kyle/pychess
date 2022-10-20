@@ -4,7 +4,7 @@ from typing import Set
 from chess.line import Line
 from chess.move import Move
 from chess.offset import HORIZONTAL, OMNI
-from chess.path import Path
+
 from chess.piece import Piece
 from chess.piece_meta import PieceMeta
 from chess.position import Position
@@ -20,9 +20,9 @@ class KingMeta(PieceMeta):
     html_decimal: str = '&#9818;'
     html_hex: str = '&#x265A;'
 
-    move_paths: Set[Line] = {offset.as_segment() for offset in OMNI}
-    capture_paths: Set[Line] = move_paths
-    castle_paths: Set[Line] = {(offset*2).as_segment() for offset in HORIZONTAL} |\
+    move_lines: Set[Line] = {offset.as_segment() for offset in OMNI}
+    capture_lines: Set[Line] = move_lines
+    castle_lines: Set[Line] = {(offset*2).as_segment() for offset in HORIZONTAL} |\
                               {(offset*3).as_segment() for offset in HORIZONTAL}
 
 

@@ -16,20 +16,20 @@ class Piece:
     meta: PieceMeta = PieceMeta
     has_moved: bool = False
 
-    def get_move_paths(self) -> Set[Line]:
-        return self.adjust_paths_to_position(self.meta.move_paths)
+    def get_move_lines(self) -> Set[Line]:
+        return self.adjust_lines_to_position(self.meta.move_lines)
 
-    def get_capture_paths(self) -> Set[Line]:
-        return self.adjust_paths_to_position(self.meta.capture_paths)
+    def get_capture_lines(self) -> Set[Line]:
+        return self.adjust_lines_to_position(self.meta.capture_lines)
 
-    def get_en_passant_paths(self) -> Set[Line]:
-        return self.adjust_paths_to_position(self.meta.en_passant_paths)
+    def get_en_passant_lines(self) -> Set[Line]:
+        return self.adjust_lines_to_position(self.meta.en_passant_lines)
 
-    def get_castle_paths(self) -> Set[Line]:
-        return self.adjust_paths_to_position(self.meta.castle_paths)
+    def get_castle_lines(self) -> Set[Line]:
+        return self.adjust_lines_to_position(self.meta.castle_lines)
 
-    def adjust_paths_to_position(self, paths: Set[Line]) -> Set[Line]:
-        return {line.offset(dx=self.position.file, dy=self.position.rank) for line in paths}
+    def adjust_lines_to_position(self, lines: Set[Line]) -> Set[Line]:
+        return {line.offset(dx=self.position.file, dy=self.position.rank) for line in lines}
 
     def move(self, position: Position) -> 'Piece':
         return replace(self, position=position, has_moved=True)

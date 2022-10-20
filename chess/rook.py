@@ -4,7 +4,7 @@ from typing import TypeVar, Set
 
 from chess.line import Line
 from chess.offset import LINEAR
-from chess.path import Path
+
 from chess.piece import Piece
 from chess.piece_meta import PieceMeta
 
@@ -17,8 +17,8 @@ class RookMeta(PieceMeta):
     html_decimal: str = '&#9820;'
     html_hex: str = '&#x265C;'
 
-    move_paths: Set[Line] = {offset.as_ray() for offset in LINEAR}
-    capture_paths: Set[Line] = {offset.as_ray() for offset in LINEAR}
+    move_lines: Set[Line] = {offset.as_ray() for offset in LINEAR}
+    capture_lines: Set[Line] = {offset.as_ray() for offset in LINEAR}
 
 
 @dataclass(frozen=True)

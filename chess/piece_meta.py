@@ -12,9 +12,9 @@ class PieceMeta:
     html_decimal: str
     html_hex: str
 
-    move_paths: Set[Line] = set()
-    capture_paths: Set[Line] = set()
-    en_passant_paths: Set[Line] = set()
-    castle_paths: Set[Line] = set()
+    move_lines: Set[Line] = set()
+    capture_lines: Set[Line] = set()
+    en_passant_lines: Set[Line] = set()
+    castle_lines: Set[Line] = set()
 
 

@@ -5,9 +5,10 @@ from chess.bishop import Bishop
 from chess.castle_right import CastleRight
 from chess.color import Color
 from chess.knight import Knight
+from chess.line import Line
 from chess.move import Move
 from chess.offset import Offset
-from chess.path import Path
+
 from chess.pawn import Pawn
 from chess.piece import Piece
 from chess.position import Position
@@ -90,6 +91,21 @@ class Board:
 
     def _in_height_bounds(self, position: Position) -> bool:
         return 1 <= position.rank <= self.size.height
+    
+    def is_check_present(self):
+        for piece in self.pieces:
+            for line in piece.get_capture_lines():
+                if self.get_first_encountered_piece_in_line(line) is not None:
+                    return True
+    
+    
+    def get_first_encountered_piece_in_line(self, line: Line) -> Piece | None:
+        for piece in self.pieces:
+            if piece.position in line and piece.position != line.p1:
+                return piece
+        return None
+        
+        
 
 
 
