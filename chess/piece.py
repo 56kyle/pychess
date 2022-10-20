@@ -29,7 +29,7 @@ class Piece:
         return self.adjust_paths_to_position(self.meta.castle_paths)
 
     def adjust_paths_to_position(self, paths: Set[Line]) -> Set[Line]:
-        return {line.offset(Offset(dx=self.position.file, dy=self.position.rank)) for line in paths}
+        return {line.offset(dx=self.position.file, dy=self.position.rank) for line in paths}
 
     def move(self, position: Position) -> 'Piece':
         return replace(self, position=position, has_moved=True)
