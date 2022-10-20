@@ -1,10 +1,13 @@
 from dataclasses import dataclass
 from typing import Set
 
+from chess.line import Line
 from chess.offset import VERTICAL, DIAGONAL
 from chess.path import Path
 from chess.piece import Piece
 from chess.piece_meta import PieceMeta
+from chess.position import ZERO
+from chess.segment import Segment
 
 
 class PawnMeta(PieceMeta):
@@ -15,9 +18,9 @@ class PawnMeta(PieceMeta):
     html_decimal: str = '&#9817;'
     html_hex: str = '&#x2659;'
 
-    move_paths: Set[Path] = {Path(offset=offset, max_steps=1) for offset in VERTICAL}
-    capture_paths: Set[Path] = {Path(offset=offset, max_steps=1) for offset in DIAGONAL}
-    en_passant_paths: Set[Path] = {Path(offset=offset, max_steps=1) for offset in DIAGONAL}
+    move_paths: Set[Line] = {offset.as_segment() for offset in VERTICAL}
+    capture_paths: Set[Line] = {offset.as_segment() for offset in DIAGONAL}
+    en_passant_paths: Set[Line] = {offset.as_segment() for offset in DIAGONAL}
 
 
 @dataclass(frozen=True)

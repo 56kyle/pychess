@@ -67,10 +67,6 @@ def test_is_promotion_position_with_black_promotion_position(dummy_board):
 def test_is_promotion_position_with_not_promotion_position(dummy_board):
     assert not dummy_board.is_promotion_position(position=Position(rank=1, file=1), color=Color.WHITE)
 
-def test_is_promotion_position_with_invalid(dummy_board):
-    with pytest.raises(ValueError):
-        dummy_board.is_promotion_position(position=Position(rank=0, file=0), color=Color.WHITE)
-
 def test_in_bounds_with_min(dummy_board):
     assert dummy_board.in_bounds(position=Position(rank=1, file=1))
 
@@ -79,10 +75,6 @@ def test_in_bounds_with_max(dummy_board):
 
 def test_in_bounds_with_out_of_bounds(dummy_board):
     assert not dummy_board.in_bounds(position=Position(rank=9, file=9))
-
-def test_in_bounds_with_invalid(dummy_board):
-    with pytest.raises(ValueError):
-        dummy_board.in_bounds(position=Position(rank=0, file=0))
 
 
 

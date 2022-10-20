@@ -1,7 +1,7 @@
 
 from typing import Set
 
-from chess.path import Path
+from chess.line import Line
 
 
 class PieceMeta:
@@ -12,9 +12,9 @@ class PieceMeta:
     html_decimal: str
     html_hex: str
 
-    move_paths: Set[Path] = set()
-    capture_paths: Set[Path] = set()
-    en_passant_paths: Set[Path] = set()
-    castle_paths: Set[Path] = set()
+    move_paths: Set[Line] = set()
+    capture_paths: Set[Line] = set()
+    en_passant_paths: Set[Line] = set()
+    castle_paths: Set[Line] = set()
 
 

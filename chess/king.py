@@ -1,12 +1,16 @@
 from dataclasses import dataclass
 from typing import Set
 
+from chess.line import Line
 from chess.move import Move
 from chess.offset import HORIZONTAL, OMNI
 from chess.path import Path
 from chess.piece import Piece
 from chess.piece_meta import PieceMeta
+from chess.position import Position
+from chess.segment import Segment
 
+ZERO_POSITION = Position(rank=0, file=0)
 
 class KingMeta(PieceMeta):
     name: str = 'King'
@@ -16,10 +20,10 @@ class KingMeta(PieceMeta):
     html_decimal: str = '&#9818;'
     html_hex: str = '&#x265A;'
 
-    move_paths: Set[Path] = {Path(offset=offset, max_steps=1) for offset in OMNI}
-    capture_paths: Set[Path] = {Path(offset=offset, max_steps=1) for offset in OMNI}
-    castle_paths: Set[Path] = {Path(offset=offset*2, max_steps=1) for offset in HORIZONTAL} \
-                              | {Path(offset=offset*3, max_steps=1) for offset in HORIZONTAL}
+    move_paths: Set[Line] = {offset.as_segment() for offset in OMNI}
+    capture_paths: Set[Line] = move_paths
+    castle_paths: Set[Line] = {(offset*2).as_segment() for offset in HORIZONTAL} |\
+                              {(offset*3).as_segment() for offset in HORIZONTAL}
 
 
 @dataclass(frozen=True)
