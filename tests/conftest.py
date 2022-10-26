@@ -8,6 +8,7 @@ from chess.king import King
 from chess.pawn import Pawn
 from chess.piece import Piece
 from chess.position import Position
+from chess.queen import Queen
 from chess.rook import Rook
 from chess.side import Side
 
@@ -69,6 +70,20 @@ def dummy_a1_white_rook():
     )
 
 @pytest.fixture
+def dummy_a1_white_queen():
+    return Queen(
+        position=Position(rank=1, file=1),
+        color=Color.WHITE,
+    )
+
+@pytest.fixture
+def dummy_a3_black_king():
+    return King(
+        position=Position(rank=3, file=1),
+        color=Color.BLACK,
+    )
+
+@pytest.fixture
 def dummy_position():
     return Position(rank=1, file=1)
 
@@ -76,7 +91,10 @@ def dummy_position():
 def dummy_castle_right():
     return CastleRight(
         color=Color.WHITE,
-        side=Side.KING,
+        rook_origin=Position(rank=1, file=8),
+        rook_destination=Position(rank=1, file=6),
+        king_origin=Position(rank=1, file=5),
+        king_destination=Position(rank=1, file=7),
     )
 
 

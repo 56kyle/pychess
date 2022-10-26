@@ -1,4 +1,4 @@
-
+import math
 from dataclasses import dataclass, replace
 
 
@@ -13,7 +13,10 @@ class Position:
     def distance_to(self, position: 'Position') -> float:
         return ((self.file - position.file) ** 2 + (self.rank - position.rank) ** 2) ** 0.5
 
+    def theta_to(self, position: 'Position') -> float:
+        """Returns the angle in radians between the line from self to position and the x-axis"""
+        return math.atan2(position.rank - self.rank, position.file - self.file)
+
 
 ZERO = Position(0, 0)
-
 

@@ -97,13 +97,33 @@ class Board:
             for line in piece.get_capture_lines():
                 if self.get_first_encountered_piece_in_line(line) is not None:
                     return True
-    
-    
+
+    def get_piece_threats(self, piece: Piece) -> Set[Piece]:
+        capture_threats: Set[Piece] = self.get_piece_capture_threats(piece=piece)
+        en_passant_threats: Set[Piece] = self.get_piece_en_passant_threats(piece=piece)
+        return capture_threats | en_passant_threats
+
     def get_first_encountered_piece_in_line(self, line: Line) -> Piece | None:
         for piece in self.pieces:
             if piece.position in line and piece.position != line.p1:
                 return piece
         return None
+
+    def get_piece_capture_threats(self, piece: Piece) -> Set[Piece]:
+        threats = set()
+        for line in piece.get_capture_lines():
+            encountered_piece: Piece | None = self.get_first_encountered_piece_in_line(line)
+            if encountered_piece is not None:
+                threats.add(encountered_piece)
+        return threats
+
+    def get_piece_en_passant_threats(self, piece: Piece) -> Set[Piece]:
+        threats = set()
+        if self.en_passant_target_position is not None:
+            for line in piece.get_en_passant_lines():
+                if self.en_passant_target_position in line:
+                    threats.add(self.get_piece(self.en_passant_target_position))
+        return threats
         
         
 

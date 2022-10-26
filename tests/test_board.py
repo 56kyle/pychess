@@ -76,6 +76,13 @@ def test_in_bounds_with_max(dummy_board):
 def test_in_bounds_with_out_of_bounds(dummy_board):
     assert not dummy_board.in_bounds(position=Position(rank=9, file=9))
 
+def test_is_check_present(dummy_board, dummy_a1_white_queen, dummy_a3_black_king):
+    dummy_board.pieces.update({dummy_a1_white_queen, dummy_a3_black_king})
+    assert dummy_board.is_check_present()
+
+
+
+
 
 
 

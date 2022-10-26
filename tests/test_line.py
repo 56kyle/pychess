@@ -13,17 +13,20 @@ def test_init():
     assert line.p2 == Position(2, 4)
 
 
-def test_contains_with_colinear_internal():
-    assert Position(1, 2) in Line(p1=Position(1, 2), p2=Position(2, 4))
-
 def test_contains_with_colinear_external_left():
-    assert Position(0, 0) in Line(p1=Position(1, 2), p2=Position(2, 4))
+    assert Position(0, 0) in Line(p1=Position(1, 2), p2=Position(3, 6))
+
+def test_contains_with_colinear_p1():
+    assert Position(1, 2) in Line(p1=Position(1, 2), p2=Position(3, 6))
+
+def test_contains_with_colinear_internal():
+    assert Position(2, 4) in Line(p1=Position(1, 2), p2=Position(3, 6))
+
+def test_contains_with_colinear_p2():
+    assert Position(3, 6) in Line(p1=Position(1, 2), p2=Position(3, 6))
 
 def test_contains_with_colinear_external_right():
-    assert Position(3, 6) in Line(p1=Position(1, 2), p2=Position(2, 4))
-
-def test_contains_with_non_colinear_internal():
-    assert Position(2, 5) not in Line(p1=Position(1, 2), p2=Position(2, 4))
+    assert Position(4, 8) in Line(p1=Position(1, 2), p2=Position(3, 6))
 
 def test_offset():
     line = Line(p1=Position(1, 2), p2=Position(2, 4))
