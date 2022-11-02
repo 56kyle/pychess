@@ -4,7 +4,7 @@ from typing import Set
 from chess.line import Line
 
 
-class PieceMeta:
+class PieceType:
     name: str
     letter: str
     value: int

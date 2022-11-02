@@ -36,7 +36,7 @@ def test__validate_in_bounds_with_in_bounds(dummy_board):
 def test_promote(dummy_board, dummy_piece):
     dummy_board.pieces.add(dummy_piece)
     dummy_board.promote(piece=dummy_piece, promotion=Queen)
-    assert dummy_board.pieces == {replace(dummy_piece, meta=Queen.meta)}
+    assert dummy_board.pieces == {replace(dummy_piece, type=Queen.type)}
 
 def test__validate_is_allowed_promotion_with_allowed(dummy_board):
     assert dummy_board._validate_is_allowed_promotion(promotion=Queen) is None

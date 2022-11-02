@@ -6,10 +6,10 @@ from chess.line import Line
 from chess.offset import LINEAR
 
 from chess.piece import Piece
-from chess.piece_meta import PieceMeta
+from chess.piece_type import PieceType
 
 
-class RookMeta(PieceMeta):
+class RookType(PieceType):
     name: str = 'Rook'
     letter: str = 'R'
     value: int = 5
@@ -23,7 +23,7 @@ class RookMeta(PieceMeta):
 
 @dataclass(frozen=True)
 class Rook(Piece):
-    meta: RookMeta = RookMeta
+    type: RookType = RookType
 
 
 

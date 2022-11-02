@@ -4,7 +4,7 @@ from typing import Set, Dict, Type
 from chess.bishop import Bishop
 from chess.castle_right import CastleRight
 from chess.color import Color
-from chess.king import KingMeta
+from chess.king import KingType
 from chess.knight import Knight
 from chess.line import Line
 from chess.move import Move
@@ -91,7 +91,7 @@ class Board:
     def is_check_present(self):
         for piece in self.pieces:
             targets = self.get_piece_targets(piece=piece)
-            return any(targeted_piece.meta == KingMeta for targeted_piece in targets)
+            return any(targeted_piece.type == KingType for targeted_piece in targets)
 
     def get_first_encountered_piece_in_line(self, line: Line) -> Piece | None:
         closest_piece: Piece | None = None
@@ -128,18 +128,5 @@ class Board:
                     if encountered_piece is not None and piece.is_enemy(piece=encountered_piece):
                         targets.add(encountered_piece)
         return targets
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

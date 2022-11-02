@@ -5,12 +5,12 @@ from chess.line import Line
 from chess.offset import VERTICAL, DIAGONAL
 
 from chess.piece import Piece
-from chess.piece_meta import PieceMeta
+from chess.piece_type import PieceType
 from chess.position import ZERO
 from chess.segment import Segment
 
 
-class PawnMeta(PieceMeta):
+class PawnType(PieceType):
     name: str = 'Pawn'
     letter: str = 'P'
     value: int = 1
@@ -25,6 +25,6 @@ class PawnMeta(PieceMeta):
 
 @dataclass(frozen=True)
 class Pawn(Piece):
-    meta: PawnMeta = PawnMeta
+    type: PawnType = PawnType
 
 

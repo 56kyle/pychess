@@ -7,12 +7,12 @@ from chess.move import Move
 from chess.offset import Offset, UP, RIGHT, DOWN, LEFT, UP_RIGHT, DOWN_RIGHT, DOWN_LEFT, UP_LEFT
 
 from chess.piece import Piece
-from chess.piece_meta import PieceMeta
+from chess.piece_type import PieceType
 from chess.position import ZERO
 from chess.segment import Segment
 
 
-class KnightMeta(PieceMeta):
+class KnightType(PieceType):
     name: str = 'Knight'
     letter: str = 'N'
     value: int = 3
@@ -35,6 +35,6 @@ class KnightMeta(PieceMeta):
 
 @dataclass(frozen=True)
 class Knight(Piece):
-    meta: KnightMeta = KnightMeta
+    type: KnightType = KnightType
 
 

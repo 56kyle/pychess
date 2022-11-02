@@ -6,11 +6,11 @@ from chess.line import Line
 from chess.offset import OMNI
 
 from chess.piece import Piece
-from chess.piece_meta import PieceMeta
+from chess.piece_type import PieceType
 from chess.ray import Ray
 
 
-class QueenMeta(PieceMeta):
+class QueenType(PieceType):
     name: str = 'Queen'
     letter: str = 'Q'
     value: int = 9
@@ -24,6 +24,6 @@ class QueenMeta(PieceMeta):
 
 @dataclass(frozen=True)
 class Queen(Piece):
-    meta: QueenMeta = QueenMeta
+    type: QueenType = QueenType
 
 

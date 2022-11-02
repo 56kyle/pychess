@@ -5,12 +5,12 @@ from chess.line import Line
 from chess.offset import DIAGONAL
 
 from chess.piece import Piece
-from chess.piece_meta import PieceMeta
+from chess.piece_type import PieceType
 from chess.position import Position
 from chess.ray import Ray
 
 
-class BishopMeta(PieceMeta):
+class BishopType(PieceType):
     name: str = 'Bishop'
     letter: str = 'B'
     value: int = 3
@@ -22,6 +22,6 @@ class BishopMeta(PieceMeta):
     capture_lines: Set[Line] = {offset.as_ray() for offset in DIAGONAL}
 
 class Bishop(Piece):
-    meta: BishopMeta = BishopMeta
+    type: BishopType = BishopType
 
 

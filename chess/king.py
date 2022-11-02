@@ -7,12 +7,12 @@ from chess.move import Move
 from chess.offset import HORIZONTAL, OMNI
 
 from chess.piece import Piece
-from chess.piece_meta import PieceMeta
+from chess.piece_type import PieceType
 from chess.position import Position
 from chess.segment import Segment
 
 
-class KingMeta(PieceMeta):
+class KingType(PieceType):
     name: str = 'King'
     letter: str = 'K'
     value: int = 0
@@ -28,5 +28,5 @@ class KingMeta(PieceMeta):
 
 @dataclass(frozen=True)
 class King(Piece):
-    meta: KingMeta = KingMeta
+    type: KingType = KingType
 
