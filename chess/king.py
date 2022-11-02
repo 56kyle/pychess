@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from typing import Set
 
+from chess.color import Color
 from chess.line import Line
 from chess.move import Move
 from chess.offset import HORIZONTAL, OMNI
@@ -10,7 +11,6 @@ from chess.piece_meta import PieceMeta
 from chess.position import Position
 from chess.segment import Segment
 
-ZERO_POSITION = Position(rank=0, file=0)
 
 class KingMeta(PieceMeta):
     name: str = 'King'
@@ -29,5 +29,4 @@ class KingMeta(PieceMeta):
 @dataclass(frozen=True)
 class King(Piece):
     meta: KingMeta = KingMeta
-
 

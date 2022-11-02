@@ -1,9 +1,10 @@
-
+from dataclasses import replace
 from typing import Set, Dict, Type
 
 from chess.bishop import Bishop
 from chess.castle_right import CastleRight
 from chess.color import Color
+from chess.king import KingMeta
 from chess.knight import Knight
 from chess.line import Line
 from chess.move import Move
@@ -75,11 +76,6 @@ class Board:
                 return piece
         return None
 
-    def get_max_steps(self, position: Position, offset: Offset) -> int:
-        max_dx = max(self.size.width - position.file, position.file) // offset.dx
-        max_dy = max(self.size.height - position.rank, position.rank) // offset.dy
-        return min(max_dx, max_dy)
-
     def is_promotion_position(self, color: Color, position: Position) -> bool:
         return position in self.color_promotion_positions[color]
 
@@ -94,38 +90,46 @@ class Board:
     
     def is_check_present(self):
         for piece in self.pieces:
-            for line in piece.get_capture_lines():
-                if self.get_first_encountered_piece_in_line(line) is not None:
-                    return True
-
-    def get_piece_threats(self, piece: Piece) -> Set[Piece]:
-        capture_threats: Set[Piece] = self.get_piece_capture_threats(piece=piece)
-        en_passant_threats: Set[Piece] = self.get_piece_en_passant_threats(piece=piece)
-        return capture_threats | en_passant_threats
+            targets = self.get_piece_targets(piece=piece)
+            return any(targeted_piece.meta == KingMeta for targeted_piece in targets)
 
     def get_first_encountered_piece_in_line(self, line: Line) -> Piece | None:
+        closest_piece: Piece | None = None
+        closest_distance: float | None = None
         for piece in self.pieces:
             if piece.position in line and piece.position != line.p1:
-                return piece
-        return None
+                distance = piece.position.distance_to(line.p1)
+                if closest_distance is None or distance < closest_distance:
+                    closest_piece = piece
+                    closest_distance = distance
+        return closest_piece
 
-    def get_piece_capture_threats(self, piece: Piece) -> Set[Piece]:
-        threats = set()
+    def get_piece_targets(self, piece: Piece) -> Set[Piece]:
+        capture_targets: Set[Piece] = self.get_piece_capture_targets(piece=piece)
+        en_passant_targets: Set[Piece] = self.get_piece_en_passant_targets(piece=piece)
+        return capture_targets | en_passant_targets
+
+    def get_piece_capture_targets(self, piece: Piece) -> Set[Piece]:
+        targets = set()
         for line in piece.get_capture_lines():
             encountered_piece: Piece | None = self.get_first_encountered_piece_in_line(line)
-            if encountered_piece is not None:
-                threats.add(encountered_piece)
-        return threats
+            if encountered_piece is not None and piece.is_enemy(piece=encountered_piece):
+                targets.add(encountered_piece)
+        return targets
 
-    def get_piece_en_passant_threats(self, piece: Piece) -> Set[Piece]:
-        threats = set()
+    def get_piece_en_passant_targets(self, piece: Piece) -> Set[Piece]:
+        targets = set()
         if self.en_passant_target_position is not None:
             for line in piece.get_en_passant_lines():
                 if self.en_passant_target_position in line:
-                    threats.add(self.get_piece(self.en_passant_target_position))
-        return threats
-        
-        
+                    encountered_piece: Piece | None = self.get_piece(
+                            replace(self.en_passant_target_position, rank=piece.position.rank)
+                        )
+                    if encountered_piece is not None and piece.is_enemy(piece=encountered_piece):
+                        targets.add(encountered_piece)
+        return targets
+
+
 
 
 

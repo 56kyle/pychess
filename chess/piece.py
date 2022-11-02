@@ -37,4 +37,14 @@ class Piece:
     def promote(self, promotion: Type['Piece']) -> 'Piece':
         return replace(self, meta=promotion.meta)
 
+    def is_ally(self, piece: 'Piece') -> bool:
+        return self.color == piece.color
+
+    def is_enemy(self, piece: 'Piece') -> bool:
+        return self.color != piece.color
+
+
+
+
+
 

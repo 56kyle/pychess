@@ -8,6 +8,7 @@ from chess.king import King
 from chess.pawn import Pawn
 from chess.piece import Piece
 from chess.position import Position
+from chess.position_constants import *
 from chess.queen import Queen
 from chess.rook import Rook
 from chess.side import Side
@@ -23,78 +24,106 @@ def dummy_board():
 @pytest.fixture
 def dummy_piece():
     return Piece(
-        position=Position(rank=1, file=1),
+        position=A1,
         color=Color.WHITE,
     )
 
 @pytest.fixture
 def dummy_e4_white_pawn():
     return Pawn(
-        position=Position(rank=4, file=5),
+        position=E4,
         color=Color.WHITE,
     )
 
 @pytest.fixture
 def dummy_e5_black_pawn():
     return Pawn(
-        position=Position(rank=5, file=5),
+        position=E5,
         color=Color.BLACK,
     )
 
 @pytest.fixture
 def dummy_e5_white_pawn():
     return Pawn(
-        position=Position(rank=5, file=5),
+        position=E5,
         color=Color.WHITE,
     )
 
 @pytest.fixture
 def dummy_d5_black_pawn():
     return Pawn(
-        position=Position(rank=5, file=4),
+        position=D5,
         color=Color.BLACK,
     )
 
 @pytest.fixture
 def dummy_e1_white_king():
     return King(
-        position=Position(file=5, rank=1),
+        position=E1,
         color=Color.WHITE,
     )
 
 @pytest.fixture
 def dummy_a1_white_rook():
     return Rook(
-        position=Position(rank=1, file=1),
+        position=A1,
         color=Color.WHITE,
     )
 
 @pytest.fixture
 def dummy_a1_white_queen():
     return Queen(
-        position=Position(rank=1, file=1),
+        position=A1,
+        color=Color.WHITE,
+    )
+
+@pytest.fixture
+def dummy_a2_white_pawn():
+    return Pawn(
+        position=A2,
+        color=Color.WHITE,
+    )
+
+@pytest.fixture
+def dummy_a2_black_pawn():
+    return Pawn(
+        position=A2,
+        color=Color.BLACK,
+    )
+
+@pytest.fixture
+def dummy_a3_white_king():
+    return King(
+        position=A3,
         color=Color.WHITE,
     )
 
 @pytest.fixture
 def dummy_a3_black_king():
     return King(
-        position=Position(rank=3, file=1),
+        position=A3,
+        color=Color.BLACK,
+    )
+
+@pytest.fixture
+def dummy_c3_black_pawn():
+    return Pawn(
+        position=C3,
         color=Color.BLACK,
     )
 
 @pytest.fixture
 def dummy_position():
-    return Position(rank=1, file=1)
+    return A1
 
 @pytest.fixture
-def dummy_castle_right():
+def dummy_white_castle_right():
     return CastleRight(
         color=Color.WHITE,
-        rook_origin=Position(rank=1, file=8),
-        rook_destination=Position(rank=1, file=6),
-        king_origin=Position(rank=1, file=5),
-        king_destination=Position(rank=1, file=7),
+        rook_origin=A8,
+        rook_destination=A6,
+        king_origin=A5,
+        king_destination=A7,
     )
 
 

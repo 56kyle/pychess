@@ -49,7 +49,14 @@ class Line:
         return self.p1.distance_to(position=position) > self.p2.distance_to(position=position)
 
     def is_between_p1_and_p2(self, position: Position) -> bool:
-        return (self.p1.file <= position.file <= self.p2.file) and (self.p1.rank <= position.rank <= self.p2.rank)
+        return self._is_between_p1_and_p2_files(position=position) and self._is_between_p1_and_p2_ranks(position=position)
+
+    def _is_between_p1_and_p2_files(self, position: Position) -> bool:
+        return min(self.p1.file, self.p2.file) <= position.file <= max(self.p1.file, self.p2.file)
+
+    def _is_between_p1_and_p2_ranks(self, position: Position) -> bool:
+        return min(self.p1.rank, self.p2.rank) <= position.rank <= max(self.p1.rank, self.p2.rank)
+
 
 
 

@@ -4,10 +4,12 @@ import pytest
 
 from dataclasses import replace
 
+from chess.board import Board
 from chess.color import Color
 from chess.offset import Offset
 from chess.pawn import Pawn
 from chess.position import Position
+from chess.position_constants import *
 from chess.queen import Queen
 
 
@@ -55,9 +57,6 @@ def test_get_piece(dummy_board, dummy_piece):
     dummy_board.pieces.add(dummy_piece)
     assert dummy_board.get_piece(position=dummy_piece.position) == dummy_piece
 
-def test_get_max_steps(dummy_board):
-    assert dummy_board.get_max_steps(position=Position(rank=1, file=1), offset=Offset(1, 1)) == 7
-
 def test_is_promotion_position_with_white_promotion_position(dummy_board):
     assert dummy_board.is_promotion_position(position=Position(rank=8, file=1), color=Color.WHITE)
 
@@ -80,6 +79,64 @@ def test_is_check_present(dummy_board, dummy_a1_white_queen, dummy_a3_black_king
     dummy_board.pieces.update({dummy_a1_white_queen, dummy_a3_black_king})
     assert dummy_board.is_check_present()
 
+def test_get_piece_targets_with_no_targets(dummy_board, dummy_a1_white_queen, dummy_a3_black_king):
+    dummy_board.pieces.update({
+        Queen(position=Position(rank=1, file=1), color=Color.WHITE),
+        Pawn(position=Position(rank=2, file=3), color=Color.WHITE),
+    })
+    assert dummy_board.get_piece_targets(piece=dummy_a3_black_king) == set()
+
+def test_get_piece_targets_with_normal_target(dummy_board, dummy_a1_white_queen, dummy_a3_black_king):
+    dummy_board.pieces.update({
+        dummy_a1_white_queen,
+        dummy_a3_black_king,
+    })
+    assert dummy_board.get_piece_targets(piece=dummy_a1_white_queen) == {dummy_a3_black_king}
+
+def test_get_piece_targets_with_multiple_targets(dummy_board, dummy_a1_white_queen, dummy_a3_black_king, dummy_c3_black_pawn):
+    dummy_board.pieces.update({
+        dummy_a1_white_queen,
+        dummy_a3_black_king,
+        dummy_c3_black_pawn,
+    })
+    assert dummy_board.get_piece_targets(piece=dummy_a1_white_queen) == {dummy_a3_black_king, dummy_c3_black_pawn}
+
+def test_get_piece_capture_targets_with_no_targets(dummy_board, dummy_a1_white_queen):
+    assert dummy_board.get_piece_capture_targets(piece=dummy_a1_white_queen) == set()
+
+def test_get_piece_capture_targets_with_direct_target(dummy_board, dummy_a1_white_queen, dummy_a3_black_king):
+    dummy_board.pieces.update({
+        dummy_a1_white_queen,
+        dummy_a3_black_king,
+    })
+    assert dummy_board.get_piece_capture_targets(piece=dummy_a1_white_queen) == {dummy_a3_black_king}
+
+def test_get_piece_capture_targets_with_ally_blocked_target(dummy_board, dummy_a1_white_queen, dummy_a2_white_pawn, dummy_a3_black_king):
+    dummy_board.pieces.update({
+        dummy_a1_white_queen,
+        dummy_a2_white_pawn,
+        dummy_a3_black_king,
+    })
+    assert dummy_board.get_piece_capture_targets(piece=dummy_a1_white_queen) == set()
+
+def test_get_piece_capture_targets_with_enemy_blocked_target(dummy_board, dummy_a1_white_queen, dummy_a2_black_pawn, dummy_a3_black_king):
+    dummy_board.pieces.update({
+        dummy_a1_white_queen,
+        dummy_a2_black_pawn,
+        dummy_a3_black_king,
+    })
+    assert dummy_board.get_piece_capture_targets(piece=dummy_a1_white_queen) == {dummy_a2_black_pawn}
+
+def test_get_piece_en_passant_targets_with_no_targets(dummy_board, dummy_a1_white_queen):
+    assert dummy_board.get_piece_en_passant_targets(piece=dummy_a1_white_queen) == set()
+
+def test_get_piece_en_passant_targets_with_direct_target(dummy_white_castle_right, dummy_d5_black_pawn, dummy_e5_white_pawn):
+    dummy_board = Board(
+        pieces={dummy_d5_black_pawn, dummy_e5_white_pawn},
+        castling_rights={dummy_white_castle_right},
+        en_passant_target_position=D6,
+    )
+    assert dummy_board.get_piece_en_passant_targets(piece=dummy_e5_white_pawn) == {dummy_d5_black_pawn}
 
 
 

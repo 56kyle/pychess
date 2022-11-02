@@ -35,5 +35,15 @@ def test_move(dummy_piece):
 def test_promote(dummy_piece):
     assert dummy_piece.promote(promotion=Queen) == replace(dummy_piece, meta=Queen.meta)
 
+def test_is_enemy_with_enemy(dummy_a1_white_queen, dummy_a3_black_king):
+    assert dummy_a1_white_queen.is_enemy(piece=dummy_a3_black_king)
 
+def test_is_enemy_with_ally(dummy_a1_white_queen, dummy_a3_white_king):
+    assert not dummy_a1_white_queen.is_enemy(piece=dummy_a3_white_king)
+
+def test_is_ally_with_ally(dummy_a1_white_queen, dummy_a3_white_king):
+    assert dummy_a1_white_queen.is_ally(piece=dummy_a3_white_king)
+
+def test_is_ally_with_enemy(dummy_a1_white_queen, dummy_a3_black_king):
+    assert not dummy_a1_white_queen.is_ally(piece=dummy_a3_black_king)
 
