@@ -6,8 +6,6 @@ from chess.offset import VERTICAL, DIAGONAL
 
 from chess.piece import Piece
 from chess.piece_type import PieceType
-from chess.position import ZERO
-from chess.segment import Segment
 
 
 class PawnType(PieceType):

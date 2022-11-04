@@ -1,13 +1,12 @@
 
-from dataclasses import dataclass, field
-from typing import TypeVar, Set
+from dataclasses import dataclass
+from typing import Set
 
 from chess.line import Line
 from chess.offset import OMNI
 
 from chess.piece import Piece
 from chess.piece_type import PieceType
-from chess.ray import Ray
 
 
 class QueenType(PieceType):

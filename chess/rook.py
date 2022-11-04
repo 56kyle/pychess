@@ -1,6 +1,6 @@
 
-from dataclasses import dataclass, field
-from typing import TypeVar, Set
+from dataclasses import dataclass
+from typing import Set
 
 from chess.line import Line
 from chess.offset import LINEAR

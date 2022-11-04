@@ -32,15 +32,3 @@ class Direction:
     def opposite(self) -> 'Direction':
         return replace(self, radians=self.turn_180(self.theta))
 
-
-
-
-
-
-
-
-
-
-
-
-

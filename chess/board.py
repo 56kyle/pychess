@@ -7,10 +7,7 @@ from chess.color import Color
 from chess.king import KingType
 from chess.knight import Knight
 from chess.line import Line
-from chess.move import Move
-from chess.offset import Offset
 
-from chess.pawn import Pawn
 from chess.piece import Piece
 from chess.position import Position
 from chess.queen import Queen

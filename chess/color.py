@@ -1,8 +1,8 @@
 
-from enum import Enum
+from enum import StrEnum, auto
 
 
-class Color(Enum):
-    WHITE = 0
-    BLACK = 1
+class Color(StrEnum):
+    WHITE = auto()
+    BLACK = auto()
 

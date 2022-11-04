@@ -1,15 +1,11 @@
+
 from dataclasses import dataclass
 from typing import Set
 
-from chess.color import Color
 from chess.line import Line
-from chess.move import Move
 from chess.offset import HORIZONTAL, OMNI
-
 from chess.piece import Piece
 from chess.piece_type import PieceType
-from chess.position import Position
-from chess.segment import Segment
 
 
 class KingType(PieceType):

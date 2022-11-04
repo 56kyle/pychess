@@ -7,11 +7,9 @@ from chess.color import Color
 from chess.king import King
 from chess.pawn import Pawn
 from chess.piece import Piece
-from chess.position import Position
 from chess.position_constants import *
 from chess.queen import Queen
 from chess.rook import Rook
-from chess.side import Side
 
 
 @pytest.fixture
