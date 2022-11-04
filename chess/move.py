@@ -9,7 +9,7 @@ from chess.piece import Piece
 
 @dataclass(frozen=True)
 class Move:
-    piece: Piece
+    piece: Type[Piece]
     origin: Position
     destination: Position
     captures: Set[Piece] = field(default_factory=set)

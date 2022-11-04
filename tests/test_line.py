@@ -1,6 +1,8 @@
+import math
 
 import pytest
 
+from chess.direction import Direction
 from chess.line import Line
 from chess.position import Position
 
@@ -30,6 +32,13 @@ def test__validate_points_are_different():
     with pytest.raises(ValueError):
         Line(p1=Position(1, 2), p2=Position(1, 2))._validate_points_are_different()
 
+def test_direction_with_horizontal():
+    line = Line(p1=Position(1, 2), p2=Position(2, 2))
+    assert line.direction == Direction(radians=0)
+
+def test_direction_with_vertical():
+    line = Line(p1=Position(1, 2), p2=Position(1, 4))
+    assert line.direction == Direction(radians=math.pi / 2)
 
 def test_contains_with_colinear_external_left():
     assert Position(0, 0) in Line(p1=Position(1, 2), p2=Position(3, 6))
