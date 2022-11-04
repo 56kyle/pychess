@@ -1,6 +1,8 @@
 import math
 from dataclasses import dataclass, replace
 
+from chess.notation.position import PositionNotation
+
 
 @dataclass(frozen=True)
 class Position:

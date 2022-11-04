@@ -1,4 +1,3 @@
-
 from typing import Set
 
 from chess.line import Line
