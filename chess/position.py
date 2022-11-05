@@ -1,4 +1,5 @@
 import math
+from typing import Protocol
 from dataclasses import dataclass, replace
 
 
@@ -6,30 +7,6 @@ from dataclasses import dataclass, replace
 class Position:
     file: int  # 1-indexed
     rank: int  # 1-indexed
-
-    @classmethod
-    def from_algebraic(cls, notation: str) -> 'Position':
-        cls._validate_algebraic_length(notation)
-        file: int = cls._get_file_from_algebraic(notation)
-        rank: int = cls._get_rank_from_algebraic(notation)
-        return cls(file=file, rank=rank)
-
-    @classmethod
-    def _validate_algebraic_length(cls, notation: str):
-        if len(notation) != 2:
-            raise ValueError(f'Invalid notation length: {notation}')
-
-    @classmethod
-    def _get_file_from_algebraic(cls, notation: str) -> int:
-        if notation[0] not in 'abcdefgh':
-            raise ValueError(f'Invalid file notation: {notation}')
-        return ord(notation[0]) - ord('a') + 1
-
-    @classmethod
-    def _get_rank_from_algebraic(cls, notation: str) -> int:
-        if notation[1] not in '12345678':
-            raise ValueError(f'Invalid rank notation: {notation}')
-        return int(notation[1])
 
     def offset(self, dx: int = 0, dy: int = 0) -> 'Position':
         return replace(self, file=self.file + dx, rank=self.rank + dy)
