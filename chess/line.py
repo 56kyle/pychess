@@ -1,11 +1,7 @@
-import math
 from dataclasses import dataclass, replace
-from fractions import Fraction
-from typing import Set
 
 from chess.direction import Direction
 from chess.position import Position
-from chess.size import Size
 
 
 @dataclass(frozen=True)
