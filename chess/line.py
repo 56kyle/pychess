@@ -23,6 +23,14 @@ class Line:
     def direction(self) -> 'Direction':
         return Direction(radians=self.p1.theta_to(position=self.p2))
 
+    @property
+    def dy(self) -> int:
+        return self.p2.rank - self.p1.rank
+
+    @property
+    def dx(self) -> int:
+        return self.p2.file - self.p1.file
+
     def __contains__(self, position: Position) -> bool:
         return self.is_colinear(position=position)
 

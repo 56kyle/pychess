@@ -10,6 +10,7 @@ from chess.piece import Piece
 from chess.position_constants import *
 from chess.queen import Queen
 from chess.rook import Rook
+from chess.size import Size
 
 
 @pytest.fixture
@@ -25,6 +26,10 @@ def dummy_piece():
         position=A1,
         color=Color.WHITE,
     )
+
+@pytest.fixture
+def dummy_size():
+    return Size(width=8, height=8)
 
 @pytest.fixture
 def dummy_e4_white_pawn():
@@ -83,9 +88,23 @@ def dummy_a2_white_pawn():
     )
 
 @pytest.fixture
-def dummy_a2_black_pawn():
+def dummy_a7_black_pawn():
     return Pawn(
-        position=A2,
+        position=A7,
+        color=Color.BLACK,
+    )
+
+@pytest.fixture
+def dummy_a3_white_pawn():
+    return Pawn(
+        position=A3,
+        color=Color.WHITE,
+    )
+
+@pytest.fixture
+def dummy_a6_black_pawn():
+    return Pawn(
+        position=A6,
         color=Color.BLACK,
     )
 

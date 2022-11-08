@@ -2,10 +2,12 @@
 from dataclasses import dataclass
 from typing import Set
 
+from chess.color import Color
 from chess.line import Line
 from chess.offset import HORIZONTAL, OMNI
 from chess.piece import Piece
 from chess.piece_type import PieceType
+from chess.position import Position
 
 
 class KingType(PieceType):
@@ -20,6 +22,9 @@ class KingType(PieceType):
     capture_lines: Set[Line] = move_lines
     castle_lines: Set[Line] = {(offset*2).as_segment() for offset in HORIZONTAL} |\
                               {(offset*3).as_segment() for offset in HORIZONTAL}
+
+    def get_castle_lines(self, position: Position, color: Color, has_moved: bool) -> Set[Line]:
+        return set() if has_moved else self.castle_lines
 
 
 @dataclass(frozen=True)

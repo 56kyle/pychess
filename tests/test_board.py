@@ -66,18 +66,53 @@ def test_is_promotion_position_with_black_promotion_position(dummy_board):
 def test_is_promotion_position_with_not_promotion_position(dummy_board):
     assert not dummy_board.is_promotion_position(position=Position(rank=1, file=1), color=Color.WHITE)
 
-def test_in_bounds_with_min(dummy_board):
-    assert dummy_board.in_bounds(position=Position(rank=1, file=1))
-
-def test_in_bounds_with_max(dummy_board):
-    assert dummy_board.in_bounds(position=Position(rank=8, file=8))
-
-def test_in_bounds_with_out_of_bounds(dummy_board):
-    assert not dummy_board.in_bounds(position=Position(rank=9, file=9))
-
 def test_is_check_present(dummy_board, dummy_a1_white_queen, dummy_a3_black_king):
     dummy_board.pieces.update({dummy_a1_white_queen, dummy_a3_black_king})
-    assert dummy_board.is_check_present()
+    assert dummy_board.is_check_present() is True
+
+def test_get_piece_movements_with_queen(dummy_board, dummy_a1_white_queen):
+    dummy_board.pieces.update({
+        dummy_a1_white_queen,
+    })
+    assert dummy_board.get_piece_movements(piece=dummy_a1_white_queen) == {
+        A2, A3, A4, A5, A6, A7, A8,  # Rank
+        B1, C1, D1, E1, F1, G1, H1,  # File
+        B2, C3, D4, E5, F6, G7, H8,  # Diagonal
+    }
+
+def test_get_piece_movements_with_non_moved_white_pawn(dummy_board, dummy_a2_white_pawn):
+    dummy_board.pieces.update({
+        dummy_a2_white_pawn,
+    })
+    assert dummy_board.get_piece_movements(piece=dummy_a2_white_pawn) == {
+        A3, A4,
+    }
+
+def test_get_piece_movements_with_non_moved_black_pawn(dummy_board, dummy_a7_black_pawn):
+    dummy_board.pieces.update({
+        dummy_a7_black_pawn,
+    })
+    assert dummy_board.get_piece_movements(piece=dummy_a7_black_pawn) == {
+        A6, A5,
+    }
+
+def test_get_piece_movements_with_moved_white_pawn(dummy_board, dummy_a3_white_pawn):
+    moved_pawn: Pawn = replace(dummy_a3_white_pawn, has_moved=True)
+    dummy_board.pieces.update({
+        moved_pawn
+    })
+    assert dummy_board.get_piece_movements(piece=moved_pawn) == {
+        A4,
+    }
+
+def test_get_piece_movements_with_moved_black_pawn(dummy_board, dummy_a6_black_pawn):
+    moved_pawn: Pawn = replace(dummy_a6_black_pawn, has_moved=True)
+    dummy_board.pieces.update({
+        moved_pawn,
+    })
+    assert dummy_board.get_piece_movements(piece=moved_pawn) == {
+        A5,
+    }
 
 def test_get_piece_targets_with_no_targets(dummy_board, dummy_a1_white_queen, dummy_a3_black_king):
     dummy_board.pieces.update({

@@ -18,6 +18,13 @@ class Position:
         """Returns the angle in radians between the line from self to position and the x-axis"""
         return math.atan2(position.rank - self.rank, position.file - self.file)
 
+    @classmethod
+    def from_fen(cls, fen: str) -> 'Position':
+        return cls(file=ord(fen[0]) - 96, rank=int(fen[1]))
+
+    def to_fen(self) -> str:
+        return f'{chr(self.file + 96)}{self.rank}'
+
 
 ZERO = Position(0, 0)
 

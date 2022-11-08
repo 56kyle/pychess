@@ -27,17 +27,40 @@ class Piece:
         return self.color != piece.color
 
     def get_move_lines(self) -> Set[Line]:
-        return self.adjust_lines_to_position(self.type.move_lines)
+        return self.adjust_lines_to_position(self.type.get_move_lines(
+            position=self.position,
+            color=self.color,
+            has_moved=self.has_moved
+        ))
 
     def get_capture_lines(self) -> Set[Line]:
-        return self.adjust_lines_to_position(self.type.capture_lines)
+        return self.adjust_lines_to_position(self.type.get_capture_lines(
+            position=self.position,
+            color=self.color,
+            has_moved=self.has_moved
+        ))
 
     def get_en_passant_lines(self) -> Set[Line]:
-        return self.adjust_lines_to_position(self.type.en_passant_lines)
+        return self.adjust_lines_to_position(self.type.get_en_passant_lines(
+            position=self.position,
+            color=self.color,
+            has_moved=self.has_moved
+        ))
 
     def get_castle_lines(self) -> Set[Line]:
-        return self.adjust_lines_to_position(self.type.castle_lines)
+        return self.adjust_lines_to_position(self.type.get_castle_lines(
+            position=self.position,
+            color=self.color,
+            has_moved=self.has_moved
+        ))
 
     def adjust_lines_to_position(self, lines: Set[Line]) -> Set[Line]:
         return {line.offset(dx=self.position.file, dy=self.position.rank) for line in lines}
+
+    def to_fen(self) -> str:
+        return f'{self._get_fen_letter()}{self.position.to_fen()}'
+
+    def _get_fen_letter(self) -> str:
+        return self.type.letter.lower() if self.color == Color.BLACK else self.type.letter.upper()
+
 
