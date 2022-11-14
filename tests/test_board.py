@@ -114,30 +114,28 @@ def test_get_piece_movements_with_moved_black_pawn(dummy_board, dummy_a6_black_p
         A5,
     }
 
-def test_get_piece_targets_with_no_targets(dummy_board, dummy_a1_white_queen, dummy_a3_black_king):
+def test_get_piece_capture_targets_with_no_targets(dummy_board, dummy_a1_white_queen, dummy_a3_black_king):
     dummy_board.pieces.update({
         Queen(position=Position(rank=1, file=1), color=Color.WHITE),
         Pawn(position=Position(rank=2, file=3), color=Color.WHITE),
     })
-    assert dummy_board.get_piece_targets(piece=dummy_a3_black_king) == set()
+    assert dummy_board.get_piece_capture_targets(piece=dummy_a3_black_king) == set()
 
-def test_get_piece_targets_with_normal_target(dummy_board, dummy_a1_white_queen, dummy_a3_black_king):
+def test_get_piece_capture_targets_with_normal_target(dummy_board, dummy_a1_white_queen, dummy_a3_black_king):
     dummy_board.pieces.update({
         dummy_a1_white_queen,
         dummy_a3_black_king,
     })
-    assert dummy_board.get_piece_targets(piece=dummy_a1_white_queen) == {dummy_a3_black_king}
+    assert dummy_board.get_piece_capture_targets(piece=dummy_a1_white_queen) == {dummy_a3_black_king}
 
-def test_get_piece_targets_with_multiple_targets(dummy_board, dummy_a1_white_queen, dummy_a3_black_king, dummy_c3_black_pawn):
+def test_get_piece_capture_targets_with_multiple_targets(dummy_board, dummy_a1_white_queen, dummy_a3_black_king, dummy_c3_black_pawn):
     dummy_board.pieces.update({
         dummy_a1_white_queen,
         dummy_a3_black_king,
         dummy_c3_black_pawn,
     })
-    assert dummy_board.get_piece_targets(piece=dummy_a1_white_queen) == {dummy_a3_black_king, dummy_c3_black_pawn}
+    assert dummy_board.get_piece_capture_targets(piece=dummy_a1_white_queen) == {dummy_a3_black_king, dummy_c3_black_pawn}
 
-def test_get_piece_capture_targets_with_no_targets(dummy_board, dummy_a1_white_queen):
-    assert dummy_board.get_piece_capture_targets(piece=dummy_a1_white_queen) == set()
 
 def test_get_piece_capture_targets_with_direct_target(dummy_board, dummy_a1_white_queen, dummy_a3_black_king):
     dummy_board.pieces.update({
