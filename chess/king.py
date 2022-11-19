@@ -31,3 +31,11 @@ class KingType(PieceType):
 class King(Piece):
     type: KingType = KingType
 
+@dataclass(frozen=True)
+class WhiteKing(King):
+    color: Color = Color.WHITE
+
+@dataclass(frozen=True)
+class BlackKing(King):
+    color: Color = Color.BLACK
+

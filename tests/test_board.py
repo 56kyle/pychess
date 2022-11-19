@@ -4,13 +4,16 @@ import pytest
 
 from dataclasses import replace
 
+from chess.bishop import WhiteBishop, BlackBishop
 from chess.board import Board
 from chess.color import Color
+from chess.king import BlackKing
 from chess.offset import Offset
 from chess.pawn import Pawn
 from chess.position import Position
 from chess.position_constants import *
-from chess.queen import Queen
+from chess.queen import Queen, WhiteQueen
+
 
 
 def test_move(dummy_board, dummy_piece):
@@ -66,9 +69,49 @@ def test_is_promotion_position_with_black_promotion_position(dummy_board):
 def test_is_promotion_position_with_not_promotion_position(dummy_board):
     assert not dummy_board.is_promotion_position(position=Position(rank=1, file=1), color=Color.WHITE)
 
-def test_is_check_present(dummy_board, dummy_a1_white_queen, dummy_a3_black_king):
-    dummy_board.pieces.update({dummy_a1_white_queen, dummy_a3_black_king})
-    assert dummy_board.is_check_present() is True
+def test_is_check_present_with_check(dummy_board, dummy_a1_white_queen, dummy_a3_black_king):
+    assert Board(
+        pieces={
+            WhiteQueen(A1),
+            BlackKing(A3),
+        }
+    ).is_check_present() is True
+
+def test_is_check_present_with_no_check(dummy_board, dummy_a1_white_queen, dummy_b3_black_king):
+    assert Board(
+        pieces={
+            WhiteQueen(A1),
+            BlackKing(B3),
+        }
+    ).is_check_present() is False
+
+def test_is_check_present_with_ally_blocked_check():
+    assert Board(
+        pieces={
+            WhiteQueen(A1),
+            WhiteBishop(A2),
+            BlackKing(A3),
+        }
+    ).is_check_present() is False
+
+def test_is_check_with_enemy_blocked_check():
+    assert Board(
+        pieces={
+            WhiteQueen(A1),
+            BlackBishop(A2),
+            BlackKing(A3),
+        }
+    )
+
+def test_is_check_with_color_filter():
+    dummy_board: Board = Board(
+        pieces={
+            WhiteQueen(A1),
+            BlackKing(A3),
+        }
+    )
+    assert dummy_board.is_check_present(color=Color.WHITE) is False
+    assert dummy_board.is_check_present(color=Color.BLACK) is True
 
 def test_get_piece_movements_with_queen(dummy_board, dummy_a1_white_queen):
     dummy_board.pieces.update({

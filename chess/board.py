@@ -35,12 +35,12 @@ class Board:
 
     def __init__(self,
                  pieces: Set[Piece],
-                 castling_rights: Set[CastleRight],
+                 castling_rights: Set[CastleRight] = None,
                  en_passant_target_position: Position = None,
                  half_move_draw_clock: int = 0,
                  full_move_number: int = 0):
-        self.pieces: Set[Piece] = pieces
-        self.castling_rights: Set[CastleRight] = castling_rights
+        self.pieces: Set[Piece] = pieces if pieces else set()
+        self.castling_rights: Set[CastleRight] = castling_rights if castling_rights else set()
         self.en_passant_target_position: Position = en_passant_target_position
         self.half_move_draw_clock: int = half_move_draw_clock
         self.full_move_number: int = full_move_number
@@ -84,9 +84,10 @@ class Board:
     def is_check_present(self, color: Color = None) -> bool:
         for piece in self.pieces:
             targets = self.get_piece_capture_targets(piece=piece)
-            if any(targeted_piece.type == KingType for targeted_piece in targets):
-                if color is None or piece.color == color:
-                    return True
+            for targeted_piece in targets:
+                if targeted_piece.color == color or color is None:
+                    if targeted_piece.type == KingType:
+                        return True
         return False
 
     def get_first_encountered_piece_in_line(self, line: Line) -> Piece | None:

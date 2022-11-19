@@ -2,6 +2,7 @@
 from dataclasses import dataclass
 from typing import Set
 
+from chess.color import Color
 from chess.line import Line
 from chess.offset import Offset, UP, RIGHT, DOWN, LEFT
 from chess.piece import Piece
@@ -32,5 +33,16 @@ class KnightType(PieceType):
 @dataclass(frozen=True)
 class Knight(Piece):
     type: KnightType = KnightType
+
+
+@dataclass(frozen=True)
+class WhiteKnight(Knight):
+    color: Color = Color.WHITE
+
+
+@dataclass(frozen=True)
+class BlackKnight(Knight):
+    color: Color = Color.BLACK
+
 
 

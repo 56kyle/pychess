@@ -3,30 +3,25 @@ import datetime
 from dataclasses import dataclass
 
 from chess.board import Board
-from chess.metadata import PlayerName, Date, Site, Result
-
-
-class Game:
-    def __init__(self, board: Board, rules: Rules):
-        self.board = board
-        self.rules = rules
+from chess.metadata import PlayerName, Date, Site, Result, TimeControl
+from chess.rules import Rules
 
 
 @dataclass(frozen=True)
 class GameMetadata:
     """Metadata about a game, based off of the PGN standard"""
 
-    event: str
-    site: Site
-    date: Date
-    round: int
-    white: PlayerName
-    black: PlayerName
-    result: Result
+    event: str = ''
+    site: Site = ''
+    date: Date = Date.today()
+    round: int = 0
+    white: PlayerName = PlayerName()
+    black: PlayerName = PlayerName()
+    result: Result = Result()
 
-    white_elo: int
-    black_elo: int
-    time_control: str
+    white_elo: int = 0
+    black_elo: int = 0
+    time_control: TimeControl = TimeControl()
     termination: str
     white_clock: datetime.time
     black_clock: datetime.time
@@ -43,6 +38,13 @@ class GameMetadata:
     moves: int
     ply_count: int
     fen: str
+
+
+class Game:
+    def __init__(self, board: Board, rules: Rules, metadata: GameMetadata):
+        self.board: Board = board
+        self.rules: Rules = rules
+        self.metadata: GameMetadata = GameMetadata()
 
 
 

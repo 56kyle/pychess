@@ -1,6 +1,8 @@
+import datetime
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from fractions import Fraction
+from typing import List
 
 
 @dataclass(frozen=True)
@@ -10,12 +12,7 @@ class Site:
     country: str
 
 
-@dataclass(frozen=True)
-class Date:
-    year: int
-    month: int
-    day: int
-
+class Date(datetime.date):
     def __str__(self):
         return f'{self._year_str()}-{self._month_str()}-{self._day_str()}'
 
@@ -33,6 +30,7 @@ class Date:
 class PlayerName:
     first: str = None
     last: str = None
+    middle_names: List[str] = field(default_factory=list)
 
     def __str__(self):
         return f'{self.last}, {self.first}'
@@ -51,4 +49,15 @@ class Result:
 
     def __str__(self):
         return f'{self.white}-{self.black}' if self.white is not None and self.black is not None else '*'
+
+
+@dataclass(frozen=True)
+class TimeControl:
+    time: datetime.time =
+    increment: datetime.time = None
+    sudden_death_seconds: int
+
+    def __str__(self):
+        return f'{self.time}/{self.increment}' if self.time is not None and self.increment is not None else '*'
+
 
