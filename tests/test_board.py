@@ -9,7 +9,7 @@ from chess.board import Board
 from chess.color import Color
 from chess.king import BlackKing
 from chess.offset import Offset
-from chess.pawn import Pawn
+from chess.pawn import Pawn, BlackPawn, WhitePawn
 from chess.position import Position
 from chess.position_constants import *
 from chess.queen import Queen, WhiteQueen
@@ -18,8 +18,8 @@ from chess.queen import Queen, WhiteQueen
 
 def test_move(dummy_board, dummy_piece):
     dummy_board.pieces.add(dummy_piece)
-    dummy_board.move(piece=dummy_piece, destination=Position(rank=2, file=2))
-    assert dummy_board.pieces == {replace(dummy_piece, position=Position(rank=2, file=2), has_moved=True)}
+    dummy_board.move(piece=dummy_piece, destination=B2)
+    assert dummy_board.pieces == {replace(dummy_piece, position=B2, has_moved=True)}
 
 def test__validate_destination_is_empty_with_occupied_destination(dummy_board, dummy_piece):
     dummy_board.pieces.add(dummy_piece)
@@ -34,7 +34,7 @@ def test__validate_in_bounds_with_out_of_bounds(dummy_board):
         dummy_board._validate_in_bounds(position=Position(rank=9, file=9))
 
 def test__validate_in_bounds_with_in_bounds(dummy_board):
-    assert dummy_board._validate_in_bounds(position=Position(rank=1, file=1)) is None
+    assert dummy_board._validate_in_bounds(position=A1) is None
 
 def test_promote(dummy_board, dummy_piece):
     dummy_board.pieces.add(dummy_piece)
@@ -64,12 +64,12 @@ def test_is_promotion_position_with_white_promotion_position(dummy_board):
     assert dummy_board.is_promotion_position(position=Position(rank=8, file=1), color=Color.WHITE)
 
 def test_is_promotion_position_with_black_promotion_position(dummy_board):
-    assert dummy_board.is_promotion_position(position=Position(rank=1, file=1), color=Color.BLACK)
+    assert dummy_board.is_promotion_position(position=A1, color=Color.BLACK)
 
 def test_is_promotion_position_with_not_promotion_position(dummy_board):
-    assert not dummy_board.is_promotion_position(position=Position(rank=1, file=1), color=Color.WHITE)
+    assert not dummy_board.is_promotion_position(position=A1, color=Color.WHITE)
 
-def test_is_check_present_with_check(dummy_board, dummy_a1_white_queen, dummy_a3_black_king):
+def test_is_check_present_with_check():
     assert Board(
         pieces={
             WhiteQueen(A1),
@@ -77,7 +77,7 @@ def test_is_check_present_with_check(dummy_board, dummy_a1_white_queen, dummy_a3
         }
     ).is_check_present() is True
 
-def test_is_check_present_with_no_check(dummy_board, dummy_a1_white_queen, dummy_b3_black_king):
+def test_is_check_present_with_no_check():
     assert Board(
         pieces={
             WhiteQueen(A1),
@@ -114,105 +114,117 @@ def test_is_check_with_color_filter():
     assert dummy_board.is_check_present(color=Color.BLACK) is True
 
 def test_get_piece_movements_with_queen(dummy_board, dummy_a1_white_queen):
-    dummy_board.pieces.update({
-        dummy_a1_white_queen,
-    })
-    assert dummy_board.get_piece_movements(piece=dummy_a1_white_queen) == {
+    assert Board(
+        pieces={
+            WhiteQueen(A1),
+        }
+    ).get_piece_movements(piece=WhiteQueen(A1)) == {
         A2, A3, A4, A5, A6, A7, A8,  # Rank
         B1, C1, D1, E1, F1, G1, H1,  # File
         B2, C3, D4, E5, F6, G7, H8,  # Diagonal
     }
 
-def test_get_piece_movements_with_non_moved_white_pawn(dummy_board, dummy_a2_white_pawn):
-    dummy_board.pieces.update({
-        dummy_a2_white_pawn,
-    })
-    assert dummy_board.get_piece_movements(piece=dummy_a2_white_pawn) == {
+def test_get_piece_movements_with_non_moved_white_pawn():
+    assert Board(
+        pieces={
+            WhitePawn(A2),
+        }
+    ).get_piece_movements(piece=WhitePawn(A2)) == {
         A3, A4,
     }
 
-def test_get_piece_movements_with_non_moved_black_pawn(dummy_board, dummy_a7_black_pawn):
-    dummy_board.pieces.update({
-        dummy_a7_black_pawn,
-    })
-    assert dummy_board.get_piece_movements(piece=dummy_a7_black_pawn) == {
+def test_get_piece_movements_with_non_moved_black_pawn():
+    assert Board(
+        pieces={
+            BlackPawn(A7),
+        }
+    ).get_piece_movements(piece=BlackPawn(A7)) == {
         A6, A5,
     }
 
-def test_get_piece_movements_with_moved_white_pawn(dummy_board, dummy_a3_white_pawn):
-    moved_pawn: Pawn = replace(dummy_a3_white_pawn, has_moved=True)
-    dummy_board.pieces.update({
-        moved_pawn
-    })
-    assert dummy_board.get_piece_movements(piece=moved_pawn) == {
+def test_get_piece_movements_with_moved_white_pawn():
+    assert Board(
+        pieces={
+            WhitePawn(A3, has_moved=True),
+        }
+    ).get_piece_movements(piece=WhitePawn(A3, has_moved=True)) == {
         A4,
     }
 
-def test_get_piece_movements_with_moved_black_pawn(dummy_board, dummy_a6_black_pawn):
-    moved_pawn: Pawn = replace(dummy_a6_black_pawn, has_moved=True)
-    dummy_board.pieces.update({
-        moved_pawn,
-    })
-    assert dummy_board.get_piece_movements(piece=moved_pawn) == {
-        A5,
-    }
+def test_get_piece_movements_with_moved_black_pawn():
+    moved_pawn: Pawn = BlackPawn(A6, has_moved=True)
+    assert Board(pieces={moved_pawn}).get_piece_movements(piece=moved_pawn) == {A5}
 
-def test_get_piece_capture_targets_with_no_targets(dummy_board, dummy_a1_white_queen, dummy_a3_black_king):
-    dummy_board.pieces.update({
-        Queen(position=Position(rank=1, file=1), color=Color.WHITE),
-        Pawn(position=Position(rank=2, file=3), color=Color.WHITE),
-    })
-    assert dummy_board.get_piece_capture_targets(piece=dummy_a3_black_king) == set()
+def test_get_piece_capture_targets_with_no_targets():
+    assert Board(
+        pieces={
+            WhiteQueen(A1),
+            WhitePawn(C2),
+            BlackKing(A3),
+        }
+    ).get_piece_capture_targets(piece=BlackKing(A3)) == set()
 
 def test_get_piece_capture_targets_with_normal_target(dummy_board, dummy_a1_white_queen, dummy_a3_black_king):
-    dummy_board.pieces.update({
-        dummy_a1_white_queen,
-        dummy_a3_black_king,
-    })
-    assert dummy_board.get_piece_capture_targets(piece=dummy_a1_white_queen) == {dummy_a3_black_king}
+    assert Board(
+        pieces={
+            WhiteQueen(A1),
+            BlackKing(A3),
+        }
+    ).get_piece_capture_targets(piece=WhiteQueen(A1)) == {BlackKing(A3)}
 
-def test_get_piece_capture_targets_with_multiple_targets(dummy_board, dummy_a1_white_queen, dummy_a3_black_king, dummy_c3_black_pawn):
-    dummy_board.pieces.update({
-        dummy_a1_white_queen,
-        dummy_a3_black_king,
-        dummy_c3_black_pawn,
-    })
-    assert dummy_board.get_piece_capture_targets(piece=dummy_a1_white_queen) == {dummy_a3_black_king, dummy_c3_black_pawn}
+def test_get_piece_capture_targets_with_multiple_targets():
+    assert Board(
+        pieces={
+            WhiteQueen(A1),
+            BlackKing(A3),
+            BlackPawn(C3),
+        }
+    ).get_piece_capture_targets(piece=WhiteQueen(A1)) == {BlackKing(A3), BlackPawn(C3)}
 
 
-def test_get_piece_capture_targets_with_direct_target(dummy_board, dummy_a1_white_queen, dummy_a3_black_king):
-    dummy_board.pieces.update({
-        dummy_a1_white_queen,
-        dummy_a3_black_king,
-    })
-    assert dummy_board.get_piece_capture_targets(piece=dummy_a1_white_queen) == {dummy_a3_black_king}
+def test_get_piece_capture_targets_with_direct_target():
+    assert Board(
+        pieces={
+            WhiteQueen(A1),
+            BlackKing(A3),
+        }
+    ).get_piece_capture_targets(piece=WhiteQueen(A1)) == {BlackKing(A3)}
 
-def test_get_piece_capture_targets_with_ally_blocked_target(dummy_board, dummy_a1_white_queen, dummy_a2_white_pawn, dummy_a3_black_king):
-    dummy_board.pieces.update({
-        dummy_a1_white_queen,
-        dummy_a2_white_pawn,
-        dummy_a3_black_king,
-    })
-    assert dummy_board.get_piece_capture_targets(piece=dummy_a1_white_queen) == set()
+def test_get_piece_capture_targets_with_ally_blocked_target():
+    assert Board(
+        pieces={
+            WhiteQueen(A1),
+            WhitePawn(A2),
+            BlackKing(A3),
+        }
+    ).get_piece_capture_targets(piece=WhiteQueen(A1)) == set()
 
-def test_get_piece_capture_targets_with_enemy_blocked_target(dummy_board, dummy_a1_white_queen, dummy_a2_black_pawn, dummy_a3_black_king):
-    dummy_board.pieces.update({
-        dummy_a1_white_queen,
-        dummy_a2_black_pawn,
-        dummy_a3_black_king,
-    })
-    assert dummy_board.get_piece_capture_targets(piece=dummy_a1_white_queen) == {dummy_a2_black_pawn}
+def test_get_piece_capture_targets_with_enemy_blocked_target():
+    assert Board(
+        pieces={
+            WhiteQueen(A1),
+            BlackPawn(A2),
+            BlackKing(A3),
+        }
+    ).get_piece_capture_targets(piece=WhiteQueen(A1)) == {BlackPawn(A2)}
 
-def test_get_piece_en_passant_targets_with_no_targets(dummy_board, dummy_a1_white_queen):
-    assert dummy_board.get_piece_en_passant_targets(piece=dummy_a1_white_queen) == set()
+def test_get_piece_en_passant_targets_with_no_targets():
+    assert Board(
+        pieces={
+            WhiteQueen(A1),
+        }
+    ).get_piece_en_passant_targets(piece=WhiteQueen(A1)) == set()
 
-def test_get_piece_en_passant_targets_with_direct_target(dummy_white_castle_right, dummy_d5_black_pawn, dummy_e5_white_pawn):
+def test_get_piece_en_passant_targets_with_direct_target(dummy_white_castle_right):
     dummy_board = Board(
-        pieces={dummy_d5_black_pawn, dummy_e5_white_pawn},
+        pieces={
+            BlackPawn(D5),
+            WhitePawn(E5),
+        },
         castling_rights={dummy_white_castle_right},
         en_passant_target_position=D6,
     )
-    assert dummy_board.get_piece_en_passant_targets(piece=dummy_e5_white_pawn) == {dummy_d5_black_pawn}
+    assert dummy_board.get_piece_en_passant_targets(piece=WhitePawn(E5)) == {BlackPawn(D5)}
 
 
 
