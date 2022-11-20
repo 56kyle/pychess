@@ -1,14 +1,16 @@
+
 from dataclasses import dataclass
 from typing import Set
 
-from chess.move import Move
+from chess.color import Color
+from chess.line import Line
 from chess.offset import HORIZONTAL, OMNI
-from chess.path import Path
 from chess.piece import Piece
-from chess.piece_meta import PieceMeta
+from chess.piece_type import PieceType
+from chess.position import Position
 
 
-class KingMeta(PieceMeta):
+class KingType(PieceType):
     name: str = 'King'
     letter: str = 'K'
     value: int = 0
@@ -16,14 +18,16 @@ class KingMeta(PieceMeta):
     html_decimal: str = '&#9818;'
     html_hex: str = '&#x265A;'
 
-    move_paths: Set[Path] = {Path(offset=offset, max_steps=1) for offset in OMNI}
-    capture_paths: Set[Path] = {Path(offset=offset, max_steps=1) for offset in OMNI}
-    castle_paths: Set[Path] = {Path(offset=offset*2, max_steps=1) for offset in HORIZONTAL} \
-                              | {Path(offset=offset*3, max_steps=1) for offset in HORIZONTAL}
+    move_lines: Set[Line] = {offset.as_segment() for offset in OMNI}
+    capture_lines: Set[Line] = move_lines
+    castle_lines: Set[Line] = {(offset*2).as_segment() for offset in HORIZONTAL} |\
+                              {(offset*3).as_segment() for offset in HORIZONTAL}
+
+    def get_castle_lines(self, position: Position, color: Color, has_moved: bool) -> Set[Line]:
+        return set() if has_moved else self.castle_lines
 
 
 @dataclass(frozen=True)
 class King(Piece):
-    meta: KingMeta = KingMeta
-
+    type: KingType = KingType
 

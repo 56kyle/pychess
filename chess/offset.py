@@ -1,6 +1,11 @@
 
 from dataclasses import dataclass
 
+from chess.position import ZERO
+from chess.ray import Ray
+from chess.segment import Segment
+
+
 @dataclass(frozen=True)
 class Offset:
     dx: int = 0
@@ -29,6 +34,12 @@ class Offset:
 
     def is_diagonal(self) -> bool:
         return self.dx != 0 and self.dy != 0
+
+    def as_ray(self) -> 'Ray':
+        return Ray(p1=ZERO, p2=ZERO.offset(dx=self.dx, dy=self.dy))
+
+    def as_segment(self) -> 'Segment':
+        return Segment(p1=ZERO, p2=ZERO.offset(dx=self.dx, dy=self.dy))
 
 
 UP = Offset(dx=0, dy=-1)

@@ -1,15 +1,14 @@
 
-from dataclasses import dataclass, field
-from typing import TypeVar, Set
+from dataclasses import dataclass
+from typing import Set
 
-from chess.move import Move
-from chess.offset import Offset, UP, RIGHT, DOWN, LEFT, UP_RIGHT, DOWN_RIGHT, DOWN_LEFT, UP_LEFT
-from chess.path import Path
+from chess.line import Line
+from chess.offset import Offset, UP, RIGHT, DOWN, LEFT
 from chess.piece import Piece
-from chess.piece_meta import PieceMeta
+from chess.piece_type import PieceType
 
 
-class KnightMeta(PieceMeta):
+class KnightType(PieceType):
     name: str = 'Knight'
     letter: str = 'N'
     value: int = 3
@@ -26,12 +25,12 @@ class KnightMeta(PieceMeta):
         LEFT * 2 + UP,
         LEFT * 2 + DOWN,
     }
-    move_paths: Set[Path] = {Path(offset=offset, max_steps=1) for offset in offsets}
-    capture_paths: Set[Path] = {Path(offset=offset, max_steps=1) for offset in offsets}
+    move_lines: Set[Line] = {offset.as_segment() for offset in offsets}
+    capture_lines: Set[Line] = {offset.as_segment() for offset in offsets}
 
 
 @dataclass(frozen=True)
 class Knight(Piece):
-    meta: KnightMeta = KnightMeta
+    type: KnightType = KnightType
 
 
