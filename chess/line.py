@@ -1,4 +1,6 @@
+import math
 from dataclasses import dataclass, replace
+from typing import Set, Tuple, Iterable
 
 from chess.direction import Direction
 from chess.position import Position
@@ -31,11 +33,24 @@ class Line:
     def dx(self) -> int:
         return self.p2.file - self.p1.file
 
+    @property
+    def minimum_offset_values(self) -> Tuple[int, int]:
+        gcd: int = math.gcd(self.dx, self.dy)
+        if gcd == 0:
+            return self.dx, self.dy
+        return self.dx // gcd, self.dy // gcd
+
     def __contains__(self, position: Position) -> bool:
         return self.is_colinear(position=position)
 
     def offset(self, dx: int = 0, dy: int = 0) -> 'Line':
         return replace(self, p1=self.p1.offset(dx=dx, dy=dy), p2=self.p2.offset(dx=dx, dy=dy))
+
+    def iter_positions(self, ) -> Iterable[Position]:
+        current_position: Position = self.p1
+        while self.is_between_p1_and_p2(position=current_position):
+            yield current_position
+            current_position: Position = current_position.offset(*self.minimum_offset_values)
 
     def parallel_to(self, line: 'Line') -> bool:
         return self.direction == line.direction or self.direction == line.direction.opposite

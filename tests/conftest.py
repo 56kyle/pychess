@@ -123,6 +123,13 @@ def dummy_a3_black_king():
     )
 
 @pytest.fixture
+def dummy_b3_black_king():
+    return King(
+        position=B3,
+        color=Color.BLACK,
+    )
+
+@pytest.fixture
 def dummy_c3_black_pawn():
     return Pawn(
         position=C3,

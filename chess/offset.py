@@ -11,6 +11,9 @@ class Offset:
     dx: int = 0
     dy: int = 0
 
+    def __iter__(self):
+        return iter((self.dx, self.dy))
+
     def __add__(self, other):
         if isinstance(other, Offset):
             return Offset(dx=self.dx + other.dx, dy=self.dy + other.dy)

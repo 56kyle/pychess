@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from typing import Set
 
+from chess.color import Color
 from chess.line import Line
 from chess.offset import DIAGONAL
 from chess.piece import Piece
@@ -23,4 +24,11 @@ class BishopType(PieceType):
 class Bishop(Piece):
     type: BishopType = BishopType
 
+@dataclass(frozen=True)
+class WhiteBishop(Bishop):
+    color: Color = Color.WHITE
+
+@dataclass(frozen=True)
+class BlackBishop(Bishop):
+    color: Color = Color.BLACK
 

@@ -51,6 +51,29 @@ The main purpose of this library is to try and practice constantly improving the
 
 I was mainly inspired by the books "Clean Code" and "Clean Coder" both written by Robert C. Martin. Most of the code in this library is written with the principles of clean code in mind.
 
+### General Design Decisions
+- The Board class is immutable. This means that every time a move is made, a new board is created. This is to prevent the board from being in an invalid state.
+- Moves and most geometry related classes are described in terms of Points and Lines
+- Almost all iterables are sets to allow for hash comparisons of various frozen dataclass based objects
+
+### Simplifications
+- The board may not be infinite
+- The board must be a rectangle
+
+
+## Features
+- [ ] API
+    - [ ] Game
+    - [x] Board
+    - [ ] Move
+    - [x] Piece
+    - [x] Player
+    - [x] Square
+- [ ] Engine
+- [ ] UCI
+- [ ] GUI
+- [ ] Documentation
+
 ## Usage
 ### Game
     TODO

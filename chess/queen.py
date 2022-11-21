@@ -2,6 +2,7 @@
 from dataclasses import dataclass
 from typing import Set
 
+from chess.color import Color
 from chess.line import Line
 from chess.offset import OMNI
 
@@ -25,4 +26,11 @@ class QueenType(PieceType):
 class Queen(Piece):
     type: QueenType = QueenType
 
+@dataclass(frozen=True)
+class WhiteQueen(Queen):
+    color: Color = Color.WHITE
+
+@dataclass(frozen=True)
+class BlackQueen(Queen):
+    color: Color = Color.BLACK
 
