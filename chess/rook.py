@@ -2,6 +2,7 @@
 from dataclasses import dataclass
 from typing import Set
 
+from chess.color import Color
 from chess.line import Line
 from chess.offset import LINEAR
 
@@ -25,5 +26,11 @@ class RookType(PieceType):
 class Rook(Piece):
     type: RookType = RookType
 
+@dataclass(frozen=True)
+class WhiteRook(Rook):
+    color: Color = Color.WHITE
 
+@dataclass(frozen=True)
+class BlackRook(Rook):
+    color: Color = Color.BLACK
 

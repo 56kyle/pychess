@@ -40,6 +40,30 @@ def test_direction_with_vertical():
     line = Line(p1=Position(1, 2), p2=Position(1, 4))
     assert line.direction == Direction(radians=math.pi / 2)
 
+def test_dy_with_horizontal():
+    line = Line(p1=Position(1, 2), p2=Position(2, 2))
+    assert line.dy == 0
+
+def test_dy_with_vertical():
+    line = Line(p1=Position(1, 2), p2=Position(1, 4))
+    assert line.dy == 2
+
+def test_dy_with_diagonal():
+    line = Line(p1=Position(1, 2), p2=Position(2, 4))
+    assert line.dy == 2
+
+def test_dx_with_horizontal():
+    line = Line(p1=Position(1, 2), p2=Position(2, 2))
+    assert line.dx == 1
+
+def test_dx_with_vertical():
+    line = Line(p1=Position(1, 2), p2=Position(1, 4))
+    assert line.dx == 0
+
+def test_dx_with_diagonal():
+    line = Line(p1=Position(1, 2), p2=Position(2, 4))
+    assert line.dx == 1
+
 def test_contains_with_colinear_external_left():
     assert Position(0, 0) in Line(p1=Position(1, 2), p2=Position(3, 6))
 

@@ -50,7 +50,11 @@ class PawnType(PieceType):
 class Pawn(Piece):
     type: PawnType = PawnType
 
+@dataclass(frozen=True)
+class WhitePawn(Pawn):
+    color: Color = Color.WHITE
 
-
-
+@dataclass(frozen=True)
+class BlackPawn(Pawn):
+    color: Color = Color.BLACK
 
