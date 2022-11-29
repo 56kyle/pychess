@@ -31,7 +31,6 @@ A chess library written in Python.
         - [Move](#Move)
         - [Piece](#Piece)
         - [Player](#Player)
-        - [Square](#Square)
     - [Contributing](#Contributing)
     - [License](#License)
 

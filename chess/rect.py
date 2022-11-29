@@ -1,6 +1,7 @@
 
 from dataclasses import dataclass, replace
-from typing import Self, Tuple
+from functools import cached_property
+from typing import Self, Iterable
 
 from chess.line import Line
 from chess.position import Position
@@ -17,6 +18,18 @@ class Rect:
 
     def __contains__(self, position: Position) -> bool:
         return self._is_within_width(position=position) and self._is_within_height(position=position)
+
+    def __iter__(self) -> Iterable[Position]:
+        return self.iter_positions()
+
+    @cached_property
+    def positions(self) -> set[Position]:
+        return set(self.iter_positions())
+
+    def iter_positions(self) -> Iterable[Position]:
+        for file in range(min(self.p1.file, self.p2.file), max(self.p1.file, self.p2.file) + 1):
+            for rank in range(min(self.p1.rank, self.p2.rank), max(self.p1.rank, self.p2.rank) + 1):
+                yield Position(file=file, rank=rank)
 
     def _is_within_width(self, position: Position) -> bool:
         return min(self.p1.file, self.p2.file) <= position.file <= max(self.p1.file, self.p2.file)

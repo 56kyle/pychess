@@ -1,6 +1,5 @@
 
 from dataclasses import dataclass
-from typing import Set
 
 from chess.color import Color
 from chess.line import Line
@@ -16,7 +15,7 @@ class KnightType(PieceType):
     symbol: str = '\u2658'
     html_decimal: str = '&#9822;'
     html_hex: str = '&#x2658;'
-    offsets: Set[Offset] = {
+    offsets: set[Offset] = {
         UP * 2 + RIGHT,
         UP * 2 + LEFT,
         DOWN * 2 + RIGHT,
@@ -26,8 +25,8 @@ class KnightType(PieceType):
         LEFT * 2 + UP,
         LEFT * 2 + DOWN,
     }
-    move_lines: Set[Line] = {offset.as_segment() for offset in offsets}
-    capture_lines: Set[Line] = {offset.as_segment() for offset in offsets}
+    move_lines: set[Line] = {offset.as_segment() for offset in offsets}
+    capture_lines: set[Line] = {offset.as_segment() for offset in offsets}
 
 
 @dataclass(frozen=True)

@@ -1,5 +1,4 @@
 from dataclasses import dataclass
-from typing import Iterable
 
 from chess.line import Line
 from chess.position import Position

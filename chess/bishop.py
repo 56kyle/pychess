@@ -1,5 +1,4 @@
 from dataclasses import dataclass
-from typing import Set
 
 from chess.color import Color
 from chess.line import Line
@@ -16,8 +15,8 @@ class BishopType(PieceType):
     html_decimal: str = '&#9821;'
     html_hex: str = '&#x265D;'
 
-    move_lines: Set[Line] = {offset.as_ray() for offset in DIAGONAL}
-    capture_lines: Set[Line] = {offset.as_ray() for offset in DIAGONAL}
+    move_lines: set[Line] = {offset.as_ray() for offset in DIAGONAL}
+    capture_lines: set[Line] = {offset.as_ray() for offset in DIAGONAL}
 
 
 @dataclass(frozen=True)

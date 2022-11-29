@@ -1,6 +1,6 @@
 import math
 from dataclasses import dataclass, replace
-from typing import Set, Tuple, Iterable
+from typing import Iterable
 
 from chess.direction import Direction
 from chess.position import Position
@@ -34,11 +34,15 @@ class Line:
         return self.p2.file - self.p1.file
 
     @property
-    def minimum_offset_values(self) -> Tuple[int, int]:
+    def minimum_offset_values(self) -> tuple[int, int]:
         gcd: int = math.gcd(self.dx, self.dy)
         if gcd == 0:
             return self.dx, self.dy
         return self.dx // gcd, self.dy // gcd
+
+    @property
+    def positions(self) -> set[Position]:
+        return set(self.iter_positions())
 
     def __contains__(self, position: Position) -> bool:
         return self.is_colinear(position=position)

@@ -1,6 +1,5 @@
 
 from dataclasses import dataclass
-from typing import Set
 
 from chess.color import Color
 from chess.line import Line
@@ -18,12 +17,12 @@ class KingType(PieceType):
     html_decimal: str = '&#9818;'
     html_hex: str = '&#x265A;'
 
-    move_lines: Set[Line] = {offset.as_segment() for offset in OMNI}
-    capture_lines: Set[Line] = move_lines
-    castle_lines: Set[Line] = {(offset*2).as_segment() for offset in HORIZONTAL} |\
+    move_lines: set[Line] = {offset.as_segment() for offset in OMNI}
+    capture_lines: set[Line] = move_lines
+    castle_lines: set[Line] = {(offset*2).as_segment() for offset in HORIZONTAL} |\
                               {(offset*3).as_segment() for offset in HORIZONTAL}
 
-    def get_castle_lines(self, position: Position, color: Color, has_moved: bool) -> Set[Line]:
+    def get_castle_lines(self, position: Position, color: Color, has_moved: bool) -> set[Line]:
         return set() if has_moved else self.castle_lines
 
 

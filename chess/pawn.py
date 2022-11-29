@@ -18,13 +18,13 @@ class PawnType(PieceType):
     html_decimal: str = '&#9817;'
     html_hex: str = '&#x2659;'
 
-    move_lines: Set[Line] = {offset.as_segment() for offset in VERTICAL}
-    first_move_lines: Set[Line] = {(offset * 2).as_segment() for offset in VERTICAL}
-    capture_lines: Set[Line] = {offset.as_segment() for offset in DIAGONAL}
-    en_passant_lines: Set[Line] = {offset.as_segment() for offset in DIAGONAL}
+    move_lines: set[Line] = {offset.as_segment() for offset in VERTICAL}
+    first_move_lines: set[Line] = {(offset * 2).as_segment() for offset in VERTICAL}
+    capture_lines: set[Line] = {offset.as_segment() for offset in DIAGONAL}
+    en_passant_lines: set[Line] = {offset.as_segment() for offset in DIAGONAL}
 
     @staticmethod
-    def filter_lines_to_color(lines: Set[Line], color: Color) -> Set[Line]:
+    def filter_lines_to_color(lines: set[Line], color: Color) -> set[Line]:
         if color == Color.WHITE:
             return {line for line in lines if line.dy > 0}
         else:
@@ -38,11 +38,11 @@ class PawnType(PieceType):
             return cls.filter_lines_to_color(cls.move_lines | cls.first_move_lines, color)
 
     @classmethod
-    def get_capture_lines(cls, position: Position, color: Color, has_moved: bool) -> Set[Line]:
+    def get_capture_lines(cls, position: Position, color: Color, has_moved: bool) -> set[Line]:
         return cls.filter_lines_to_color(cls.capture_lines, color)
 
     @classmethod
-    def get_en_passant_lines(cls, position: Position, color: Color, has_moved: bool) -> Set[Line]:
+    def get_en_passant_lines(cls, position: Position, color: Color, has_moved: bool) -> set[Line]:
         return cls.filter_lines_to_color(cls.en_passant_lines, color)
 
 

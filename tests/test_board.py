@@ -13,7 +13,7 @@ from chess.pawn import Pawn, BlackPawn, WhitePawn
 from chess.position import Position
 from chess.position_constants import *
 from chess.queen import Queen, WhiteQueen
-
+from chess.segment import Segment
 
 
 def test_move(dummy_board, dummy_piece):
@@ -112,6 +112,21 @@ def test_is_check_with_color_filter():
     )
     assert dummy_board.is_check_present(color=Color.WHITE) is False
     assert dummy_board.is_check_present(color=Color.BLACK) is True
+
+def test__iter_line_positions_with_horizontal():
+    assert list(Board(pieces=set())._iter_line_positions(
+        line=Segment(A1, A8),
+    )) == [A1, A2, A3, A4, A5, A6, A7, A8]
+
+def test__iter_line_positions_with_vertical():
+    assert list(Board(pieces=set())._iter_line_positions(
+        line=Segment(A1, H1),
+    )) == [A1, B1, C1, D1, E1, F1, G1, H1]
+
+def test__iter_line_positions_with_diagonal():
+    assert list(Board(pieces=set())._iter_line_positions(
+        line=Segment(A1, H8),
+    )) == [A1, B2, C3, D4, E5, F6, G7, H8]
 
 def test_get_piece_movements_with_queen(dummy_board, dummy_a1_white_queen):
     assert Board(
